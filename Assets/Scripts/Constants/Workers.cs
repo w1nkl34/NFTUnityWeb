@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class Workers 
 {
-    public float maxStamina;
+    public float stamina;
     public float currentStamina;
-    public float workSpeed;
+    public float peridotWorkSpeed;
+    public float stoneWorkSpeed;
+    public float woodWorkSpeed;
+    public float luck;
     public int level;
     public string rarity;
     public string url;
     public string type;
     public bool isNFT;
     public string docId;
+
 }
