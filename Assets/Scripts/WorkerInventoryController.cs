@@ -6,12 +6,13 @@ using UnityEngine.UI;
 
 public class WorkerInventoryController : MonoBehaviour
 {
-    public Image workersImage;
+
+    public GameObject workerMain;
 
     public void ResetAllImages()
     {
         int count = 0;
-        foreach(Transform child in workersImage.transform.parent)
+        foreach(Transform child in workerMain.transform.parent)
         {
             if(count != 0)
             Destroy(child.gameObject);
@@ -37,8 +38,9 @@ public class WorkerInventoryController : MonoBehaviour
         else {
             Texture2D myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             Sprite mySprite = Sprite.Create(myTexture, new Rect(0.0f, 0.0f, myTexture.width, myTexture.height), new Vector2(0.5f, 0.5f), 100.0f);
-            GameObject newImage = Instantiate(workersImage.gameObject,workersImage.transform.parent);
-            newImage.GetComponent<Image>().sprite = mySprite;
+            GameObject newImage = Instantiate(workerMain.gameObject,workerMain.transform.parent);
+
+            newImage.GetComponent<WorkerHolder>().workerImage.sprite = mySprite;
             WorkerHolder workerHolder = newImage.GetComponent<WorkerHolder>();
             workerHolder.worker = new Workers();
             workerHolder.worker = worker;

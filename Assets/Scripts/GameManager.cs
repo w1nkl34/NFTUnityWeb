@@ -106,10 +106,10 @@ public class GameManager : MonoBehaviour
                     newBuilding.levels.Add(buildingLevel);
                     }
                 }
+                Constants.allBuildings = new List<Buildings>();
                 Constants.allBuildings.Add(newBuilding);
             }
         }
-
         Constants.currentUser = new User(mainTowerLevel,stoneDepositLevel,woodDepositLevel,workerBuildingLevel,
         workerBuildingLevel,warriorBuildingLevel,peridotShardCount,stoneCount,woodCount,workers,inventoryItems);
     }
