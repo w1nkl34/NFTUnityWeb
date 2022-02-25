@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.UI;
+using System;
 
 public static class Constants
 {
@@ -8,3 +8,4 @@ public static class Constants
       public static List<Buildings> allBuildings = new List<Buildings>();
 
 }
+

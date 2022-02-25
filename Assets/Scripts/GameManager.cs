@@ -11,6 +11,14 @@ public class GameManager : MonoBehaviour
     public InventoryController inventoryController;
     public GameObject bottomNavigationBar;
 
+    public GameObject loadingBar;
+
+
+    public void OpenCloseLoadingBar(bool value)
+    {
+        loadingBar.SetActive(value);
+    }
+
     public void StartTown(string json)
     {
         CreateUser(json);
@@ -29,6 +37,7 @@ public class GameManager : MonoBehaviour
         inventoryController.GenerateItems();
         townScene.GetComponent<TownManager>().GenerateTown();
         uIController.GenerateUserData();
+        OpenCloseLoadingBar(false);
     }
 
     public void CreateUser(string json)

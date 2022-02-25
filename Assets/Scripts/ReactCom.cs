@@ -20,4 +20,16 @@ public class ReactCom : MonoBehaviour
         gm.GetUser(json);
     }
 
+    public void OpenCloseLoadingBar(string value)
+    {
+        if(value == "true")
+        {
+            gm.OpenCloseLoadingBar(true);
+        }
+        else
+        {
+            gm.OpenCloseLoadingBar(false);       
+        }
+    }
+
 }
