@@ -7,9 +7,11 @@ public class PopUpController : MonoBehaviour
 
     public PopUpInfo popUpInfo;
     public PopUpUpgradeBuilding popUpUpgradeBuilding;
-
     public PopUpSummonWorker popUpSummonWorker;
     public PopUpWorkerDetail popUpWorkerDetail;
+    public PopUpSellNFT popUpSellNFT;
+    public PopUpDestroyWorker popUpDestroyWorker;
+    public PopUpWorkerSummonDecline popUpWorkerSummonDecline;
 
 
     public void OpenInfoPop(string message)
@@ -25,6 +27,27 @@ public class PopUpController : MonoBehaviour
         popUpSummonWorker.gameObject.SetActive(false);
         popUpWorkerDetail.gameObject.SetActive(false);
         popUpInfo.gameObject.SetActive(false);
+        popUpSellNFT.gameObject.SetActive(false);
+        popUpDestroyWorker.gameObject.SetActive(false);
+        popUpWorkerSummonDecline.gameObject.SetActive(false);
+    }
+
+    public void OpenSummonWorkerDecline()
+    {
+        popUpWorkerSummonDecline.gameObject.SetActive(true);
+        popUpWorkerSummonDecline.OpenSummonWorkerDecline();
+    }
+
+    public void OpenSellNFT(Workers worker)
+    {
+        popUpSellNFT.gameObject.SetActive(true);
+        popUpSellNFT.OpenSellNFT(worker);      
+    }
+
+    public void OpenDestroyWorker(Workers worker)
+    {
+        popUpDestroyWorker.gameObject.SetActive(true);
+        popUpDestroyWorker.OpenDestroyWorker(worker);
     }
 
 

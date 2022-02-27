@@ -8,5 +8,6 @@ public enum Building
     stoneDeposit,
     woodDeposit,
     workerBuilding,
-    warriorBuilding    
+    warriorBuilding,
+    workerHome,
 }

@@ -11,16 +11,20 @@ public class TownManager : MonoBehaviour
     public Text woodDepositLevelText;
     public Text workerBuildingLevelText;
     public Text warriorBuildingLevelText;
+
+    public Text workerHomeLevelText;
     public GameObject mainTower;
     public GameObject stoneDeposit;
     public GameObject woodDeposit;
     public GameObject workerBuilding;
     public GameObject warriorBuilding;
+    public GameObject workerHome;
     public BuildingController mainTowerBuildingController;
     public BuildingController stoneDepositBuildingController;
     public BuildingController woodDepositBuildingController;
     public BuildingController workerBuildingBuildingController;
     public BuildingController warriorBuildingBuildingController;
+    public BuildingController workerHomeBuildingController;
 
     private BuildingController selectedBuilding;
     
@@ -34,6 +38,7 @@ public class TownManager : MonoBehaviour
         stoneDepositBuildingController.OnClick.SetActive(false);
         woodDepositBuildingController.OnClick.SetActive(false);
         workerBuildingBuildingController.OnClick.SetActive(false);
+        workerHomeBuildingController.OnClick.SetActive(false);
         warriorBuildingBuildingController.OnClick.SetActive(false);
         bc.OnClick.SetActive(true);
         selectedBuilding = bc;
@@ -42,6 +47,7 @@ public class TownManager : MonoBehaviour
     {
         mainTowerBuildingController.OnClick.SetActive(false);
         stoneDepositBuildingController.OnClick.SetActive(false);
+        workerHomeBuildingController.OnClick.SetActive(false);
         woodDepositBuildingController.OnClick.SetActive(false);
         workerBuildingBuildingController.OnClick.SetActive(false);
         warriorBuildingBuildingController.OnClick.SetActive(false);
@@ -49,18 +55,17 @@ public class TownManager : MonoBehaviour
 
     public void GenerateTown()
     {
-       mainTowerLevelText.text = "Main Tower Level: " + Constants.currentUser.mainTowerLevel.ToString();
+        mainTowerLevelText.text = "Main Tower Level: " + Constants.currentUser.mainTowerLevel.ToString();
         stoneDepositLevelText.text = "Stone Deposit Level: " + Constants.currentUser.stoneDepositLevel.ToString();
         woodDepositLevelText.text = "Wood Deposit Level: " + Constants.currentUser.woodDepositLevel.ToString();
         workerBuildingLevelText.text = "Worker Building Level: " + Constants.currentUser.workerBuildingLevel.ToString();
         warriorBuildingLevelText.text = "Warrior Building Level: " + Constants.currentUser.warriorBuildingLevel.ToString();
-
+        workerHomeLevelText.text = "Worker Home Level: " + Constants.currentUser.workerCapacity.ToString();
         mainTower.SetActive(true);
         stoneDeposit.SetActive(true);
         woodDeposit.SetActive(true);
-        if(Constants.currentUser.workerBuildingLevel != 0)
+        workerHome.SetActive(true);
         workerBuilding.SetActive(true);
-        if(Constants.currentUser.warriorBuildingLevel != 0)
         warriorBuilding.SetActive(true);
     }
 

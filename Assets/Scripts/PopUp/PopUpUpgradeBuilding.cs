@@ -61,23 +61,37 @@ public class PopUpUpgradeBuilding : MonoBehaviour
         if(buildingName == "mainTower")
         currentBuildingLevel = Constants.currentUser.mainTowerLevel;
 
+        if(buildingName == "workerHome")
+        currentBuildingLevel = Constants.currentUser.workerCapacity;
 
+        int requiredMainTowerLevel = 0;
         List<Dictionary<string,object>> price = new List<Dictionary<string,object>>();
         for(int a = 0; a<Constants.allBuildings.Count; a++)
         {
             if(Constants.allBuildings[a].buildingName == buildingName)
-            { 
+            {   
                 for(int i = 0; i<Constants.allBuildings[a].levels.Count; i++)
                 {
-                    if(Constants.allBuildings[a].levels[i].level == currentBuildingLevel)
+                    if(Constants.allBuildings[a].levels[i].level == currentBuildingLevel +1)
                     {
+                        requiredMainTowerLevel = Constants.allBuildings[a].levels[i].requiredMainTowerLevel;
                         price = Constants.allBuildings[a].levels[i].price;
                         break;
                     }
                 }
             }
         }
-        
+
+        if(Constants.currentUser.mainTowerLevel < requiredMainTowerLevel)
+        {
+        levelToLevelText.text = "Required Main Tower Level: " + requiredMainTowerLevel.ToString();
+        upgradeRequiredItemsTextGameObject.SetActive(false);
+        upgradeButton.transform.GetChild(0).GetComponent<Text>().text = "Upgrade Main Tower First!";
+        upgradeButton.enabled = false;
+        return;
+        }
+
+        upgradeRequiredItemsTextGameObject.SetActive(true);
         for(int j = 0; j<price.Count; j++)
         {       
             string key = "";

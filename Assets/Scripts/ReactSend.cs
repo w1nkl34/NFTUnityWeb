@@ -26,4 +26,20 @@ public class ReactSend : MonoBehaviour {
         UpgradeBuilding(buildingNameCall);
     #endif
   }
+
+  [DllImport("__Internal")]
+  private static extern void SellNFT (string docId,float price);
+  public void SellNFTCall (string docIdCall,float priceCall) {
+    #if UNITY_WEBGL == true && UNITY_EDITOR == false
+        SellNFT(docIdCall,priceCall);
+    #endif
+  }
+
+  [DllImport("__Internal")]
+  private static extern void DestroyWorker (string docId);
+  public void DestroyWorkerCall (string docIdCall) {
+    #if UNITY_WEBGL == true && UNITY_EDITOR == false
+        DestroyWorker(docIdCall);
+    #endif
+  }
 }

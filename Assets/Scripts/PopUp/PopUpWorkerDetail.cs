@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PopUpWorkerDetail : MonoBehaviour
 {
-     public Workers worker;
+    public Workers worker;
     public GameObject NFTTitle;
     public Image workerImage;
     public Text staminaText;
@@ -17,7 +17,10 @@ public class PopUpWorkerDetail : MonoBehaviour
     public Text rarityText;
     public GameObject createNFTButton;
     public GameObject sellNFTButton;
-
+    public GameObject upgradeButton;
+    public GameObject onSaleGameObject;
+    public GameObject destroyButton;
+    public Text onSaleText;
     public Text workerNameText;
 
 
@@ -30,6 +33,16 @@ public class PopUpWorkerDetail : MonoBehaviour
         FindObjectOfType<ReactSend>().CreateNFTCall(worker.docId);
     }
 
+    public void SellNFT()
+    {
+        FindObjectOfType<PopUpController>().OpenSellNFT(worker);
+    }
+
+    public void DestroyWorker()
+    {
+        FindObjectOfType<PopUpController>().OpenDestroyWorker(worker);
+    }
+
     public void OpenWorkerDetails(Workers worker,Sprite workerSprite)
     {   
 
@@ -37,22 +50,38 @@ public class PopUpWorkerDetail : MonoBehaviour
         this.worker = worker;
 
         workerNameText.text = worker.type;
+        if(worker.onSale == true)
+        {
+            destroyButton.SetActive(false);
+            NFTTitle.SetActive(true);
+            sellNFTButton.SetActive(false);
+            createNFTButton.SetActive(false);
+            upgradeButton.SetActive(false);
+            onSaleGameObject.SetActive(true);
+            onSaleText.text = "On Marketplace" + " : " + worker.sellPrice.ToString() + " MATIC";
+        }
+        else{
          if(worker.isNFT == true)
          {
+            destroyButton.SetActive(false);
             NFTTitle.SetActive(true);
             sellNFTButton.SetActive(true);
+            upgradeButton.SetActive(true);
             createNFTButton.SetActive(false);
-
+            onSaleGameObject.SetActive(false);
          }
         else
         {
+            destroyButton.SetActive(true);
             NFTTitle.SetActive(false);
             createNFTButton.SetActive(true);
+            upgradeButton.SetActive(true);
             sellNFTButton.SetActive(false);
+            onSaleGameObject.SetActive(false);
         }
-
+        }
         peridotSpeedText.text = "Peridot Speed(x1) : " + worker.peridotWorkSpeed.ToString();
-       
+
         woodSpeedText.text = "Wood Speed(x1) : " + worker.woodWorkSpeed.ToString();
         
         stoneSpeedText.text = "Stone Speed(x1) : " + worker.stoneWorkSpeed.ToString();

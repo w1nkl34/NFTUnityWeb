@@ -86,8 +86,8 @@ public class PopUpSummonWorker : MonoBehaviour
         {
         summonWorkerButton.transform.GetChild(0).GetComponent<Text>().text = "Summon!";
         summonWorkerButton.enabled = true;
+        summonWorkerButton.onClick.RemoveAllListeners();
         summonWorkerButton.onClick.AddListener(delegate{CreateWorkerRequest(index);});
-
         }
     }
 }

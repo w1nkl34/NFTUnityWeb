@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject townScene;
     public UIController uIController;
     public WorkerInventoryController workerInventoryController;
+    public WorkerBuildingController workerBuildingController;
     public InventoryController inventoryController;
     public GameObject bottomNavigationBar;
 
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
     {
         CreateUser(json);
         StartCoroutine(workerInventoryController.GenerateWorkers());
+        workerBuildingController.GenerateWorkerCreate();
         inventoryController.GenerateItems();
         townScene.SetActive(true);
         bottomNavigationBar.SetActive(true);
@@ -34,6 +36,7 @@ public class GameManager : MonoBehaviour
     {
         CreateUser(json);
         StartCoroutine(workerInventoryController.GenerateWorkers());
+        workerBuildingController.GenerateWorkerCreate();
         inventoryController.GenerateItems();
         townScene.GetComponent<TownManager>().GenerateTown();
         uIController.GenerateUserData();
@@ -42,6 +45,7 @@ public class GameManager : MonoBehaviour
 
     public void CreateUser(string json)
     {
+        
         Dictionary<string, object> jsonData = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
          Dictionary<string, object>  playerData = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonData["userData"].ToString());
         int mainTowerLevel = int.Parse(playerData["mainTower"].ToString());
@@ -63,6 +67,11 @@ public class GameManager : MonoBehaviour
             newWorker.currentStamina = float.Parse(worker["currentStamina"].ToString());
             newWorker.stamina = float.Parse(worker["stamina"].ToString());
             newWorker.isNFT = bool.Parse(worker["isNFT"].ToString());
+
+            if(worker.ContainsKey("sellPrice"))
+            newWorker.sellPrice = float.Parse(worker["sellPrice"].ToString());
+
+            newWorker.onSale = bool.Parse(worker["onSale"].ToString());
             newWorker.rarity = worker["rarity"].ToString();
             newWorker.peridotWorkSpeed = float.Parse(worker["peridotWorkSpeed"].ToString());
             newWorker.woodWorkSpeed = float.Parse(worker["woodWorkSpeed"].ToString());
@@ -84,6 +93,7 @@ public class GameManager : MonoBehaviour
         inventoryItems.legendarySummonCrystal = playerData.ContainsKey("legendarySummonCrystal") ? int.Parse(playerData["legendarySummonCrystal"].ToString()) : 0;
         inventoryItems.legendaryUpgradeCrystal = playerData.ContainsKey("legendaryUpgradeCrystal") ? int.Parse(playerData["legendaryUpgradeCrystal"].ToString()) : 0;
 
+        Constants.allBuildings = new List<Buildings>();
 
         if(jsonData.ContainsKey("buildingsData"))
         {
@@ -103,25 +113,35 @@ public class GameManager : MonoBehaviour
                     else
                     {
                     BuildingLevels buildingLevel = new BuildingLevels();
-                    Dictionary<string, object> buildingLevelData = JsonConvert.DeserializeObject<Dictionary<string, object>>(buildingData[innerEntry.Key].ToString());   
-                    List<Dictionary<string, object>> buildingLevelInput = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(buildingLevelData["input"].ToString());   
-                    List<Dictionary<string, object>> buildingLevelOutput = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(buildingLevelData["output"].ToString());   
-                    List<Dictionary<string, object>> buildingLevelPrice = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(buildingLevelData["price"].ToString());   
+                    Dictionary<string, object> buildingLevelData = JsonConvert.DeserializeObject<Dictionary<string, object>>(buildingData[innerEntry.Key].ToString());
                     
-                    buildingLevel.level = int.Parse(innerEntry.Key);
-                    buildingLevel.id = buildingLevelData["id"].ToString();
-                    buildingLevel.requiredMainTowerLevel = int.Parse(buildingLevelData["requiredMainTowerLevel"].ToString());
+
+                    if(buildingLevelData.ContainsKey("input"))   
+                    {
+                     List<Dictionary<string, object>> buildingLevelInput = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(buildingLevelData["input"].ToString());   
                     buildingLevel.input = buildingLevelInput;
+                    }
+                    if(buildingLevelData.ContainsKey("output"))   
+                    {
+                     List<Dictionary<string, object>>  buildingLevelOutput = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(buildingLevelData["output"].ToString());   
                     buildingLevel.output = buildingLevelOutput;
+                    }
+                    List<Dictionary<string, object>> buildingLevelPrice = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(buildingLevelData["price"].ToString());   
+                    buildingLevel.level = int.Parse(innerEntry.Key);
+                    if(buildingLevelData.ContainsKey("id"))
+                    buildingLevel.id = buildingLevelData["id"].ToString();
+
+                    if(buildingLevelData.ContainsKey("requiredMainTowerLevel"))
+                    buildingLevel.requiredMainTowerLevel = int.Parse(buildingLevelData["requiredMainTowerLevel"].ToString());
+
                     buildingLevel.price = buildingLevelPrice;
                     newBuilding.levels.Add(buildingLevel);
                     }
                 }
-                Constants.allBuildings = new List<Buildings>();
                 Constants.allBuildings.Add(newBuilding);
             }
         }
-        Constants.currentUser = new User(mainTowerLevel,stoneDepositLevel,woodDepositLevel,workerBuildingLevel,
+        Constants.currentUser = new User(mainTowerLevel,stoneDepositLevel,woodDepositLevel,workerCapacity,
         workerBuildingLevel,warriorBuildingLevel,peridotShardCount,stoneCount,woodCount,workers,inventoryItems);
     }
 }

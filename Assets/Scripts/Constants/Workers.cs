@@ -15,6 +15,8 @@ public class Workers
     public string url;
     public string type;
     public bool isNFT;
+    public float sellPrice;
+    public bool onSale;
     public string docId;
 
 }

@@ -17,4 +17,17 @@ mergeInto(LibraryManager.library, {
       Pointer_stringify(buildingName)
     );
   },
+  SellNFT: function (docId,price) {
+    window.dispatchReactUnityEvent(
+      "SellNFT",
+      Pointer_stringify(docId),
+      price
+    );
+  },
+  DestroyWorker: function (docId) {
+    window.dispatchReactUnityEvent(
+      "DestroyWorker",
+      Pointer_stringify(docId)
+    );
+  },
 });

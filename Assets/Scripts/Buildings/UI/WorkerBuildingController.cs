@@ -11,13 +11,16 @@ public class WorkerBuildingController : MonoBehaviour
    public Text requiredLevel;
    public Text id;
 
-   
    public void OpenSummonWorkerPopUp(string title,int index,List<Dictionary<string,object>> input)
    {
+      if(Constants.currentUser.workers.Count < Constants.currentUser.workerCapacity)
       FindObjectOfType<PopUpController>().OpenSummonWorker(title,index,input);
+      else
+      FindObjectOfType<PopUpController>().OpenSummonWorkerDecline();
+
    }
 
-   public void OnEnable()
+   public void GenerateWorkerCreate()
    {
       ResetAllItems();
       GenerateWorkerCreationList();

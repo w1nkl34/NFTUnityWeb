@@ -10,8 +10,8 @@ public class BuildingController : MonoBehaviour
     public GameObject upgradeClick;
     public GameObject infoClick;
     public TownManager townManager;
-    public UIController uIController;
-    public PopUpController popUpController;
+    private UIController uIController;
+    private PopUpController popUpController;
 
     public void Awake()
     {
@@ -24,20 +24,30 @@ public class BuildingController : MonoBehaviour
         bool found = false;
         townManager.OpenOnClicks(this);
         int currentBuildingLevel = 0;
+        bool openable = false;
                 
         if(buildingType.ToString() == "warriorBuilding")
-        currentBuildingLevel = Constants.currentUser.warriorBuildingLevel;
+        {            
+            openable = true;
+            currentBuildingLevel = Constants.currentUser.warriorBuildingLevel;
+        }
         
         if(buildingType.ToString() == "woodDeposit")
         currentBuildingLevel = Constants.currentUser.woodDepositLevel;
         
         if(buildingType.ToString() == "workerBuilding")
-        currentBuildingLevel = Constants.currentUser.workerBuildingLevel;
+        {
+            openable = true;
+            currentBuildingLevel = Constants.currentUser.workerBuildingLevel;
+        }
 
         if(buildingType.ToString() == "stoneDeposit")
         currentBuildingLevel = Constants.currentUser.stoneDepositLevel;
 
         if(buildingType.ToString() == "mainTower")
+        currentBuildingLevel = Constants.currentUser.mainTowerLevel;
+
+        if(buildingType.ToString() == "workerHome")
         currentBuildingLevel = Constants.currentUser.mainTowerLevel;
 
         for(int a = 0; a<Constants.allBuildings.Count; a++)
@@ -50,6 +60,20 @@ public class BuildingController : MonoBehaviour
                     upgradeClick.SetActive(false);
                     openClick.transform.localPosition = new Vector3(-1,0,0);
                     infoClick.transform.localPosition = new Vector3(1,0,0);
+                    if(!openable)
+                    infoClick.transform.localPosition = new Vector3(0,0,0);
+                    break;
+                }
+                else
+                {
+                    openClick.transform.localPosition = new Vector3(-2,0,0); 
+                    infoClick.transform.localPosition = new Vector3(2,0,0);
+                    upgradeClick.transform.localPosition = new Vector3(0,0,0);
+                    if(!openable)
+                    {
+                        infoClick.transform.localPosition = new Vector3(-1,0,0);
+                        upgradeClick.transform.localPosition = new Vector3(1,0,0);
+                    }
                     break;
                 }
             }
@@ -59,6 +83,8 @@ public class BuildingController : MonoBehaviour
             upgradeClick.SetActive(false);
             openClick.transform.localPosition = new Vector3(-1,0,0);
             infoClick.transform.localPosition = new Vector3(1,0,0);
+            if(!openable)
+            infoClick.transform.localPosition = new Vector3(0,0,0);
         }
     }
 
