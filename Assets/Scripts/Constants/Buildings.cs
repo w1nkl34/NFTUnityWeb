@@ -15,5 +15,6 @@ public class BuildingLevels
     public List<Dictionary<string,object>> input;
     public List<Dictionary<string,object>> output;
     public List<Dictionary<string,object>> price;
+    public int requiredMainTowerLevel;
     public string id;
 }

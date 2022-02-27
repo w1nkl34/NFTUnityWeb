@@ -107,8 +107,10 @@ public class GameManager : MonoBehaviour
                     List<Dictionary<string, object>> buildingLevelInput = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(buildingLevelData["input"].ToString());   
                     List<Dictionary<string, object>> buildingLevelOutput = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(buildingLevelData["output"].ToString());   
                     List<Dictionary<string, object>> buildingLevelPrice = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(buildingLevelData["price"].ToString());   
+                    
                     buildingLevel.level = int.Parse(innerEntry.Key);
                     buildingLevel.id = buildingLevelData["id"].ToString();
+                    buildingLevel.requiredMainTowerLevel = int.Parse(buildingLevelData["requiredMainTowerLevel"].ToString());
                     buildingLevel.input = buildingLevelInput;
                     buildingLevel.output = buildingLevelOutput;
                     buildingLevel.price = buildingLevelPrice;

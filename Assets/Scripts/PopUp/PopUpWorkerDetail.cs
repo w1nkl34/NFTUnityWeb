@@ -20,6 +20,11 @@ public class PopUpWorkerDetail : MonoBehaviour
 
     public Text workerNameText;
 
+
+    public void ClosePop()
+    {
+        gameObject.SetActive(false);
+    }
     public void CreateNFT()
     {
         FindObjectOfType<ReactSend>().CreateNFTCall(worker.docId);

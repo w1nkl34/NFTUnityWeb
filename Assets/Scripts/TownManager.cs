@@ -79,7 +79,6 @@ public class TownManager : MonoBehaviour
         }
         else
             CloseAllOnClicks();
-
         }
     }
 

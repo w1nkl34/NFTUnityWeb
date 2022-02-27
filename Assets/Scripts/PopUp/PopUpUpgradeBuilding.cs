@@ -110,7 +110,6 @@ public class PopUpUpgradeBuilding : MonoBehaviour
             newRequiredText.SetActive(true);
         }
         levelToLevelText.text = Constants.currentUser.workerBuildingLevel.ToString() + " >> " + (Constants.currentUser.workerBuildingLevel+1).ToString();
-
         if(error)
         {
         upgradeButton.transform.GetChild(0).GetComponent<Text>().text = "Not Enough Materials!";
