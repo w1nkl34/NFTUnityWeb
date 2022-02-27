@@ -9,8 +9,26 @@ public class PopUpController : MonoBehaviour
     public GameObject summonWorkerRequiredItems;
     public GameObject summonWorkerRequiredItemsTextGameObject;
     public GameObject summonWorkerMain;
+    public PopUpInfo popUpInfo;
 
-    
+    public PopUpUpgradeBuilding popUpUpgradeBuilding;
+
+    public void OpenInfoPop(string message)
+    {
+        popUpInfo.messageText.text = message;
+        popUpInfo.gameObject.SetActive(true);
+    }
+
+
+    public void CloseAllPops()
+    {
+        popUpUpgradeBuilding.gameObject.SetActive(false);
+        summonWorkerMain.SetActive(false);
+        popUpWorkerDetail.gameObject.SetActive(false);
+        popUpInfo.gameObject.SetActive(false);
+    }
+
+    //////////////////////////////// SUMMON-WORKER ////////////////////////////////
     public void CloseSummonWorker()
     {
         summonWorkerMain.SetActive(false);
@@ -90,4 +108,29 @@ public class PopUpController : MonoBehaviour
         FindObjectOfType<ReactSend>().CreateWorkerCall(index);
         summonWorkerMain.SetActive(false);
     }
+
+
+    //////////////////////////////// SUMMON-WORKER END ////////////////////////////////
+
+    //////////////////////////////// WORKER DETAILS ////////////////////////////////
+
+    public PopUpWorkerDetail popUpWorkerDetail;
+    public void OpenWorkerDetails(Workers worker,Sprite workerSprite)
+    {   
+       popUpWorkerDetail.OpenWorkerDetails(worker,workerSprite);
+       popUpWorkerDetail.gameObject.SetActive(true);
+    }
+
+    public void CloseWorkerDetails()
+    {
+        popUpWorkerDetail.gameObject.SetActive(false);
+    }
+    //////////////////////////////// WORKER END ////////////////////////////////
+
+    public void OpenUpgradeBuilding(string buildingName)
+    {
+        popUpUpgradeBuilding.gameObject.SetActive(true);
+        popUpUpgradeBuilding.OpenUpgradeBuilding(buildingName);
+    }
+
 }

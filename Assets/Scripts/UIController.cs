@@ -49,27 +49,27 @@ public class UIController : MonoBehaviour
 
     public void OpenBuildingMainTabs(Building building)
     {
-        if(building == Building.MainTower)
+        if(building == Building.mainTower)
         {
         mainTowerBuildingTab.SetActive(true);
         currentBuildingMainTab = mainTowerBuildingTab;
         }
-        if(building == Building.StoneDeposit)
+        if(building == Building.stoneDeposit)
         {
         stoneDepositBuildingTab.SetActive(true);
         currentBuildingMainTab = stoneDepositBuildingTab;
         }
-        if(building == Building.WoodDeposit)
+        if(building == Building.woodDeposit)
         {
         woodDepositBuildingTab.SetActive(true);
         currentBuildingMainTab = woodDepositBuildingTab;
         }
-        if(building == Building.WorkerBuilding)
+        if(building == Building.workerBuilding)
         {
         workerBuildingTab.SetActive(true);
         currentBuildingMainTab = workerBuildingTab;
         }
-        if(building == Building.WarriorBuilding)
+        if(building == Building.warriorBuilding)
         {
         warriorBuildingTab.SetActive(true);
         currentBuildingMainTab = warriorBuildingTab;

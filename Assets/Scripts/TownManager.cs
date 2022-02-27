@@ -68,19 +68,22 @@ public class TownManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+             RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit,50)) 
+        {
             if(hit.collider != null)
             {
                 ManageColliderHit(hit);
             }
-            else
-            {
-                CloseAllOnClicks();
-            }
+        }
+        else
+            CloseAllOnClicks();
+
         }
     }
 
-    public void ManageColliderHit(RaycastHit2D hit)
+    public void ManageColliderHit(RaycastHit hit)
     {
         if(hit.collider.gameObject.GetComponent<BuildingController>() != null)
         {

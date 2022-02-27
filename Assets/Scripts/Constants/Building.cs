@@ -4,9 +4,9 @@ using UnityEngine;
 
 public enum Building
 {
-    MainTower,
-    StoneDeposit,
-    WoodDeposit,
-    WorkerBuilding,
-    WarriorBuilding    
+    mainTower,
+    stoneDeposit,
+    woodDeposit,
+    workerBuilding,
+    warriorBuilding    
 }

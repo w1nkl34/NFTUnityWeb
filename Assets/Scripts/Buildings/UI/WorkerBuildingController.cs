@@ -14,8 +14,6 @@ public class WorkerBuildingController : MonoBehaviour
    
    public void OpenSummonWorkerPopUp(string title,int index,List<Dictionary<string,object>> input)
    {
-      Debug.Log("ops " + index);
-      Debug.Log("ops" + title);
       FindObjectOfType<PopUpController>().OpenSummonWorker(title,index,input);
    }
 
@@ -78,9 +76,15 @@ public class WorkerBuildingController : MonoBehaviour
               requiredLevel.text = requiredLevelInt.ToString();
                GameObject newWorkerList = Instantiate(createWorker,createWorker.transform.parent);
                newWorkerList.SetActive(true);
-               
+               if(Constants.currentUser.workerBuildingLevel >= requiredLevelInt)
+               {  
                newWorkerList.GetComponent<WorkerCreateHolder>().onClickCreateButton.onClick.AddListener(delegate{OpenSummonWorkerPopUp
                (idString,requiredLevelInt,inputMap);});
+               } 
+               else
+               {
+                  newWorkerList.GetComponent<WorkerCreateHolder>().onClickCreateButton.gameObject.SetActive(false); 
+               }
 
             }
          }

@@ -18,4 +18,12 @@ public class ReactSend : MonoBehaviour {
         CreateWorker(indexCall);
     #endif
   }
+
+  [DllImport("__Internal")]
+  private static extern void UpgradeBuilding(string buildingName);
+  public void UpgradeBuildingCall (string buildingNameCall) {
+    #if UNITY_WEBGL == true && UNITY_EDITOR == false
+        UpgradeBuilding(buildingNameCall);
+    #endif
+  }
 }

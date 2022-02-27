@@ -6,9 +6,11 @@ using Newtonsoft.Json;
 public class ReactCom : MonoBehaviour
 {       
     GameManager gm;
+    PopUpController popUpController;
     void Awake()
     {
         gm = FindObjectOfType<GameManager>();
+        popUpController = FindObjectOfType<PopUpController>();
     }
     public void StartTown(string json)
     {
@@ -32,4 +34,13 @@ public class ReactCom : MonoBehaviour
         }
     }
 
+    public void CloseAllPops(string n)
+    {
+        popUpController.CloseAllPops();
+    }
+
+    public void OpenInfoPop(string message)
+    {
+        popUpController.OpenInfoPop(message);
+    }
 }

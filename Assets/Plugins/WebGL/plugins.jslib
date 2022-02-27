@@ -11,4 +11,10 @@ mergeInto(LibraryManager.library, {
       index
     );
   },
+  UpgradeBuilding: function (buildingName) {
+    window.dispatchReactUnityEvent(
+      "UpgradeBuilding",
+      Pointer_stringify(buildingName)
+    );
+  },
 });

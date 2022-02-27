@@ -7,12 +7,13 @@ public class BuildingController : MonoBehaviour
     public Building buildingType;
     public GameObject OnClick;
     public TownManager townManager;
-
     public UIController uIController;
+    public PopUpController popUpController;
 
     public void Awake()
     {
         uIController = FindObjectOfType<UIController>();
+        popUpController = FindObjectOfType<PopUpController>();
     }
 
     public void OnClickCall()
@@ -22,7 +23,7 @@ public class BuildingController : MonoBehaviour
 
     public void OpenMainTab()
     {
-            uIController.OpenBuildingMainTabs(buildingType);
+        uIController.OpenBuildingMainTabs(buildingType);
     }
 
     public void OpenInfoTab()
@@ -32,7 +33,7 @@ public class BuildingController : MonoBehaviour
 
     public void OpenUpgradeTab()
     {
-
+        popUpController.OpenUpgradeBuilding(buildingType.ToString());
     }
 
 }
