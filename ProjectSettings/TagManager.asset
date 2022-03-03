@@ -44,6 +44,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Front
+  - name: "ArkaY\xFCzey"
     uniqueID: 2611108153
+    locked: 0
+  - name: IkinciAda
+    uniqueID: 262890539
+    locked: 0
+  - name: IlkAda
+    uniqueID: 1749660115
     locked: 0
