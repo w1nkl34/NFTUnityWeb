@@ -1,7 +1,7 @@
 ManifestFileVersion: 0
-CRC: 3363796732
+CRC: 639971796
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: village1
+      Name: town
       Dependencies: {}
