@@ -123,7 +123,7 @@ public class PopUpUpgradeBuilding : MonoBehaviour
             newRequiredText.GetComponent<Text>().text =  key + ": " + value + "/" + myValue; 
             newRequiredText.SetActive(true);
         }
-        levelToLevelText.text = Constants.currentUser.workerBuildingLevel.ToString() + " >> " + (Constants.currentUser.workerBuildingLevel+1).ToString();
+        levelToLevelText.text =currentBuildingLevel.ToString() + " >> " + (currentBuildingLevel+1).ToString();
         if(error)
         {
         upgradeButton.transform.GetChild(0).GetComponent<Text>().text = "Not Enough Materials!";
@@ -133,6 +133,7 @@ public class PopUpUpgradeBuilding : MonoBehaviour
         {
         upgradeButton.transform.GetChild(0).GetComponent<Text>().text = "Upgrade!";
         upgradeButton.enabled = true;
+        upgradeButton.onClick.RemoveAllListeners();
         upgradeButton.onClick.AddListener(delegate{UpgradeWorkerRequest(buildingName);});
 
         }
