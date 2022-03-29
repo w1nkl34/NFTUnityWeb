@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
         
         if (Input.GetMouseButton(0)) 
          {
-            if (!EventSystem.current.IsPointerOverGameObject())
+            // if (!EventSystem.current.IsPointerOverGameObject())
              Camera.main.transform.position += new Vector3(-Input.GetAxis("Mouse X") / 2, -Input.GetAxis("Mouse Y") / 2,0);
          }
         if(Camera.main.transform.position.x  > 15)
