@@ -112,7 +112,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -441, y: 3103}
+    uvTransform: {x: -441, y: 3102}
   - name: IlkAdaKaya_1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -134,7 +134,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 4637, y: 4}
+    uvTransform: {x: 4637, y: 3}
   - name: IlkAdaKaya_2
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -143,7 +143,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 6888
+      y: 6887
       width: 1228
       height: 1030
     spriteID: 9cf5c199c431fa143bd7b06137cfb500
@@ -156,7 +156,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 4, y: 4012}
+    uvTransform: {x: 4, y: 4011}
   - name: IlkAdaKaya_3
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -178,7 +178,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -2993, y: 3483}
+    uvTransform: {x: -2993, y: 3482}
   - name: IlkAdaKaya_4
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -262,7 +262,7 @@ ScriptedImporter:
     parentIndex: -1
     spriteID: 9cf5c199c431fa143bd7b06137cfb500
     layerID: 4
-    mosaicPosition: {x: 4, y: 6888}
+    mosaicPosition: {x: 4, y: 6887}
   - name: IlkAdaKaya
     spriteName: IlkAdaKaya_3
     isGroup: 0
