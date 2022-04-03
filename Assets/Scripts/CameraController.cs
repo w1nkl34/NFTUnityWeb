@@ -69,9 +69,10 @@ public class CameraController : MonoBehaviour
  
      void Update()
      {
-         if(!Constants.onWorldMap)
+         if(Constants.authenticated == true)
          {
-           
+         if(!Constants.onWorldMap)
+         { 
             OnClickHandle();
             TouchHandle();
             CameraMovement(cameraLookAtTarget);
@@ -79,9 +80,8 @@ public class CameraController : MonoBehaviour
          }
          else
          {
-           
-            CameraMovement(cameraLookAtTargetWorld);
-       
+            CameraMovement(cameraLookAtTargetWorld);     
+         }
          }
      }
 
