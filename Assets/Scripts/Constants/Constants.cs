@@ -9,5 +9,9 @@ public static class Constants
 
       public static bool authenticated = false;
 
+      public static bool onMenu = false;
+
+      public static bool onWorldMap = false;
+
 }
 

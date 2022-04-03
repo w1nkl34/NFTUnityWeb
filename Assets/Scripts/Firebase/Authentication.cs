@@ -26,16 +26,15 @@ public class Authentication : MonoBehaviour
         popUpController = FindObjectOfType<PopUpController>();
     }
 
-    public void Start()
-    {
-        // StartCoroutine(SignUser("s@s.com","ssssss"));
-    }
     public void SignIn()
     {
         gm.OpenCloseConnecttingBar(true);
         StartCoroutine(SignUser());
     }
-    
+    public void SignInWithEmailPassword(string email,string pass)
+    {
+        StartCoroutine(SignUserEmailPassCor(email,pass));
+    }
     public IEnumerator SignUser()
     {
         var auth = FirebaseAuth.DefaultInstance;
@@ -57,7 +56,7 @@ public class Authentication : MonoBehaviour
         }
     }
 
-    public IEnumerator SignUser(string email,string pass)
+    public IEnumerator SignUserEmailPassCor(string email,string pass)
     {
         var auth = FirebaseAuth.DefaultInstance;
         var signTask = auth.SignInWithEmailAndPasswordAsync(email,pass);
@@ -73,7 +72,6 @@ public class Authentication : MonoBehaviour
             Debug.Log("successfully signed user!" + signTask.Result.Email);
             Constants.authenticated = true;
             yield return StartCoroutine(getUserData());
-            Debug.Log("afterAll");
             gm.OpenCloseConnecttingBar(false);
             uIController.ShowAuthenticationScreen(false);
         }

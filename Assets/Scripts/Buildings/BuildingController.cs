@@ -19,7 +19,8 @@ public class BuildingController : MonoBehaviour
         popUpController = FindObjectOfType<PopUpController>();
     }
 
-    public void OnClickCall()
+
+    public void OnClickCall(TownManager townManager)
     {
         bool found = false;
         townManager.OpenOnClicks(this);
@@ -30,25 +31,60 @@ public class BuildingController : MonoBehaviour
         {            
             openable = true;
             currentBuildingLevel = Constants.currentUser.warriorBuildingLevel;
+             foreach(Transform child in GameObject.FindGameObjectWithTag("warriorBuilding").transform)
+            {
+                child.GetComponent<SpriteRenderer>().material = townManager.selectedMaterial;
+            }
         }
         
         if(buildingType.ToString() == "woodDeposit")
-        currentBuildingLevel = Constants.currentUser.woodDepositLevel;
+        {
+            currentBuildingLevel = Constants.currentUser.woodDepositLevel;
+            foreach(Transform child in GameObject.FindGameObjectWithTag("woodDeposit").transform)
+            {
+                child.GetComponent<SpriteRenderer>().material = townManager.selectedMaterial;
+            }
+
+        }
         
         if(buildingType.ToString() == "workerBuilding")
         {
             openable = true;
             currentBuildingLevel = Constants.currentUser.workerBuildingLevel;
+             foreach(Transform child in GameObject.FindGameObjectWithTag("workerBuilding").transform)
+            {
+                child.GetComponent<SpriteRenderer>().material = townManager.selectedMaterial;
+            }
         }
 
         if(buildingType.ToString() == "stoneDeposit")
-        currentBuildingLevel = Constants.currentUser.stoneDepositLevel;
+        {
+            currentBuildingLevel = Constants.currentUser.stoneDepositLevel;
+             foreach(Transform child in GameObject.FindGameObjectWithTag("stoneDeposit").transform)
+            {
+                child.GetComponent<SpriteRenderer>().material = townManager.selectedMaterial;
+            }
+
+        }
 
         if(buildingType.ToString() == "mainTower")
+        {
         currentBuildingLevel = Constants.currentUser.mainTowerLevel;
+         foreach(Transform child in GameObject.FindGameObjectWithTag("mainTower").transform)
+            {
+                child.GetComponent<SpriteRenderer>().material = townManager.selectedMaterial;
+            }
+
+        }
 
         if(buildingType.ToString() == "workerHome")
-        currentBuildingLevel = Constants.currentUser.mainTowerLevel;
+        {
+            currentBuildingLevel = Constants.currentUser.mainTowerLevel;
+            foreach(Transform child in GameObject.FindGameObjectWithTag("workerHome").transform)
+            {
+                child.GetComponent<SpriteRenderer>().material = townManager.selectedMaterial;
+            }
+        }
 
         for(int a = 0; a<Constants.allBuildings.Count; a++)
         {

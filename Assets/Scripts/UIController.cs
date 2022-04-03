@@ -33,30 +33,45 @@ public class UIController : MonoBehaviour
     {
         backgroundNoSafeArea.SetActive(true);
         workerInventory.SetActive(true);
+        Constants.onMenu = true;
     }
 
     public void CloseWorkerInventory()
     {
         backgroundNoSafeArea.SetActive(false);
         workerInventory.SetActive(false);
+                Constants.onMenu = false;
+
     }
 
     public void OpenInventory()
     {
         backgroundNoSafeArea.SetActive(true);
         inventory.SetActive(true);
+                Constants.onMenu = true;
+
     }
 
     public void CloseInventory()
     {
         backgroundNoSafeArea.SetActive(false);
         inventory.SetActive(false);
+                Constants.onMenu = false;
+
     }
 
     public void CloseBuildingMainTab()
     {
         backgroundNoSafeArea.SetActive(false);
         currentBuildingMainTab.SetActive(false);
+                Constants.onMenu = false;
+
+    }
+
+    public void ChangeWorldMode()
+    {
+        Constants.onWorldMap = !Constants.onWorldMap;
+        FindObjectOfType<CameraController>().ChangeWorldMode();
     }
 
     public void OpenBuildingMainTabs(Building building)
@@ -87,5 +102,6 @@ public class UIController : MonoBehaviour
         currentBuildingMainTab = warriorBuildingTab;
         }
         backgroundNoSafeArea.SetActive(true);
+                Constants.onMenu = true;
     }
 }

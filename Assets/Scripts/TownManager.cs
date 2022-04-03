@@ -25,8 +25,9 @@ public class TownManager : MonoBehaviour
     public BuildingController workerBuildingBuildingController;
     public BuildingController warriorBuildingBuildingController;
     public BuildingController workerHomeBuildingController;
-
     private BuildingController selectedBuilding;
+    public Material selectedMaterial;
+    public Material unSelectedMaterial;
     
     void OnEnable()
     {
@@ -43,8 +44,46 @@ public class TownManager : MonoBehaviour
         bc.OnClick.SetActive(true);
         selectedBuilding = bc;
     }
+
+
+    public void ChangeToUnSelectedMaterial()
+    {
+            foreach(Transform child in GameObject.FindGameObjectWithTag("warriorBuilding").transform)
+            {
+                child.GetComponent<SpriteRenderer>().material = unSelectedMaterial;
+            }
+    
+            foreach(Transform child in GameObject.FindGameObjectWithTag("woodDeposit").transform)
+            {
+                child.GetComponent<SpriteRenderer>().material = unSelectedMaterial;
+            }
+
+        
+
+             foreach(Transform child in GameObject.FindGameObjectWithTag("workerBuilding").transform)
+            {
+                child.GetComponent<SpriteRenderer>().material = unSelectedMaterial;
+            }
+
+       
+             foreach(Transform child in GameObject.FindGameObjectWithTag("stoneDeposit").transform)
+            {
+                child.GetComponent<SpriteRenderer>().material = unSelectedMaterial;
+            }
+
+         foreach(Transform child in GameObject.FindGameObjectWithTag("mainTower").transform)
+            {
+                child.GetComponent<SpriteRenderer>().material = unSelectedMaterial;
+            }
+
+            foreach(Transform child in GameObject.FindGameObjectWithTag("workerHome").transform)
+            {
+                child.GetComponent<SpriteRenderer>().material = unSelectedMaterial;
+            }
+    }
     public void CloseAllOnClicks()
     {
+        ChangeToUnSelectedMaterial();
         mainTowerBuildingController.OnClick.SetActive(false);
         stoneDepositBuildingController.OnClick.SetActive(false);
         workerHomeBuildingController.OnClick.SetActive(false);
@@ -55,12 +94,12 @@ public class TownManager : MonoBehaviour
 
     public void GenerateTown()
     {
-        mainTowerLevelText.text = "Main Tower Level: " + Constants.currentUser.mainTowerLevel.ToString();
-        stoneDepositLevelText.text = "Stone Deposit Level: " + Constants.currentUser.stoneDepositLevel.ToString();
-        woodDepositLevelText.text = "Wood Deposit Level: " + Constants.currentUser.woodDepositLevel.ToString();
-        workerBuildingLevelText.text = "Worker Building Level: " + Constants.currentUser.workerBuildingLevel.ToString();
-        warriorBuildingLevelText.text = "Warrior Building Level: " + Constants.currentUser.warriorBuildingLevel.ToString();
-        workerHomeLevelText.text = "Worker Home Level: " + Constants.currentUser.workerCapacity.ToString();
+        mainTowerLevelText.text = Constants.currentUser.mainTowerLevel.ToString();
+        stoneDepositLevelText.text = Constants.currentUser.stoneDepositLevel.ToString();
+        woodDepositLevelText.text = Constants.currentUser.woodDepositLevel.ToString();
+        workerBuildingLevelText.text = Constants.currentUser.workerBuildingLevel.ToString();
+        warriorBuildingLevelText.text = Constants.currentUser.warriorBuildingLevel.ToString();
+        workerHomeLevelText.text = Constants.currentUser.workerCapacity.ToString();
         mainTower.SetActive(true);
         stoneDeposit.SetActive(true);
         woodDeposit.SetActive(true);
@@ -69,29 +108,13 @@ public class TownManager : MonoBehaviour
         warriorBuilding.SetActive(true);
     }
 
-    public void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-             RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit,50)) 
-        {
-            if(hit.collider != null)
-            {
-                ManageColliderHit(hit);
-            }
-        }
-        else
-            CloseAllOnClicks();
-        }
-    }
 
     public void ManageColliderHit(RaycastHit hit)
     {
         if(hit.collider.gameObject.GetComponent<BuildingController>() != null)
         {
-        hit.collider.gameObject.GetComponent<BuildingController>().OnClickCall();
+            ChangeToUnSelectedMaterial();
+        hit.collider.gameObject.GetComponent<BuildingController>().OnClickCall(this);
         return;
         }
         
