@@ -11,9 +11,7 @@ public class FirebaseInit : MonoBehaviour
     public GameManager gm;
     public Authentication auth;
 
-    void Awake()
-    {
-    }
+
     void Start()
     {
         StartCoroutine(InitCor());

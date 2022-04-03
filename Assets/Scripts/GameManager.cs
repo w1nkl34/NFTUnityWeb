@@ -15,6 +15,12 @@ public class GameManager : MonoBehaviour
 
     public GameObject connecttingBar;
 
+
+    private void Awake() 
+    {
+        Application.targetFrameRate = 60;
+    }
+
     public void OpenCloseConnecttingBar(bool value)
     {
         connecttingBar.SetActive(value);
