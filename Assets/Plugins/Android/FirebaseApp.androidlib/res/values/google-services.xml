@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id">
+  <string name="gcm_defaultSenderId" translatable="false">532121911750</string>
+  <string name="google_storage_bucket" translatable="false">nftgame-82471.appspot.com</string>
+  <string name="project_id" translatable="false">nftgame-82471</string>
+  <string name="google_api_key" translatable="false">AIzaSyD5B8yvrqMxNDaK0HCFHQe6hfdE3Apn5Zo</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyD5B8yvrqMxNDaK0HCFHQe6hfdE3Apn5Zo</string>
+  <string name="google_app_id" translatable="false">1:532121911750:android:9b8e5af18b338794c3b2c7</string>
+  <string name="default_web_client_id" translatable="false">532121911750-6376rgnbv9ptha5jml9j1oonia3lsk4v.apps.googleusercontent.com</string>
+</resources>

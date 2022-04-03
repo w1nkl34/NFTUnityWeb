@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "532121911750",
+    "project_id": "nftgame-82471",
+    "storage_bucket": "nftgame-82471.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532121911750:android:9b8e5af18b338794c3b2c7",
+        "android_client_info": {
+          "package_name": "com.enie.nftpuzzles"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "532121911750-6376rgnbv9ptha5jml9j1oonia3lsk4v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5B8yvrqMxNDaK0HCFHQe6hfdE3Apn5Zo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "532121911750-6376rgnbv9ptha5jml9j1oonia3lsk4v.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "532121911750-a66h2f2bs1de7cfq6jqe8b5sr09ckv7j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sevoplay.nftgame"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532121911750:android:47d84d0c504cc525c3b2c7",
+        "android_client_info": {
+          "package_name": "com.sevoplay.nftgame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "532121911750-6376rgnbv9ptha5jml9j1oonia3lsk4v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5B8yvrqMxNDaK0HCFHQe6hfdE3Apn5Zo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "532121911750-6376rgnbv9ptha5jml9j1oonia3lsk4v.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "532121911750-a66h2f2bs1de7cfq6jqe8b5sr09ckv7j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sevoplay.nftgame"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

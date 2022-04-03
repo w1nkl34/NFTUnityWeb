@@ -11,9 +11,7 @@ public class GameManager : MonoBehaviour
     public WorkerBuildingController workerBuildingController;
     public InventoryController inventoryController;
     public GameObject bottomNavigationBar;
-
     public GameObject loadingBar;
-
 
     public void OpenCloseLoadingBar(bool value)
     {

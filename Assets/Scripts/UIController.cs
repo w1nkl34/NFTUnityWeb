@@ -15,11 +15,17 @@ public class UIController : MonoBehaviour
     public GameObject stoneDepositBuildingTab;
     public GameObject mainTowerBuildingTab;
     private GameObject currentBuildingMainTab;
+    public GameObject authenticateTab;
     public void GenerateUserData()
     {
         stoneCountText.text = "Stone: " + Constants.currentUser.stoneCount.ToString();
         woodCountText.text = "Wood: " + Constants.currentUser.woodCount.ToString();
         peridotShardCountText.text = "Peridot: " + Constants.currentUser.peridotShardCount.ToString();
+    }
+
+    public void ShowAuthenticationScreen(bool what)
+    {
+        authenticateTab.SetActive(what);
     }
 
     public void OpenWorkerInventory()
