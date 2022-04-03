@@ -29,6 +29,9 @@ public class CameraController : MonoBehaviour
      float minPosY = -12;
 
      float lastZoomValue = -30;
+
+     float cameraSpeedX  = 0.035f;
+     float cameraSpeedY = 0.035f;
      public void ChangeWorldMode()
      {
          float tempValue = cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z;
@@ -47,6 +50,8 @@ public class CameraController : MonoBehaviour
             minPosX = -19;
             maxPosY = 4;
             minPosY = -12;
+            cameraSpeedY = 0.035f;
+            cameraSpeedX = 0.035f;
          }
          else
          {
@@ -58,11 +63,13 @@ public class CameraController : MonoBehaviour
             cm.m_Follow = cameraLookAtTargetWorld;
             cm.m_LookAt = cameraLookAtTargetWorld;
             minZoomValue = -30;
-            maxZoomValue = -15;
+            maxZoomValue = -20;
             maxPosX = 22;
             minPosX = -22;
             maxPosY = 14;
             minPosY = -6;
+            cameraSpeedY = 0.025f;
+            cameraSpeedX = 0.025f;
          }
          lastZoomValue = tempValue;
      }
@@ -194,7 +201,7 @@ public class CameraController : MonoBehaviour
 
                 float difference = currentMagnitude - prevMagnitude;
 
-                zoom(difference * 0.1f);
+                zoom(difference * 0.075f);
             
             }
             if(Input.GetMouseButtonDown(0)){
@@ -212,7 +219,7 @@ public class CameraController : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Moved)
             {
-            cameraLookAtTarget.position += new Vector3(- touch.deltaPosition.x * 0.035f, -touch.deltaPosition.y * 0.035f);
+            cameraLookAtTarget.position += new Vector3(- touch.deltaPosition.x * cameraSpeedX, -touch.deltaPosition.y * cameraSpeedY);
             }
          }
          if( cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z < minZoomValue)
