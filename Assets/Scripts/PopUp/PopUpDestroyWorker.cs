@@ -32,6 +32,6 @@ public class PopUpDestroyWorker : MonoBehaviour
 
   public void DestroyWorker()
   {
-    FindObjectOfType<ReactSend>().DestroyWorkerCall(worker.docId);
+    // FindObjectOfType<ReactSend>().DestroyWorkerCall(worker.docId);
   }
 }

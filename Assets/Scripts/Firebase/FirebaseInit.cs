@@ -16,7 +16,7 @@ public class FirebaseInit : MonoBehaviour
         {
             FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
         });
-        gm.OpenCloseLoadingBar(false);
+        gm.OpenCloseConnecttingBar(false);
         uIController.ShowAuthenticationScreen(true);
     }
 

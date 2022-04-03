@@ -17,7 +17,7 @@ public class PopUpSummonWorker : MonoBehaviour
     
         public void CreateWorkerRequest(int index)
     {
-        FindObjectOfType<ReactSend>().CreateWorkerCall(index);
+        // FindObjectOfType<ReactSend>().CreateWorkerCall(index);
         gameObject.SetActive(false);
     }
 

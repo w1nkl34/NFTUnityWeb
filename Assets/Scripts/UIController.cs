@@ -16,6 +16,7 @@ public class UIController : MonoBehaviour
     public GameObject mainTowerBuildingTab;
     private GameObject currentBuildingMainTab;
     public GameObject authenticateTab;
+    public GameObject backgroundNoSafeArea;
     public void GenerateUserData()
     {
         stoneCountText.text = "Stone: " + Constants.currentUser.stoneCount.ToString();
@@ -30,26 +31,31 @@ public class UIController : MonoBehaviour
 
     public void OpenWorkerInventory()
     {
+        backgroundNoSafeArea.SetActive(true);
         workerInventory.SetActive(true);
     }
 
     public void CloseWorkerInventory()
     {
+        backgroundNoSafeArea.SetActive(false);
         workerInventory.SetActive(false);
     }
 
     public void OpenInventory()
     {
+        backgroundNoSafeArea.SetActive(true);
         inventory.SetActive(true);
     }
 
     public void CloseInventory()
     {
+        backgroundNoSafeArea.SetActive(false);
         inventory.SetActive(false);
     }
 
     public void CloseBuildingMainTab()
     {
+        backgroundNoSafeArea.SetActive(false);
         currentBuildingMainTab.SetActive(false);
     }
 
@@ -80,5 +86,6 @@ public class UIController : MonoBehaviour
         warriorBuildingTab.SetActive(true);
         currentBuildingMainTab = warriorBuildingTab;
         }
+        backgroundNoSafeArea.SetActive(true);
     }
 }

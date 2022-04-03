@@ -30,7 +30,7 @@ public class PopUpWorkerDetail : MonoBehaviour
     }
     public void CreateNFT()
     {
-        FindObjectOfType<ReactSend>().CreateNFTCall(worker.docId);
+        // FindObjectOfType<ReactSend>().CreateNFTCall(worker.docId);
     }
 
     public void SellNFT()

@@ -13,6 +13,13 @@ public class GameManager : MonoBehaviour
     public GameObject bottomNavigationBar;
     public GameObject loadingBar;
 
+    public GameObject connecttingBar;
+
+    public void OpenCloseConnecttingBar(bool value)
+    {
+        connecttingBar.SetActive(value);
+    }
+
     public void OpenCloseLoadingBar(bool value)
     {
         loadingBar.SetActive(value);

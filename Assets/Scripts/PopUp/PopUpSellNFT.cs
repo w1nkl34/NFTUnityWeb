@@ -20,7 +20,7 @@ public class PopUpSellNFT : MonoBehaviour
         {
         if(float.Parse(price.text.ToString()) >= 0.1)
         {
-            FindObjectOfType<ReactSend>().SellNFTCall(worker.docId,float.Parse(price.text.ToString()));
+            // FindObjectOfType<ReactSend>().SellNFTCall(worker.docId,float.Parse(price.text.ToString()));
         }
         else
         {

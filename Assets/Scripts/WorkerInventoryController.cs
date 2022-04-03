@@ -21,15 +21,27 @@ public class WorkerInventoryController : MonoBehaviour
     }
     public IEnumerator GenerateWorkers()
     {
+        GenerateWorkersFaster();
+        yield return null;
+        // ResetAllImages();
+        // foreach(Workers worker in Constants.currentUser.workers)
+        // {
+        //     Debug.Log("ye");
+        //     yield return StartCoroutine(GetTexture(worker));
+        // }
+    }
+
+    public void GenerateWorkersFaster()
+    {
         ResetAllImages();
         foreach(Workers worker in Constants.currentUser.workers)
         {
-            yield return StartCoroutine(GetTexture(worker));
+        StartCoroutine(GetTexture(worker));
         }
     }
 
      IEnumerator GetTexture(Workers worker) {
-        
+
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(worker.url);
         yield return www.SendWebRequest();
         if (www.result != UnityWebRequest.Result.Success) {
@@ -45,7 +57,6 @@ public class WorkerInventoryController : MonoBehaviour
             workerHolder.worker = new Workers();
             workerHolder.worker = worker;
             newImage.SetActive(true);
-
         }
     }
     

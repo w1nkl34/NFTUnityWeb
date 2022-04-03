@@ -33,7 +33,7 @@ public class PopUpUpgradeBuilding : MonoBehaviour
 
     public void UpgradeWorkerRequest(string buildingName)
     {
-        FindObjectOfType<ReactSend>().UpgradeBuildingCall(buildingName);
+        // FindObjectOfType<ReactSend>().UpgradeBuildingCall(buildingName);
         gameObject.SetActive(false);
     }
 

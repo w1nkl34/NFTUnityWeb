@@ -32,7 +32,7 @@ public class Authentication : MonoBehaviour
     }
     public void SignIn()
     {
-        gm.OpenCloseLoadingBar(true);
+        gm.OpenCloseConnecttingBar(true);
         StartCoroutine(SignUser());
     }
     
@@ -45,14 +45,14 @@ public class Authentication : MonoBehaviour
         {
             Debug.Log("Failed to sign");
             popUpController.OpenInfoPop("User Is Not Valid!");
-            gm.OpenCloseLoadingBar(false);
+            gm.OpenCloseConnecttingBar(false);
         }
         else
         {
             Debug.Log("successfully signed user!" + signTask.Result.Email);
             Constants.authenticated = true;
             yield return StartCoroutine(getUserData());
-            // gm.OpenCloseLoadingBar(false);
+            gm.OpenCloseConnecttingBar(false);
             uIController.ShowAuthenticationScreen(false);
         }
     }
@@ -66,7 +66,7 @@ public class Authentication : MonoBehaviour
         {
             Debug.Log("Failed to sign");
             popUpController.OpenInfoPop("User Is Not Valid!");
-            gm.OpenCloseLoadingBar(false);
+            gm.OpenCloseConnecttingBar(false);
         }
         else
         {
@@ -74,7 +74,7 @@ public class Authentication : MonoBehaviour
             Constants.authenticated = true;
             yield return StartCoroutine(getUserData());
             Debug.Log("afterAll");
-            gm.OpenCloseLoadingBar(false);
+            gm.OpenCloseConnecttingBar(false);
             uIController.ShowAuthenticationScreen(false);
         }
     }
