@@ -16,6 +16,7 @@ public class PopUpController : MonoBehaviour
 
     public void OpenInfoPop(string message)
     {
+        Constants.onMenu = true;
         popUpInfo.messageText.text = message;
         popUpInfo.gameObject.SetActive(true);
     }
@@ -23,6 +24,7 @@ public class PopUpController : MonoBehaviour
 
     public void CloseAllPops()
     {
+        Constants.onMenu = false;
         popUpUpgradeBuilding.gameObject.SetActive(false);
         popUpSummonWorker.gameObject.SetActive(false);
         popUpWorkerDetail.gameObject.SetActive(false);
@@ -67,6 +69,7 @@ public class PopUpController : MonoBehaviour
 
     public void OpenUpgradeBuilding(string buildingName)
     {
+        Constants.onMenu = true;
         popUpUpgradeBuilding.gameObject.SetActive(true);
         popUpUpgradeBuilding.OpenUpgradeBuilding(buildingName);
     }

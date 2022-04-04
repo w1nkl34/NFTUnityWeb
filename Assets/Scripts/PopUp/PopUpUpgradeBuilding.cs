@@ -17,6 +17,7 @@ public class PopUpUpgradeBuilding : MonoBehaviour
     public Button upgradeButton;
     public void ClosePop()
     {
+        Constants.onMenu = false;
         gameObject.SetActive(false);
     }
 
@@ -33,7 +34,7 @@ public class PopUpUpgradeBuilding : MonoBehaviour
 
     public void UpgradeWorkerRequest(string buildingName)
     {
-        // FindObjectOfType<ReactSend>().UpgradeBuildingCall(buildingName);
+      FindObjectOfType<FirebaseApi>().UpgradeBuilding(buildingName);
         gameObject.SetActive(false);
     }
 

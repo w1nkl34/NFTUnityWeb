@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour
     public void OpenCloseLoadingBar(bool value)
     {
         loadingBar.SetActive(value);
+        if(value)
+        Constants.onMenu = true;
+        else
+        Constants.onMenu = false;
     }
 
     public void StartTown(string json)
@@ -104,10 +108,11 @@ public class GameManager : MonoBehaviour
         inventoryItems.legendarySummonCrystal = playerData.ContainsKey("legendarySummonCrystal") ? int.Parse(playerData["legendarySummonCrystal"].ToString()) : 0;
         inventoryItems.legendaryUpgradeCrystal = playerData.ContainsKey("legendaryUpgradeCrystal") ? int.Parse(playerData["legendaryUpgradeCrystal"].ToString()) : 0;
 
-        Constants.allBuildings = new List<Buildings>();
 
         if(jsonData.ContainsKey("buildingsData"))
         {
+            Constants.allBuildings = new List<Buildings>();
+
             Dictionary<string, object> allBuildings = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonData["buildingsData"].ToString());   
            foreach(KeyValuePair<string, object> entry in allBuildings)
             {

@@ -8,6 +8,7 @@ public class PopUpInfo : MonoBehaviour
     public Text messageText;
     public void ClosePop()
     {
+        Constants.onMenu = false;
         gameObject.SetActive(false);
     }
 }
