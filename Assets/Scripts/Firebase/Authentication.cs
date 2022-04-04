@@ -14,11 +14,12 @@ public class Authentication : MonoBehaviour
 {
     public TMP_InputField tmpEmail;
     public TMP_InputField tmpPassword;
-    Button signInButton;
+    public TMP_InputField tmpEmailRegister;
+    public TMP_InputField tmpPasswordRegister;
     UIController uIController;
     GameManager gm;
     PopUpController popUpController;
-
+    public bool authModeRegister = false;
     public void Awake()
     {
         uIController = FindObjectOfType<UIController>();    
@@ -31,10 +32,38 @@ public class Authentication : MonoBehaviour
         gm.OpenCloseConnecttingBar(true);
         StartCoroutine(SignUser());
     }
+
+    public void Register()
+    {
+        gm.OpenCloseConnecttingBar(true);
+        StartCoroutine(RegisterUser());     
+    }
     public void SignInWithEmailPassword(string email,string pass)
     {
         StartCoroutine(SignUserEmailPassCor(email,pass));
     }
+
+    public IEnumerator RegisterUser()
+    {
+        var auth = FirebaseAuth.DefaultInstance;
+        var signTask = auth.CreateUserWithEmailAndPasswordAsync(tmpEmailRegister.text,tmpPasswordRegister.text);
+        yield return new WaitUntil(predicate: () => signTask.IsCompleted);
+        if(signTask.Exception != null)
+        {
+            Debug.Log("Failed to register");
+            popUpController.OpenInfoPop(signTask.Exception.InnerException.InnerException.ToString());
+            gm.OpenCloseConnecttingBar(false);
+        }
+        else
+        {
+            Debug.Log("successfully registered user!" + signTask.Result.Email);
+            yield return StartCoroutine(GetUserData());
+            gm.OpenCloseConnecttingBar(false);
+            uIController.ShowAuthenticationScreen(false);
+        }
+    }
+    
+
     public IEnumerator SignUser()
     {
         var auth = FirebaseAuth.DefaultInstance;
@@ -43,14 +72,13 @@ public class Authentication : MonoBehaviour
         if(signTask.Exception != null)
         {
             Debug.Log("Failed to sign");
-            popUpController.OpenInfoPop("User Is Not Valid!");
+            popUpController.OpenInfoPop(signTask.Exception.InnerException.InnerException.ToString());
             gm.OpenCloseConnecttingBar(false);
         }
         else
         {
             Debug.Log("successfully signed user!" + signTask.Result.Email);
-            Constants.authenticated = true;
-            yield return StartCoroutine(getUserData());
+            yield return StartCoroutine(GetUserData());
             gm.OpenCloseConnecttingBar(false);
             uIController.ShowAuthenticationScreen(false);
         }
@@ -70,25 +98,52 @@ public class Authentication : MonoBehaviour
         else
         {
             Debug.Log("successfully signed user!" + signTask.Result.Email);
-            Constants.authenticated = true;
-            yield return StartCoroutine(getUserData());
+            yield return StartCoroutine(GetUserData());
             gm.OpenCloseConnecttingBar(false);
             uIController.ShowAuthenticationScreen(false);
         }
     }
 
-    public IEnumerator getUserData() {
+    public void ChangeAuthMode()
+    {
+        authModeRegister = !authModeRegister;
+        if(authModeRegister)
+        {
+            uIController.registerPage.SetActive(true);
+            uIController.signPage.SetActive(false);
+        }
+        else
+        {
+            uIController.registerPage.SetActive(false);
+            uIController.signPage.SetActive(true);           
+        }
+    }
+    private int tries = 0;
+    public IEnumerator GetUserData() {
         var functions = FirebaseFunctions.DefaultInstance;
         var function = functions.GetHttpsCallable("getUserData");
         var task = function.CallAsync();
         yield return new WaitUntil(predicate: () => task.IsCompleted);
         if(task.Exception != null)
         {
-            Debug.Log("fault");
+            Debug.Log("Failed To Get User Data!");
+            if(tries < 10)
+            {
+            yield return new WaitForSeconds(1f);
+            tries++;
+            yield return GetUserData();
+            }
+            else
+            {
+            yield return null;
+            }
+
         }
         else
         {
+            tries = 10;
             gm.StartTown(task.Result.Data.ToString());
+            Constants.authenticated = true;
         }
     }
 }

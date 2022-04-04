@@ -17,6 +17,8 @@ public class UIController : MonoBehaviour
     private GameObject currentBuildingMainTab;
     public GameObject authenticateTab;
     public GameObject backgroundNoSafeArea;
+    public GameObject registerPage;
+    public GameObject signPage;
     public void GenerateUserData()
     {
         stoneCountText.text = "Stone: " + Constants.currentUser.stoneCount.ToString();
@@ -104,4 +106,6 @@ public class UIController : MonoBehaviour
         backgroundNoSafeArea.SetActive(true);
                 Constants.onMenu = true;
     }
+
+    
 }

@@ -9,8 +9,12 @@ public class WorkerInventoryController : MonoBehaviour
 
     public GameObject workerMain;
 
+    public GameObject loadingWidget;
+    private int currentWorkerCount = 0;
+    private int totalWorkerCount = 0;
     public void ResetAllImages()
     {
+        currentWorkerCount = 0;
         int count = 0;
         foreach(Transform child in workerMain.transform.parent)
         {
@@ -33,7 +37,9 @@ public class WorkerInventoryController : MonoBehaviour
 
     public void GenerateWorkersFaster()
     {
+        loadingWidget.SetActive(true);
         ResetAllImages();
+        totalWorkerCount = Constants.currentUser.workers.Count;
         foreach(Workers worker in Constants.currentUser.workers)
         {
         StartCoroutine(GetTexture(worker));
@@ -57,6 +63,11 @@ public class WorkerInventoryController : MonoBehaviour
             workerHolder.worker = new Workers();
             workerHolder.worker = worker;
             newImage.SetActive(true);
+            currentWorkerCount ++;
+            if(currentWorkerCount == totalWorkerCount)
+            {
+                loadingWidget.SetActive(false);
+            }
         }
     }
     

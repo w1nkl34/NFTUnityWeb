@@ -28,7 +28,7 @@ public class CameraController : MonoBehaviour
      float maxPosY = 4;
      float minPosY = -12;
 
-     float lastZoomValue = -30;
+     float lastZoomValue = -3400;
 
      float cameraSpeedX  = 0.035f;
      float cameraSpeedY = 0.035f;
@@ -50,8 +50,8 @@ public class CameraController : MonoBehaviour
             minPosX = -19;
             maxPosY = 4;
             minPosY = -12;
-            cameraSpeedY = 0.035f;
-            cameraSpeedX = 0.035f;
+            cameraSpeedY = 0.03f;
+            cameraSpeedX = 0.03f;
          }
          else
          {
@@ -62,14 +62,14 @@ public class CameraController : MonoBehaviour
             cm.GetCinemachineComponent<CinemachineTransposer>().m_YDamping = 0;
             cm.m_Follow = cameraLookAtTargetWorld;
             cm.m_LookAt = cameraLookAtTargetWorld;
-            minZoomValue = -30;
+            minZoomValue = -40;
             maxZoomValue = -20;
             maxPosX = 22;
             minPosX = -22;
             maxPosY = 14;
             minPosY = -6;
-            cameraSpeedY = 0.025f;
-            cameraSpeedX = 0.025f;
+            cameraSpeedY = 0.03f;
+            cameraSpeedX = 0.03f;
          }
          lastZoomValue = tempValue;
      }
