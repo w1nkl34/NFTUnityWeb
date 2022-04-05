@@ -2317,7 +2317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.19607843}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -40760,6 +40760,7 @@ MonoBehaviour:
   bottomNavigationBar: {fileID: 590449565}
   loadingBar: {fileID: 237260398}
   connecttingBar: {fileID: 2133245569}
+  tm: {fileID: 1601659139}
 --- !u!4 &1943667469
 Transform:
   m_ObjectHideFlags: 0

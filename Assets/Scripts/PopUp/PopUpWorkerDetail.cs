@@ -54,8 +54,8 @@ public class PopUpWorkerDetail : MonoBehaviour
         {
             destroyButton.SetActive(false);
             NFTTitle.SetActive(true);
-            sellNFTButton.SetActive(false);
-            createNFTButton.SetActive(false);
+            // sellNFTButton.SetActive(false);
+            // createNFTButton.SetActive(false);
             upgradeButton.SetActive(false);
             onSaleGameObject.SetActive(true);
             onSaleText.text = "On Marketplace" + " : " + worker.sellPrice.ToString() + " MATIC";
@@ -65,18 +65,18 @@ public class PopUpWorkerDetail : MonoBehaviour
          {
             destroyButton.SetActive(false);
             NFTTitle.SetActive(true);
-            sellNFTButton.SetActive(true);
+            // sellNFTButton.SetActive(true);
             upgradeButton.SetActive(true);
-            createNFTButton.SetActive(false);
+            // createNFTButton.SetActive(false);
             onSaleGameObject.SetActive(false);
          }
         else
         {
             destroyButton.SetActive(true);
             NFTTitle.SetActive(false);
-            createNFTButton.SetActive(true);
+            // createNFTButton.SetActive(true);
             upgradeButton.SetActive(true);
-            sellNFTButton.SetActive(false);
+            // sellNFTButton.SetActive(false);
             onSaleGameObject.SetActive(false);
         }
         }

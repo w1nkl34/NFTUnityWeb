@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject connecttingBar;
 
+    public TownManager tm;
+
 
     private void Awake() 
     {

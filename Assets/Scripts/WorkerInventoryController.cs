@@ -25,20 +25,15 @@ public class WorkerInventoryController : MonoBehaviour
     }
     public IEnumerator GenerateWorkers()
     {
+        StopAllCoroutines();
+        ResetAllImages();
         GenerateWorkersFaster();
         yield return null;
-        // ResetAllImages();
-        // foreach(Workers worker in Constants.currentUser.workers)
-        // {
-        //     Debug.Log("ye");
-        //     yield return StartCoroutine(GetTexture(worker));
-        // }
     }
 
     public void GenerateWorkersFaster()
     {
         loadingWidget.SetActive(true);
-        ResetAllImages();
         totalWorkerCount = Constants.currentUser.workers.Count;
         foreach(Workers worker in Constants.currentUser.workers)
         {
