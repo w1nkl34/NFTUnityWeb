@@ -10,7 +10,7 @@ public class FirebaseInit : MonoBehaviour
     public UIController uIController;
     public GameManager gm;
     public Authentication auth;
-
+    string cx = "01";
 
     void Start()
     {
@@ -28,7 +28,7 @@ public class FirebaseInit : MonoBehaviour
         }
         else
         {
-            UserIsAnonymousConnect();
+            UserIsNotAnonymousConnect();
         }
     }
 
@@ -36,7 +36,7 @@ public class FirebaseInit : MonoBehaviour
     {
             FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
             uIController.ShowAuthenticationScreen(true);
-            auth.SignInWithEmailPassword("a@a.com","aaaaaa");
+            auth.SignInWithEmailPassword("c@c.com","cccccc");
     }
 
     public void UserIsAnonymousConnect()

@@ -7,28 +7,76 @@ using Newtonsoft.Json;
 
 public  class FirebaseApi : MonoBehaviour
 {
-    GameManager gm;
-    PopUpController popUpController;
+    public GameManager gm;
+    public PopUpController popUpController;
+    public TownManager tm;
 
+     public void CheckUpgradeBuildingFinished(Building buildingName) {
+        var functions = FirebaseFunctions.DefaultInstance;
+        var data = new Dictionary<string,object>();
+        data["buildingName"] = buildingName.ToString();
+        var function = functions.GetHttpsCallable("checkIfBuildingUpgradeIsFinished");
+        function.CallAsync(data).ContinueWithOnMainThread( (task) => {
+           if(task.IsCompleted)
+           {
+                string x =  JsonConvert.SerializeObject(task.Result.Data);
+                Debug.Log(x);
 
-    void Awake()
-    {
-        gm = FindObjectOfType<GameManager>();
-        popUpController = FindObjectOfType<PopUpController>();
+                for(int i = 0; i<Constants.currentUser.buildingUpgrades.Count; i++)
+                {
+
+                    if(Constants.currentUser.buildingUpgrades[i].buildingName == buildingName)
+                    {
+                    Constants.currentUser.buildingUpgrades.RemoveAt(i);
+
+                    if( buildingName.ToString() == "stoneDeposit")
+                    {
+                        Constants.currentUser.stoneDepositLevel +=1;
+                    }
+                    if(buildingName.ToString()== "woodDeposit")
+                    {
+                        Constants.currentUser.woodDepositLevel +=1;
+                    }
+                    if(buildingName.ToString() == "workerHome")
+                    {
+                        Constants.currentUser.workerCapacity +=1;
+                    }
+                    if(buildingName.ToString() == "warriorBuilding")
+                    {
+                        Constants.currentUser.warriorBuildingLevel +=1;
+                    }
+                    if(buildingName.ToString() == "workerBuilding")
+                    {
+                        Constants.currentUser.workerBuildingLevel +=1;
+                    }
+                    if(buildingName.ToString() == "mainTower")
+                    {
+                        Constants.currentUser.mainTowerLevel +=1;
+                    }     
+                        tm.GenerateTown();
+                        break;
+                    }
+                }
+           }
+        });
     }
 
-    public void UpgradeBuilding(string buildingName) {
+    public void UpgradeBuildingTimer(string buildingName)
+    {
         gm.OpenCloseLoadingBar(true);
         var functions = FirebaseFunctions.DefaultInstance;
         var data = new Dictionary<string,object>();
         data["buildingName"] = buildingName;
-        var function = functions.GetHttpsCallable("upgradeBuilding");
+        var function = functions.GetHttpsCallable("upgradeBuildingTimer");
        function.CallAsync(data).ContinueWithOnMainThread( (task) => {
            if(task.IsCompleted)
            {
-                 string x =  JsonConvert.SerializeObject(task.Result.Data);
+                string x =  JsonConvert.SerializeObject(task.Result.Data);
                 Debug.Log(x);
-               StartCoroutine(GetUserData("Upgrade Success!"));
+                popUpController.CloseAllPops();
+                gm.OpenCloseLoadingBar(false);
+                gm.tm.CloseAllOnClicks();
+                popUpController.OpenInfoPop("Upgrade Started!");
            }
         });
     }

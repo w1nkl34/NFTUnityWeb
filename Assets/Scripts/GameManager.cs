@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
@@ -110,7 +111,56 @@ public class GameManager : MonoBehaviour
         inventoryItems.legendarySummonCrystal = playerData.ContainsKey("legendarySummonCrystal") ? int.Parse(playerData["legendarySummonCrystal"].ToString()) : 0;
         inventoryItems.legendaryUpgradeCrystal = playerData.ContainsKey("legendaryUpgradeCrystal") ? int.Parse(playerData["legendaryUpgradeCrystal"].ToString()) : 0;
 
+        List<BuildingUpgrade> buildingUpgrades = new List<BuildingUpgrade>();
 
+        if(jsonData.ContainsKey("upgradeData"))
+        {
+            List<Dictionary<string, object>> upgradeData = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(jsonData["upgradeData"].ToString());   
+            for(int i = 0; i< upgradeData.Count; i++)
+            {
+                foreach(KeyValuePair<string,object> buildingUpgrade in upgradeData[i])
+                {
+                    Dictionary<string,object> build = 
+                    JsonConvert.DeserializeObject<Dictionary<string, object>>(buildingUpgrade.Value.ToString());   
+                    DateTime date = (new DateTime(1970, 1, 1)).AddMilliseconds
+                    (double.Parse(build["endTime"].ToString()));
+
+                                DateTime startDate = (new DateTime(1970, 1, 1)).AddMilliseconds
+                    (double.Parse(build["startTime"].ToString()));
+                    BuildingUpgrade buildingUpgrade1 = new BuildingUpgrade();
+                    buildingUpgrade1.endTime = date;
+                    buildingUpgrade1.startTime = startDate;
+
+                    if(buildingUpgrade.Key== "stoneDeposit")
+                    {
+                        buildingUpgrade1.buildingName = Building.stoneDeposit;
+                    }
+                    if(buildingUpgrade.Key== "woodDeposit")
+                    {
+                        buildingUpgrade1.buildingName = Building.woodDeposit;
+                    }
+                    if(buildingUpgrade.Key== "workerHome")
+                    {
+                        buildingUpgrade1.buildingName = Building.workerHome;
+                    }
+                    if(buildingUpgrade.Key== "warriorBuilding")
+                    {
+                        buildingUpgrade1.buildingName = Building.warriorBuilding;
+                    }
+                    if(buildingUpgrade.Key== "workerBuilding")
+                    {
+                        buildingUpgrade1.buildingName = Building.workerBuilding;
+                    }
+                    if(buildingUpgrade.Key== "mainTower")
+                    {
+                        buildingUpgrade1.buildingName = Building.mainTower;
+                    }
+                    buildingUpgrades.Add(buildingUpgrade1);
+                }
+            }
+            
+
+        }
         if(jsonData.ContainsKey("buildingsData"))
         {
             Constants.allBuildings = new List<Buildings>();
@@ -160,6 +210,6 @@ public class GameManager : MonoBehaviour
             }
         }
         Constants.currentUser = new User(mainTowerLevel,stoneDepositLevel,woodDepositLevel,workerCapacity,
-        workerBuildingLevel,warriorBuildingLevel,peridotShardCount,stoneCount,woodCount,workers,inventoryItems);
+        workerBuildingLevel,warriorBuildingLevel,peridotShardCount,stoneCount,woodCount,workers,inventoryItems,buildingUpgrades);
     }
 }

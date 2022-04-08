@@ -34,7 +34,7 @@ public class PopUpUpgradeBuilding : MonoBehaviour
 
     public void UpgradeWorkerRequest(string buildingName)
     {
-      FindObjectOfType<FirebaseApi>().UpgradeBuilding(buildingName);
+      FindObjectOfType<FirebaseApi>().UpgradeBuildingTimer(buildingName);
         gameObject.SetActive(false);
     }
 

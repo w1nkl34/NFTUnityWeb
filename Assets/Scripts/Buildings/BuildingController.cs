@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuildingController : MonoBehaviour
 {
@@ -12,6 +14,14 @@ public class BuildingController : MonoBehaviour
     public TownManager townManager;
     private UIController uIController;
     private PopUpController popUpController;
+    public GameObject UpgradeLeft;
+    public Image upgradeSlider;
+    public Text upgradeTimeText;
+    public bool startCounter = false;
+    DateTime endTime;
+    DateTime startTime;
+    bool upgradeFinished = false;
+    
 
     public void Awake()
     {
@@ -19,6 +29,45 @@ public class BuildingController : MonoBehaviour
         popUpController = FindObjectOfType<PopUpController>();
     }
 
+    public void Start()
+    {
+        CheckHasUpgrade();
+    }
+
+
+    public void CheckHasUpgrade()
+    {
+        for(int i = 0; i<Constants.currentUser.buildingUpgrades.Count; i++)
+        {
+                if(Constants.currentUser.buildingUpgrades[i].buildingName == buildingType)
+                {
+                    endTime = Constants.currentUser.buildingUpgrades[i].endTime;
+                    startTime = Constants.currentUser.buildingUpgrades[i].startTime;
+                    UpgradeLeft.SetActive(true);
+                    upgradeFinished = false;
+                    startCounter = true;
+                    break;
+                }
+        }
+    }
+
+    public void Update()
+    {
+        if(startCounter && !upgradeFinished)
+        {
+                TimeSpan ts1 =  endTime - startTime;
+                TimeSpan ts = endTime - DateTime.UtcNow;
+                upgradeSlider.fillAmount = 1 - ((float)ts.TotalSeconds / (float)ts1.TotalSeconds);
+                upgradeTimeText.text = string.Format("{1}:{2}:{3}", ts.Days, (ts.Days*24) + ts.Hours, ts.Minutes, ts.Seconds);
+        }
+        if(DateTime.Compare(DateTime.UtcNow ,endTime) > 0 && !upgradeFinished && startCounter)
+        {
+            upgradeFinished = true;
+            FindObjectOfType<FirebaseApi>().CheckUpgradeBuildingFinished(buildingType);
+            UpgradeLeft.SetActive(false);
+            startCounter = false;
+        }
+    }
 
     public void OnClickCall(TownManager townManager)
     {
@@ -26,6 +75,7 @@ public class BuildingController : MonoBehaviour
         townManager.OpenOnClicks(this);
         int currentBuildingLevel = 0;
         bool openable = false;
+        bool onUpgrade = false;
                 
         if(buildingType.ToString() == "warriorBuilding")
         {            
@@ -88,10 +138,19 @@ public class BuildingController : MonoBehaviour
 
         for(int a = 0; a<Constants.allBuildings.Count; a++)
         {
+
+              for(int i = 0; i<Constants.currentUser.buildingUpgrades.Count; i++)
+                {
+                    if(Constants.currentUser.buildingUpgrades[i].buildingName == buildingType)
+                    {
+                        onUpgrade = true;
+                        break;
+                    }
+                }
             if(Constants.allBuildings[a].buildingName == buildingType.ToString())
             {
                 found = true;
-                if(currentBuildingLevel == Constants.allBuildings[a].maxLevel)
+                if(currentBuildingLevel == Constants.allBuildings[a].maxLevel || onUpgrade)
                 {
                     upgradeClick.SetActive(false);
                     openClick.transform.localPosition = new Vector3(-1,0,0);
