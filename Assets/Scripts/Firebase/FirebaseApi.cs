@@ -4,12 +4,14 @@ using Firebase.Functions;
 using UnityEngine;
 using Firebase.Extensions;
 using Newtonsoft.Json;
+using System;
 
 public  class FirebaseApi : MonoBehaviour
 {
     public GameManager gm;
     public PopUpController popUpController;
     public TownManager tm;
+    public UIController uIController;
 
      public void CheckUpgradeBuildingFinished(Building buildingName) {
         var functions = FirebaseFunctions.DefaultInstance;
@@ -48,12 +50,15 @@ public  class FirebaseApi : MonoBehaviour
                     if(buildingName.ToString() == "workerBuilding")
                     {
                         Constants.currentUser.workerBuildingLevel +=1;
+                        gm.workerBuildingController.GenerateWorkerCreate();
+
                     }
                     if(buildingName.ToString() == "mainTower")
                     {
                         Constants.currentUser.mainTowerLevel +=1;
                     }     
-                        tm.GenerateTown();
+                        gm.tm.GenerateTown();    
+                        gm.tm.CloseAllOnClicks();
                         break;
                     }
                 }
@@ -61,7 +66,7 @@ public  class FirebaseApi : MonoBehaviour
         });
     }
 
-    public void UpgradeBuildingTimer(string buildingName)
+    public void UpgradeBuildingTimer(string buildingName,int requiredWood,int requiredStone)
     {
         gm.OpenCloseLoadingBar(true);
         var functions = FirebaseFunctions.DefaultInstance;
@@ -72,7 +77,58 @@ public  class FirebaseApi : MonoBehaviour
            if(task.IsCompleted)
            {
                 string x =  JsonConvert.SerializeObject(task.Result.Data);
-                Debug.Log(x);
+                Dictionary<string,object> buildingUpgradeData = JsonConvert.DeserializeObject<Dictionary<string, object>>(x);   
+
+       
+                    BuildingUpgrade newBuildingData = new BuildingUpgrade();
+
+                    DateTime date = (new DateTime(1970, 1, 1)).AddMilliseconds
+                    (double.Parse(buildingUpgradeData["endTime"].ToString()));
+
+                    DateTime startDate = (new DateTime(1970, 1, 1)).AddMilliseconds
+                    (double.Parse(buildingUpgradeData["startTime"].ToString()));
+
+                    newBuildingData.endTime = date;
+                    newBuildingData.startTime = startDate;
+
+                    if( buildingUpgradeData["buildingName"].ToString() == "stoneDeposit")
+                    {
+                        newBuildingData.buildingName = Building.stoneDeposit;
+                    }
+                    if( buildingUpgradeData["buildingName"].ToString() == "woodDeposit")
+                    {
+                        newBuildingData.buildingName = Building.woodDeposit;
+                    }
+                    if( buildingUpgradeData["buildingName"].ToString() == "workerHome")
+                    {
+                        newBuildingData.buildingName = Building.workerHome;
+                    }
+                    if(buildingUpgradeData["buildingName"].ToString() == "warriorBuilding")
+                    {
+                        newBuildingData.buildingName = Building.warriorBuilding;
+                    }
+                    if(buildingUpgradeData["buildingName"].ToString() == "workerBuilding")
+                    {
+                        newBuildingData.buildingName = Building.workerBuilding;
+                    }
+                    if(buildingUpgradeData["buildingName"].ToString() == "mainTower")
+                    {
+                        newBuildingData.buildingName = Building.mainTower;
+                    }
+                     
+                Constants.currentUser.buildingUpgrades.Add(newBuildingData);
+                foreach(BuildingController buildingController in FindObjectsOfType<BuildingController>())
+                {
+                    if(buildingController.buildingType ==newBuildingData.buildingName )
+                    {
+                        buildingController.CheckHasUpgrade();
+                        break;
+                    }
+                }
+
+                Constants.currentUser.woodCount -= requiredWood;
+                Constants.currentUser.stoneCount -= requiredStone;
+                uIController.GenerateUserData();
                 popUpController.CloseAllPops();
                 gm.OpenCloseLoadingBar(false);
                 gm.tm.CloseAllOnClicks();
@@ -81,7 +137,7 @@ public  class FirebaseApi : MonoBehaviour
         });
     }
 
-    public void DestroyWorker(string workerDocId)
+    public void DestroyWorker(string workerDocId,int summonCrystal,int blessedSummonCrystal,int legendarySummonCrystal)
     {
 
        gm.OpenCloseLoadingBar(true);
@@ -92,9 +148,38 @@ public  class FirebaseApi : MonoBehaviour
        function.CallAsync(data).ContinueWithOnMainThread((task) => {
            if(task.IsCompleted)
            {
-                 string x =  JsonConvert.SerializeObject(task.Result.Data);
-                Debug.Log(x);
-               StartCoroutine(GetUserData("Worker Destroyed!"));
+                string x =  JsonConvert.SerializeObject(task.Result.Data);
+
+                Dictionary<string,string> res = JsonConvert.DeserializeObject<Dictionary<string, string>>(x);   
+                if(res["result"] == "success")
+                {
+
+
+                for(int i = 0; i<Constants.currentUser.workers.Count; i++)
+                {
+                    if(Constants.currentUser.workers[i].docId == workerDocId)
+                    {
+                        Constants.currentUser.workers.RemoveAt(i);
+                        break;
+                    }
+                }
+                Constants.currentUser.inventoryItems.blessedSummonCrystal -= blessedSummonCrystal;
+                Constants.currentUser.inventoryItems.summonCrystal -= summonCrystal;
+                Constants.currentUser.inventoryItems.legendarySummonCrystal -= legendarySummonCrystal;
+                gm.workerInventoryController.DestroySpecificWorker(workerDocId);
+                gm.inventoryController.GenerateItems();
+                popUpController.CloseAllPops();
+                gm.OpenCloseLoadingBar(false);
+                gm.tm.CloseAllOnClicks();
+                popUpController.OpenInfoPop("Worker Destroyed!");
+                }
+                else
+                {
+                popUpController.CloseAllPops();
+                gm.OpenCloseLoadingBar(false);
+                gm.tm.CloseAllOnClicks();
+                popUpController.OpenInfoPop("Erorr");
+                }
            }
         });  
     }

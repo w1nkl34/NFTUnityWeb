@@ -32,6 +32,7 @@ public class User
       this.woodCount = woodCount;
       this.workers = workers;
       this.inventoryItems = inventoryItems;
+      if(buildingUpgrades.Count > 0)
       this.buildingUpgrades = buildingUpgrades;
     }
 }

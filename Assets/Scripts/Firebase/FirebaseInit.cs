@@ -10,7 +10,6 @@ public class FirebaseInit : MonoBehaviour
     public UIController uIController;
     public GameManager gm;
     public Authentication auth;
-    string cx = "01";
 
     void Start()
     {
@@ -28,7 +27,7 @@ public class FirebaseInit : MonoBehaviour
         }
         else
         {
-            UserIsNotAnonymousConnect();
+            UserIsAnonymousConnect();
         }
     }
 

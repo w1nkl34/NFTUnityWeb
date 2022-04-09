@@ -56,9 +56,7 @@ public class TownManager : MonoBehaviour
             foreach(Transform child in GameObject.FindGameObjectWithTag("woodDeposit").transform)
             {
                 child.GetComponent<SpriteRenderer>().material = unSelectedMaterial;
-            }
-
-        
+            }        
 
              foreach(Transform child in GameObject.FindGameObjectWithTag("workerBuilding").transform)
             {

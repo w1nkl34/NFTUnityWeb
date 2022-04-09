@@ -19,8 +19,75 @@ public class UIController : MonoBehaviour
     public GameObject backgroundNoSafeArea;
     public GameObject registerPage;
     public GameObject signPage;
+    public GameObject fade;
+    public GameObject bottomLeaveZoneFocus;
+    public GameObject bottomNavigationBar;
+    public GameManager gm;
+
+
+    public void ChangeWorldMode()
+    {
+        FadeStart();
+    }
+
+    public void LeaveZoneFocus()
+    {
+        gm.cameraController.ChangeWorldMode();
+        bottomLeaveZoneFocus.SetActive(false);
+        bottomNavigationBar.SetActive(true);
+        gm.wm.ChangeZoneFocus(true);
+        if(gm.wm.selectedMainZone != null)
+        gm.wm.selectedMainZone.zones.SetActive(false);
+        StartCoroutine(focusWorlZoneFalse());
+
+    }
+    public IEnumerator focusWorlZoneFalse()
+    {
+        yield return new WaitForSeconds(0.05f);
+        gm.cameraController.focusWorldZone = false;
+    }
+
+    public void OpenZoneFocus()
+    {
+        bottomLeaveZoneFocus.SetActive(true);
+        bottomNavigationBar.SetActive(false);
+    }
+
+    public void FadeStart()
+    {
+        fade.SetActive(true);
+        fade.GetComponent<Image>().color = new Color32(0,0,0,0);
+         Image r = fade.gameObject.GetComponent<Image>();
+             LeanTween.value(fade.gameObject, 0, 1, 0.15f).setOnUpdate((float val) =>
+            {
+                 Color c = r.color;
+                 c.a = val;
+                r.color = c;
+             }).setOnComplete(FadeEnd);
+
+    }
+
+    public void FadeEnd()
+    {
+          Constants.onWorldMap = !Constants.onWorldMap;
+        FindObjectOfType<CameraController>().ChangeWorldMode();
+                    Image r = fade.gameObject.GetComponent<Image>();
+             LeanTween.value(fade.gameObject, 1, 0, 0.15f).setOnUpdate((float val) =>
+            {
+                 Color c = r.color;
+                 c.a = val;
+                r.color = c;
+             }).setOnComplete(FinishFade);
+    }
+    public void FinishFade()
+    {
+        fade.gameObject.SetActive(false);
+      
+    }
+
     public void GenerateUserData()
     {
+        bottomNavigationBar.SetActive(true);
         stoneCountText.text = "Stone: " + Constants.currentUser.stoneCount.ToString();
         woodCountText.text = "Wood: " + Constants.currentUser.woodCount.ToString();
         peridotShardCountText.text = "Peridot: " + Constants.currentUser.peridotShardCount.ToString();
@@ -70,11 +137,7 @@ public class UIController : MonoBehaviour
 
     }
 
-    public void ChangeWorldMode()
-    {
-        Constants.onWorldMap = !Constants.onWorldMap;
-        FindObjectOfType<CameraController>().ChangeWorldMode();
-    }
+
 
     public void OpenBuildingMainTabs(Building building)
     {
@@ -104,7 +167,7 @@ public class UIController : MonoBehaviour
         currentBuildingMainTab = warriorBuildingTab;
         }
         backgroundNoSafeArea.SetActive(true);
-                Constants.onMenu = true;
+        Constants.onMenu = true;
     }
 
     

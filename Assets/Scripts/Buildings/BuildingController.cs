@@ -29,14 +29,13 @@ public class BuildingController : MonoBehaviour
         popUpController = FindObjectOfType<PopUpController>();
     }
 
-    public void Start()
-    {
-        CheckHasUpgrade();
-    }
-
 
     public void CheckHasUpgrade()
     {
+        townManager.CloseAllOnClicks();
+        startCounter = false;
+        upgradeFinished = false;
+        UpgradeLeft.SetActive(false);
         for(int i = 0; i<Constants.currentUser.buildingUpgrades.Count; i++)
         {
                 if(Constants.currentUser.buildingUpgrades[i].buildingName == buildingType)
@@ -150,17 +149,27 @@ public class BuildingController : MonoBehaviour
             if(Constants.allBuildings[a].buildingName == buildingType.ToString())
             {
                 found = true;
-                if(currentBuildingLevel == Constants.allBuildings[a].maxLevel || onUpgrade)
+                if(onUpgrade)
+                {
+                    upgradeClick.SetActive(false);
+                    openClick.SetActive(false);
+                    infoClick.transform.localPosition = new Vector3(0,0,0);
+                    break;     
+                }
+                if(currentBuildingLevel == Constants.allBuildings[a].maxLevel)
                 {
                     upgradeClick.SetActive(false);
                     openClick.transform.localPosition = new Vector3(-1,0,0);
                     infoClick.transform.localPosition = new Vector3(1,0,0);
                     if(!openable)
                     infoClick.transform.localPosition = new Vector3(0,0,0);
-                    break;
+                    else
+                    openClick.SetActive(true);
+
                 }
                 else
                 {
+                    upgradeClick.SetActive(true);
                     openClick.transform.localPosition = new Vector3(-2,0,0); 
                     infoClick.transform.localPosition = new Vector3(2,0,0);
                     upgradeClick.transform.localPosition = new Vector3(0,0,0);
@@ -169,8 +178,11 @@ public class BuildingController : MonoBehaviour
                         infoClick.transform.localPosition = new Vector3(-1,0,0);
                         upgradeClick.transform.localPosition = new Vector3(1,0,0);
                     }
-                    break;
+                    else
+                    openClick.SetActive(true);
                 }
+                
+               
             }
         }
         if(found == false)

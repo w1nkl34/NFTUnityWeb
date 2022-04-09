@@ -32,9 +32,9 @@ public class PopUpUpgradeBuilding : MonoBehaviour
         }
     }
 
-    public void UpgradeWorkerRequest(string buildingName)
+    public void UpgradeBuildingRequest(string buildingName,int requiredWood,int requiredStone)
     {
-      FindObjectOfType<FirebaseApi>().UpgradeBuildingTimer(buildingName);
+        FindObjectOfType<FirebaseApi>().UpgradeBuildingTimer(buildingName,requiredWood,requiredStone);
         gameObject.SetActive(false);
     }
 
@@ -46,6 +46,8 @@ public class PopUpUpgradeBuilding : MonoBehaviour
         int keyIndex = 0;
         bool error = false;
         int currentBuildingLevel = 0;
+        int requiredWood = 0;
+        int requiredStone = 0;
 
         if(buildingName == "warriorBuilding")
         currentBuildingLevel = Constants.currentUser.warriorBuildingLevel;
@@ -107,10 +109,14 @@ public class PopUpUpgradeBuilding : MonoBehaviour
                      if(key == "wood")
                      {
                          myValue = Constants.currentUser.woodCount.ToString();
+                         requiredWood = int.Parse(value);
+
                      }
                      if(key == "stone")
                      {
-                         myValue = Constants.currentUser.stoneCount.ToString();
+                        myValue = Constants.currentUser.stoneCount.ToString();
+                        requiredStone = int.Parse(value);
+
                      }
                      if(int.Parse(myValue) < int.Parse(value))
                      {
@@ -135,7 +141,7 @@ public class PopUpUpgradeBuilding : MonoBehaviour
         upgradeButton.transform.GetChild(0).GetComponent<Text>().text = "Upgrade!";
         upgradeButton.enabled = true;
         upgradeButton.onClick.RemoveAllListeners();
-        upgradeButton.onClick.AddListener(delegate{UpgradeWorkerRequest(buildingName);});
+        upgradeButton.onClick.AddListener(delegate{UpgradeBuildingRequest(buildingName,requiredWood,requiredStone);});
 
         }
     }

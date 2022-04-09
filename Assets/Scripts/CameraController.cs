@@ -7,7 +7,8 @@ using UnityEngine.EventSystems;
 public class CameraController : MonoBehaviour
 {
 
-    public TownManager tm;
+
+    public GameManager gm;
     public bool dragging = false;
     private float startingPosition;
     private float startingPositiony;
@@ -27,11 +28,11 @@ public class CameraController : MonoBehaviour
      float minPosX = -19;
      float maxPosY = 4;
      float minPosY = -12;
-
-     float lastZoomValue = -3400;
-
+     float lastZoomValue = -40;
      float cameraSpeedX  = 0.035f;
      float cameraSpeedY = 0.035f;
+     public bool focusWorldZone = false;
+
      public void ChangeWorldMode()
      {
          float tempValue = cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z;
@@ -58,19 +59,20 @@ public class CameraController : MonoBehaviour
             cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = 
             new Vector3(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x,  cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y,
             lastZoomValue);
-            cm.GetCinemachineComponent<CinemachineTransposer>().m_XDamping = 0;
-            cm.GetCinemachineComponent<CinemachineTransposer>().m_YDamping = 0;
+            cm.GetCinemachineComponent<CinemachineTransposer>().m_XDamping = 0.1f;
+            cm.GetCinemachineComponent<CinemachineTransposer>().m_YDamping = 0.1f;
             cm.m_Follow = cameraLookAtTargetWorld;
             cm.m_LookAt = cameraLookAtTargetWorld;
             minZoomValue = -40;
             maxZoomValue = -20;
-            maxPosX = 22;
-            minPosX = -22;
-            maxPosY = 14;
-            minPosY = -6;
+            maxPosX = 24;
+            minPosX = -24;
+            maxPosY = 16;
+            minPosY = -8;
             cameraSpeedY = 0.03f;
             cameraSpeedX = 0.03f;
          }
+         if(!focusWorldZone)
          lastZoomValue = tempValue;
      }
  
@@ -78,15 +80,17 @@ public class CameraController : MonoBehaviour
      {
          if(Constants.authenticated == true)
          {
+            TouchHandle();
+
          if(!Constants.onWorldMap)
          { 
             OnClickHandle();
-            TouchHandle();
             CameraMovement(cameraLookAtTarget);
            
          }
          else
          {
+            OnClickHandleWorld();
             CameraMovement(cameraLookAtTargetWorld);     
          }
          }
@@ -107,7 +111,7 @@ public class CameraController : MonoBehaviour
                 }
                 if(touch.phase == TouchPhase.Moved)
                 {
-                    if (startingPosition > touch.position.x && Mathf.Abs(startingPosition - touch.position.x) > 25)
+                    if (startingPosition > touch.position.x && Mathf.Abs(startingPosition - touch.position.x) > 10)
                         {
                             dragging = true;
                             if (touchposx > touch.position.x)
@@ -115,7 +119,7 @@ public class CameraController : MonoBehaviour
                             else
                                 startingPosition = touch.position.x;
                         }
-                        else if (startingPosition < touch.position.x && Mathf.Abs(startingPosition - touch.position.x) > 25)
+                        else if (startingPosition < touch.position.x && Mathf.Abs(startingPosition - touch.position.x) > 10)
                         {
                             dragging = true;
                             if (touchposx < touch.position.x)
@@ -125,7 +129,7 @@ public class CameraController : MonoBehaviour
 
                         }
 
-                        if (startingPositiony > touch.position.y && Mathf.Abs(startingPositiony - touch.position.y) > 25)
+                        if (startingPositiony > touch.position.y && Mathf.Abs(startingPositiony - touch.position.y) > 10)
                         {
 
                             dragging = true;
@@ -134,7 +138,7 @@ public class CameraController : MonoBehaviour
                             else
                                 startingPositiony = touch.position.y;
                         }
-                        else if (startingPositiony < touch.position.y && Mathf.Abs(startingPositiony - touch.position.y) > 25)
+                        else if (startingPositiony < touch.position.y && Mathf.Abs(startingPositiony - touch.position.y) > 10)
                         {
                             dragging = true;
                             if (touchposy < touch.position.y)
@@ -143,8 +147,7 @@ public class CameraController : MonoBehaviour
                                 startingPositiony = touch.position.y;
                         }
                 }
-                 if(touch.phase == TouchPhase.Ended)
-                 dragging = false;
+            
                
         }
      }
@@ -163,20 +166,67 @@ public class CameraController : MonoBehaviour
                 {
                 if(Input.GetMouseButtonUp(0))
                 {
-                tm.ManageColliderHit(hit);
+                gm.tm.ManageColliderHit(hit);
                 if(hit.collider.gameObject.tag != "onClickOpen" && hit.collider.gameObject.tag != "onClickUpgrade"  && hit.collider.gameObject.tag != "onClickInfo" )  
                 cameraLookAtTarget.transform.position = new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,cameraLookAtTarget.transform.position.z);
                 }
-                
                 }
-
             }
         }
         else
           if(Input.GetMouseButtonDown(0))
-            tm.CloseAllOnClicks();
+            gm.tm.CloseAllOnClicks();
         }
      }
+
+     public void OnClickHandleWorld()
+     {
+        if(!Constants.onMenu)
+        {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit,200)) 
+        {
+            if(hit.collider != null)
+            {
+                if(!dragging)
+                {
+                if(Input.GetMouseButtonUp(0))
+                {
+                if(hit.collider.gameObject.tag == "worldZone" && !focusWorldZone )  
+                {
+                    int toAddX = 4;
+                    bool isLarge = false;
+                    if(hit.collider.gameObject.GetComponent<MainZoneController>() != null)
+                    {
+                    gm.wm.selectedMainZone = hit.collider.gameObject.GetComponent<MainZoneController>();
+                    gm.wm.selectedMainZone.GenerateZones();
+                    if(hit.collider.gameObject.GetComponent<MainZoneController>().isLarge == true)
+                    isLarge = true;
+                    }
+                    gm.wm.ChangeZoneFocus(false);
+                    focusWorldZone = true;
+                    gm.uIController.OpenZoneFocus();
+                    minZoomValue = -14;
+                    maxZoomValue = -8;
+                    cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = 
+                    new Vector3(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x,  cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y,
+                    -14); 
+                    cameraLookAtTargetWorld.transform.position = new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,cameraLookAtTarget.transform.position.z);
+                    if(isLarge)
+                    toAddX = 6;
+                    maxPosX = cameraLookAtTargetWorld.transform.localPosition.x + toAddX;
+                    minPosX = cameraLookAtTargetWorld.transform.localPosition.x - toAddX;
+                    maxPosY = cameraLookAtTargetWorld.transform.localPosition.y +2;
+                    minPosY = cameraLookAtTargetWorld.transform.localPosition.y -2;
+                }
+                }
+                }
+            }
+        }
+        }
+     }
+
 
     public void zoom(float increment)
     {
@@ -184,10 +234,9 @@ public class CameraController : MonoBehaviour
              new Vector3(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x,  cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y,
                Mathf.Clamp(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z + increment, minZoomValue, maxZoomValue));
     }
-     public void CameraMovement(Transform cameraLookAtTarget)
-     {
-        if(!Constants.onMenu)
-        {
+
+    public void CameraZoom()
+    { 
             if(Input.touchCount == 2)
             {
                 Touch touchZero = Input.GetTouch(0);
@@ -213,15 +262,6 @@ public class CameraController : MonoBehaviour
         }
         zoom(Input.GetAxis("Mouse ScrollWheel"));
 
-
-        if (Input.touchCount == 1)
-        {       
-            Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Moved)
-            {
-            cameraLookAtTarget.position += new Vector3(- touch.deltaPosition.x * cameraSpeedX, -touch.deltaPosition.y * cameraSpeedY);
-            }
-         }
          if( cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z < minZoomValue)
          {
                 cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = 
@@ -234,16 +274,58 @@ public class CameraController : MonoBehaviour
              new Vector3(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x,  cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y,
               maxZoomValue); 
          }
-        
-        if(cameraLookAtTarget.localPosition.x  > maxPosX)
-            cameraLookAtTarget.localPosition  = Vector3.Lerp( cameraLookAtTarget.localPosition, new Vector3(maxPosX,cameraLookAtTarget.localPosition .y,cameraLookAtTarget.localPosition.z),Time.deltaTime * (cameraLookAtTarget.localPosition.x - Mathf.Abs(maxPosX)));
-        if(cameraLookAtTarget.localPosition.x  < minPosX)
-            cameraLookAtTarget.localPosition  =  Vector3.Lerp( cameraLookAtTarget.localPosition, new Vector3(minPosX,cameraLookAtTarget.localPosition .y,cameraLookAtTarget.localPosition.z),Time.deltaTime * (Mathf.Abs( cameraLookAtTarget.localPosition.x) - Mathf.Abs(minPosX)));
+    }
+     public void CameraMovement(Transform cameraLookAtTarget)
+     {
+         if(!Constants.onMenu)   
+        {
+            CameraZoom();
+
+        if (Input.touchCount == 1)
+        {       
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Moved)
+            {
+                cameraLookAtTarget.position += new Vector3(- touch.deltaPosition.x * cameraSpeedX * (1 - ((float)0.4 - Mathf.Abs(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z)/ 100)), - touch.deltaPosition.y * cameraSpeedY * (1 - ((float)0.4 - (Mathf.Abs(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z)/ 100))));
+            }
+         }
+       
+            if( cameraLookAtTarget.localPosition.x  > maxPosX)
+            {
+                 if(maxPosX > 0)
+                    cameraLookAtTarget.localPosition  = Vector3.Lerp( cameraLookAtTarget.localPosition, new Vector3(maxPosX,cameraLookAtTarget.localPosition .y,cameraLookAtTarget.localPosition.z),Time.deltaTime * (cameraLookAtTarget.localPosition.x - Mathf.Abs(maxPosX)));
+                else
+                    cameraLookAtTarget.localPosition  = Vector3.Lerp( cameraLookAtTarget.localPosition, new Vector3(maxPosX,cameraLookAtTarget.localPosition .y,cameraLookAtTarget.localPosition.z),Time.deltaTime * (cameraLookAtTarget.localPosition.x + Mathf.Abs(maxPosX)));
+
+            }
+  
+            if(cameraLookAtTarget.localPosition.x  < minPosX)
+            {
+                if(minPosX < 0)
+                    cameraLookAtTarget.localPosition  =  Vector3.Lerp( cameraLookAtTarget.localPosition, new Vector3(minPosX,cameraLookAtTarget.localPosition .y,cameraLookAtTarget.localPosition.z),Time.deltaTime * (Mathf.Abs( cameraLookAtTarget.localPosition.x) - Mathf.Abs(minPosX)));
+                else
+                    cameraLookAtTarget.localPosition  =  Vector3.Lerp( cameraLookAtTarget.localPosition, new Vector3(minPosX,cameraLookAtTarget.localPosition .y,cameraLookAtTarget.localPosition.z),Time.deltaTime * (Mathf.Abs( cameraLookAtTarget.localPosition.x) + Mathf.Abs(minPosX)));
+            }
+
+     
         if(cameraLookAtTarget.localPosition.y  > maxPosY)
-            cameraLookAtTarget.localPosition  =  Vector3.Lerp( cameraLookAtTarget.localPosition, new Vector3(cameraLookAtTarget.localPosition.x,maxPosY,cameraLookAtTarget.localPosition.z),Time.deltaTime * (cameraLookAtTarget.localPosition.y - Mathf.Abs(maxPosY)));
-        if(cameraLookAtTarget.localPosition.y  < minPosY)
-            cameraLookAtTarget.localPosition  =  Vector3.Lerp( cameraLookAtTarget.localPosition, new Vector3(cameraLookAtTarget.localPosition.x,minPosY,cameraLookAtTarget.localPosition.z),Time.deltaTime * (Mathf.Abs(cameraLookAtTarget.localPosition.y) - Mathf.Abs(minPosY)));
+        {
+            if(maxPosY > 0)
+                cameraLookAtTarget.localPosition  =  Vector3.Lerp( cameraLookAtTarget.localPosition, new Vector3(cameraLookAtTarget.localPosition.x,maxPosY,cameraLookAtTarget.localPosition.z),Time.deltaTime * (cameraLookAtTarget.localPosition.y - Mathf.Abs(maxPosY)));
+            else
+                cameraLookAtTarget.localPosition  =  Vector3.Lerp( cameraLookAtTarget.localPosition, new Vector3(cameraLookAtTarget.localPosition.x,maxPosY,cameraLookAtTarget.localPosition.z),Time.deltaTime * (cameraLookAtTarget.localPosition.y + Mathf.Abs(maxPosY)));
+
         }
+        if(cameraLookAtTarget.localPosition.y  < minPosY)
+        {
+            if(minPosY < 0)
+                cameraLookAtTarget.localPosition  =  Vector3.Lerp( cameraLookAtTarget.localPosition, new Vector3(cameraLookAtTarget.localPosition.x,minPosY,cameraLookAtTarget.localPosition.z),Time.deltaTime * (Mathf.Abs(cameraLookAtTarget.localPosition.y) - Mathf.Abs(minPosY)));
+            else
+                cameraLookAtTarget.localPosition  =  Vector3.Lerp( cameraLookAtTarget.localPosition, new Vector3(cameraLookAtTarget.localPosition.x,minPosY,cameraLookAtTarget.localPosition.z),Time.deltaTime * (Mathf.Abs(cameraLookAtTarget.localPosition.y) + Mathf.Abs(minPosY)));
+
+        }
+        }
+        
      }
 
 }

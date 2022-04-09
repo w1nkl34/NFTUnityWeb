@@ -41,6 +41,22 @@ public class WorkerInventoryController : MonoBehaviour
         }
     }
 
+    public void DestroySpecificWorker(string workerDocId)
+    {
+        int count = 0;
+        foreach(Transform child in workerMain.transform.parent)
+            {
+                if(count != 0)
+                if(child.GetComponent<WorkerHolder>().worker.docId == workerDocId)
+                {
+                    Destroy(child.gameObject);
+                    break;
+                }
+                count++;
+
+            }
+    }
+
      IEnumerator GetTexture(Workers worker) {
 
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(worker.url);

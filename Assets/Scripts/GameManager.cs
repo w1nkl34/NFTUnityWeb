@@ -11,13 +11,11 @@ public class GameManager : MonoBehaviour
     public WorkerInventoryController workerInventoryController;
     public WorkerBuildingController workerBuildingController;
     public InventoryController inventoryController;
-    public GameObject bottomNavigationBar;
     public GameObject loadingBar;
-
     public GameObject connecttingBar;
-
     public TownManager tm;
-
+    public WorldManager wm;
+    public CameraController cameraController;
 
     private void Awake() 
     {
@@ -45,9 +43,10 @@ public class GameManager : MonoBehaviour
         workerBuildingController.GenerateWorkerCreate();
         inventoryController.GenerateItems();
         townScene.SetActive(true);
-        bottomNavigationBar.SetActive(true);
         townScene.GetComponent<TownManager>().GenerateTown();
         uIController.GenerateUserData();
+        CheckAllBuildingsUpgrade();
+
     }
 
     public void GetUser(string json)
@@ -59,6 +58,16 @@ public class GameManager : MonoBehaviour
         townScene.GetComponent<TownManager>().GenerateTown();
         uIController.GenerateUserData();
         OpenCloseLoadingBar(false);
+        CheckAllBuildingsUpgrade();
+     
+    }
+
+    public void CheckAllBuildingsUpgrade()
+    {
+        foreach(BuildingController buildingController in FindObjectsOfType<BuildingController>())
+        {
+            buildingController.CheckHasUpgrade();
+        }
     }
 
     public void CreateUser(string json)
@@ -125,7 +134,7 @@ public class GameManager : MonoBehaviour
                     DateTime date = (new DateTime(1970, 1, 1)).AddMilliseconds
                     (double.Parse(build["endTime"].ToString()));
 
-                                DateTime startDate = (new DateTime(1970, 1, 1)).AddMilliseconds
+                    DateTime startDate = (new DateTime(1970, 1, 1)).AddMilliseconds
                     (double.Parse(build["startTime"].ToString()));
                     BuildingUpgrade buildingUpgrade1 = new BuildingUpgrade();
                     buildingUpgrade1.endTime = date;
