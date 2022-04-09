@@ -32,16 +32,16 @@ public class UIController : MonoBehaviour
 
     public void LeaveZoneFocus()
     {
-        gm.cameraController.ChangeWorldMode();
+        gm.cameraController.LeaveFromFocusZone();
         bottomLeaveZoneFocus.SetActive(false);
         bottomNavigationBar.SetActive(true);
         gm.wm.ChangeZoneFocus(true);
         if(gm.wm.selectedMainZone != null)
         gm.wm.selectedMainZone.zones.SetActive(false);
-        StartCoroutine(focusWorlZoneFalse());
+        StartCoroutine(FocusWorldZoneFalse());
 
     }
-    public IEnumerator focusWorlZoneFalse()
+    public IEnumerator FocusWorldZoneFalse()
     {
         yield return new WaitForSeconds(0.05f);
         gm.cameraController.focusWorldZone = false;

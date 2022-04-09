@@ -28,19 +28,80 @@ public class CameraController : MonoBehaviour
      float minPosX = -19;
      float maxPosY = 4;
      float minPosY = -12;
-     float lastZoomValue = -40;
+     public float lastZoomValue = -30;
+
+     public float lastFocusZoomValue = -14;
      float cameraSpeedX  = 0.035f;
      float cameraSpeedY = 0.035f;
      public bool focusWorldZone = false;
 
+
+     public void ChangeToFocusZone(RaycastHit hit)
+     {
+                  float tempValue = cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z;
+
+                    int toAddX = 4;
+                    bool isLarge = false;
+                    if(hit.collider.gameObject.GetComponent<MainZoneController>() != null)
+                    {
+                    gm.wm.selectedMainZone = hit.collider.gameObject.GetComponent<MainZoneController>();
+                    gm.wm.selectedMainZone.GenerateZones();
+                    if(hit.collider.gameObject.GetComponent<MainZoneController>().isLarge == true)
+                    isLarge = true;
+                    }
+                    gm.wm.ChangeZoneFocus(false);
+                    focusWorldZone = true;
+                    gm.uIController.OpenZoneFocus();
+                    minZoomValue = -14;
+                    maxZoomValue = -14;
+                    cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = 
+                    new Vector3(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x,  cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y,
+                    lastFocusZoomValue); 
+                    cameraLookAtTargetWorld.transform.position = new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,cameraLookAtTarget.transform.position.z);
+                    if(isLarge)
+                    toAddX = 6;
+                    maxPosX = cameraLookAtTargetWorld.transform.localPosition.x + toAddX;
+                    minPosX = cameraLookAtTargetWorld.transform.localPosition.x - toAddX;
+                    maxPosY = cameraLookAtTargetWorld.transform.localPosition.y +2;
+                    minPosY = cameraLookAtTargetWorld.transform.localPosition.y -2;
+                             lastFocusZoomValue = tempValue;
+
+     }
+
+     public void LeaveFromFocusZone()
+     {
+         float tempValue = cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z;
+        cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = 
+            new Vector3(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x,  cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y,
+            lastFocusZoomValue);
+
+            cm.GetCinemachineComponent<CinemachineTransposer>().m_XDamping = 0.1f;
+            cm.GetCinemachineComponent<CinemachineTransposer>().m_YDamping = 0.1f;
+            cm.m_Follow = cameraLookAtTargetWorld;
+            cm.m_LookAt = cameraLookAtTargetWorld;
+            minZoomValue = -30;
+            maxZoomValue = -20;
+            maxPosX = 24;
+            minPosX = -24;
+            maxPosY = 16;
+            minPosY = -8;
+            cameraSpeedY = 0.03f;
+            cameraSpeedX = 0.03f;
+         lastFocusZoomValue = tempValue;
+
+
+     }
+
      public void ChangeWorldMode()
      {
          float tempValue = cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z;
+         
          if(!Constants.onWorldMap)
          {
             cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = 
             new Vector3(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x,  cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y,
             lastZoomValue);
+           
             cm.GetCinemachineComponent<CinemachineTransposer>().m_XDamping = 0.1f;
             cm.GetCinemachineComponent<CinemachineTransposer>().m_YDamping = 0.1f;
             cm.m_Follow = cameraLookAtTarget;
@@ -63,7 +124,7 @@ public class CameraController : MonoBehaviour
             cm.GetCinemachineComponent<CinemachineTransposer>().m_YDamping = 0.1f;
             cm.m_Follow = cameraLookAtTargetWorld;
             cm.m_LookAt = cameraLookAtTargetWorld;
-            minZoomValue = -40;
+            minZoomValue = -30;
             maxZoomValue = -20;
             maxPosX = 24;
             minPosX = -24;
@@ -72,7 +133,6 @@ public class CameraController : MonoBehaviour
             cameraSpeedY = 0.03f;
             cameraSpeedX = 0.03f;
          }
-         if(!focusWorldZone)
          lastZoomValue = tempValue;
      }
  
@@ -195,30 +255,7 @@ public class CameraController : MonoBehaviour
                 {
                 if(hit.collider.gameObject.tag == "worldZone" && !focusWorldZone )  
                 {
-                    int toAddX = 4;
-                    bool isLarge = false;
-                    if(hit.collider.gameObject.GetComponent<MainZoneController>() != null)
-                    {
-                    gm.wm.selectedMainZone = hit.collider.gameObject.GetComponent<MainZoneController>();
-                    gm.wm.selectedMainZone.GenerateZones();
-                    if(hit.collider.gameObject.GetComponent<MainZoneController>().isLarge == true)
-                    isLarge = true;
-                    }
-                    gm.wm.ChangeZoneFocus(false);
-                    focusWorldZone = true;
-                    gm.uIController.OpenZoneFocus();
-                    minZoomValue = -14;
-                    maxZoomValue = -8;
-                    cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = 
-                    new Vector3(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x,  cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y,
-                    -14); 
-                    cameraLookAtTargetWorld.transform.position = new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,cameraLookAtTarget.transform.position.z);
-                    if(isLarge)
-                    toAddX = 6;
-                    maxPosX = cameraLookAtTargetWorld.transform.localPosition.x + toAddX;
-                    minPosX = cameraLookAtTargetWorld.transform.localPosition.x - toAddX;
-                    maxPosY = cameraLookAtTargetWorld.transform.localPosition.y +2;
-                    minPosY = cameraLookAtTargetWorld.transform.localPosition.y -2;
+                   ChangeToFocusZone(hit);
                 }
                 }
                 }
@@ -286,7 +323,7 @@ public class CameraController : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Moved)
             {
-                cameraLookAtTarget.position += new Vector3(- touch.deltaPosition.x * cameraSpeedX * (1 - ((float)0.4 - Mathf.Abs(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z)/ 100)), - touch.deltaPosition.y * cameraSpeedY * (1 - ((float)0.4 - (Mathf.Abs(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z)/ 100))));
+                cameraLookAtTarget.position += new Vector3(- touch.deltaPosition.x * cameraSpeedX * (1 - ((float)0.4 - Mathf.Abs(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z)/ 250)), - touch.deltaPosition.y * cameraSpeedY * (1 - ((float)0.4 - (Mathf.Abs(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z)/ 250))));
             }
          }
        
