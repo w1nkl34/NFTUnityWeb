@@ -8213,7 +8213,10 @@ MonoBehaviour:
   cm: {fileID: 1675658148}
   cameraLookAtTarget: {fileID: 431947395}
   cameraLookAtTargetWorld: {fileID: 1402456554}
+  lastZoomValue: -30
+  lastFocusZoomValue: -14
   focusWorldZone: 0
+  leanTweenType: 6
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0

@@ -27,11 +27,16 @@ public class UIController : MonoBehaviour
 
     public void ChangeWorldMode()
     {
+        if (!Constants.onFade)
+        {
         FadeStart();
+        }
     }
 
     public void LeaveZoneFocus()
     {
+        if(Constants.onFade == false)
+        {
         gm.cameraController.LeaveFromFocusZone();
         bottomLeaveZoneFocus.SetActive(false);
         bottomNavigationBar.SetActive(true);
@@ -39,7 +44,7 @@ public class UIController : MonoBehaviour
         if(gm.wm.selectedMainZone != null)
         gm.wm.selectedMainZone.zones.SetActive(false);
         StartCoroutine(FocusWorldZoneFalse());
-
+        }
     }
     public IEnumerator FocusWorldZoneFalse()
     {
@@ -115,25 +120,30 @@ public class UIController : MonoBehaviour
 
     public void OpenInventory()
     {
+    
         backgroundNoSafeArea.SetActive(true);
         inventory.SetActive(true);
                 Constants.onMenu = true;
+        
 
     }
 
     public void CloseInventory()
     {
+         
         backgroundNoSafeArea.SetActive(false);
         inventory.SetActive(false);
-                Constants.onMenu = false;
+        Constants.onMenu = false;
+        
 
     }
 
     public void CloseBuildingMainTab()
     {
+      
         backgroundNoSafeArea.SetActive(false);
         currentBuildingMainTab.SetActive(false);
-                Constants.onMenu = false;
+        Constants.onMenu = false;
 
     }
 

@@ -35,11 +35,15 @@ public class CameraController : MonoBehaviour
      float cameraSpeedY = 0.035f;
      public bool focusWorldZone = false;
 
+     public LeanTweenType leanTweenType;
+
 
      public void ChangeToFocusZone(RaycastHit hit)
      {
+         if( !Constants.onFade)
+         {
                   float tempValue = cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z;
-
+                    Constants.onFade = true;
                     int toAddX = 4;
                     bool isLarge = false;
                     if(hit.collider.gameObject.GetComponent<MainZoneController>() != null)
@@ -54,26 +58,51 @@ public class CameraController : MonoBehaviour
                     gm.uIController.OpenZoneFocus();
                     minZoomValue = -14;
                     maxZoomValue = -14;
-                    cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = 
+                    
+
+               float startOffset = cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z;
+             LeanTween.value(cm.GetCinemachineComponent<CinemachineTransposer>().gameObject, startOffset, lastFocusZoomValue, 0.25f).setOnUpdate((float val) =>
+            {
+                 cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = 
                     new Vector3(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x,  cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y,
-                    lastFocusZoomValue); 
-                    cameraLookAtTargetWorld.transform.position = new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,cameraLookAtTarget.transform.position.z);
+                    val); 
+             }).setOnComplete(CameraFadeEnd).setEase(leanTweenType);
+
+                    Vector3 startPos = cameraLookAtTargetWorld.transform.position;
+                    LeanTween.value(cameraLookAtTargetWorld.gameObject, startPos, new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,cameraLookAtTargetWorld.transform.position.z), 0.25f).setOnUpdate((Vector3 val) =>
+                    {
+                         cameraLookAtTargetWorld.transform.position =
+                       val; 
+                    }).setOnComplete(CameraFadeEnd).setEase(leanTweenType);
+                    
                     if(isLarge)
                     toAddX = 6;
-                    maxPosX = cameraLookAtTargetWorld.transform.localPosition.x + toAddX;
-                    minPosX = cameraLookAtTargetWorld.transform.localPosition.x - toAddX;
-                    maxPosY = cameraLookAtTargetWorld.transform.localPosition.y +2;
-                    minPosY = cameraLookAtTargetWorld.transform.localPosition.y -2;
-                             lastFocusZoomValue = tempValue;
-
+                    maxPosX = hit.collider.transform.localPosition.x + toAddX;
+                    minPosX = hit.collider.transform.localPosition.x - toAddX;
+                    maxPosY = hit.collider.transform.localPosition.y +2;
+                    minPosY = hit.collider.transform.localPosition.y -2;
+                    lastFocusZoomValue = tempValue;
+         }
      }
+
+     public void CameraFadeEnd()
+     {
+         Constants.onFade = false;
+     }
+
 
      public void LeaveFromFocusZone()
      {
+
          float tempValue = cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z;
-        cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = 
-            new Vector3(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x,  cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y,
-            lastFocusZoomValue);
+            Constants.onFade = true;
+            float startOffset = cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z;
+             LeanTween.value(cm.GetCinemachineComponent<CinemachineTransposer>().gameObject, startOffset, lastFocusZoomValue, 0.25f).setOnUpdate((float val) =>
+            {
+                 cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = 
+                    new Vector3(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x,  cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y,
+                    val); 
+             }).setOnComplete(CameraFadeEnd).setEase(leanTweenType);
 
             cm.GetCinemachineComponent<CinemachineTransposer>().m_XDamping = 0.1f;
             cm.GetCinemachineComponent<CinemachineTransposer>().m_YDamping = 0.1f;
@@ -214,7 +243,7 @@ public class CameraController : MonoBehaviour
 
      public void OnClickHandle()
      {
-        if(!Constants.onMenu)
+        if(!Constants.onMenu && !Constants.onFade)
         {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -224,12 +253,22 @@ public class CameraController : MonoBehaviour
             {
                 if(!dragging)
                 {
-                if(Input.GetMouseButtonUp(0))
+                if(Input.GetMouseButtonUp(0) && !Constants.onFade)
                 {
-                gm.tm.ManageColliderHit(hit);
+                    gm.tm.ManageColliderHit(hit);
                 if(hit.collider.gameObject.tag != "onClickOpen" && hit.collider.gameObject.tag != "onClickUpgrade"  && hit.collider.gameObject.tag != "onClickInfo" )  
-                cameraLookAtTarget.transform.position = new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,cameraLookAtTarget.transform.position.z);
+                {
+
+                    Vector3 startPos = cameraLookAtTarget.transform.position;
+                    LeanTween.value(cameraLookAtTarget.gameObject, startPos, new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,cameraLookAtTarget.transform.position.z), 0.25f).setOnUpdate((Vector3 val) =>
+                    {
+                         cameraLookAtTarget.transform.position =
+                       val; 
+                    }).setOnComplete(CameraFadeEnd).setEase(leanTweenType);
+                    
                 }
+                    
+                    }
                 }
             }
         }
@@ -241,7 +280,7 @@ public class CameraController : MonoBehaviour
 
      public void OnClickHandleWorld()
      {
-        if(!Constants.onMenu)
+        if(!Constants.onMenu && !Constants.onFade)
         {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -314,7 +353,7 @@ public class CameraController : MonoBehaviour
     }
      public void CameraMovement(Transform cameraLookAtTarget)
      {
-         if(!Constants.onMenu)   
+         if(!Constants.onMenu && !Constants.onFade)   
         {
             CameraZoom();
 
@@ -323,7 +362,10 @@ public class CameraController : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Moved)
             {
-                cameraLookAtTarget.position += new Vector3(- touch.deltaPosition.x * cameraSpeedX * (1 - ((float)0.4 - Mathf.Abs(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z)/ 250)), - touch.deltaPosition.y * cameraSpeedY * (1 - ((float)0.4 - (Mathf.Abs(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z)/ 250))));
+                if(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z >=-14)
+                cameraLookAtTarget.position += new Vector3(- touch.deltaPosition.x * cameraSpeedX * (float)0.5, - touch.deltaPosition.y * cameraSpeedY *(float)0.5);
+                else
+                cameraLookAtTarget.position += new Vector3(- touch.deltaPosition.x * cameraSpeedX * (1 - ((float)0.4 - Mathf.Abs(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z)/ 100)), - touch.deltaPosition.y * cameraSpeedY * (1 - ((float)0.4 - (Mathf.Abs(cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z)/ 100))));
             }
          }
        
