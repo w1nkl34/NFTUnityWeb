@@ -41,7 +41,7 @@ public  class FirebaseApi : MonoBehaviour
                     }
                     if(buildingName.ToString() == "workerHome")
                     {
-                        Constants.currentUser.workerCapacity +=1;
+                        Constants.currentUser.workerHomeLevel +=1;
                     }
                     if(buildingName.ToString() == "warriorBuilding")
                     {
@@ -167,6 +167,14 @@ public  class FirebaseApi : MonoBehaviour
                 Constants.currentUser.inventoryItems.summonCrystal -= summonCrystal;
                 Constants.currentUser.inventoryItems.legendarySummonCrystal -= legendarySummonCrystal;
                 gm.workerInventoryController.DestroySpecificWorker(workerDocId);
+                for(int i = 0; i< Constants.workersData.Count; i++)
+                {
+                        if(Constants.workersData[i].docId == workerDocId)
+                        {
+                            Constants.workersData.RemoveAt(i);
+                            Constants.workerSprites.RemoveAt(i);
+                        }
+                }
                 gm.inventoryController.GenerateItems();
                 popUpController.CloseAllPops();
                 gm.OpenCloseLoadingBar(false);

@@ -17,15 +17,11 @@ public class PopUpUpgradeBuilding : MonoBehaviour
     public Button upgradeButton;
     public void ClosePop()
     {
+        FindObjectOfType<UIController>().SetOnMenuToFalseCorCall();
         gameObject.SetActive(false);
-        StartCoroutine(SetOnMenuToFalse());
     }
 
-    public IEnumerator SetOnMenuToFalse()
-    {
-        yield return new WaitForSeconds(0.05f);
-        Constants.onMenu = false;
-    }
+
 
     public void ResetUpgradeBuildingRequiredItems()
     {
@@ -71,7 +67,7 @@ public class PopUpUpgradeBuilding : MonoBehaviour
         currentBuildingLevel = Constants.currentUser.mainTowerLevel;
 
         if(buildingName == "workerHome")
-        currentBuildingLevel = Constants.currentUser.workerCapacity;
+        currentBuildingLevel = Constants.currentUser.workerHomeLevel;
 
         int requiredMainTowerLevel = 0;
         List<Dictionary<string,object>> price = new List<Dictionary<string,object>>();

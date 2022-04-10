@@ -15,6 +15,7 @@ TagManager:
   - mainTower
   - workerHome
   - worldZone
+  - field
   layers:
   - Default
   - TransparentFX

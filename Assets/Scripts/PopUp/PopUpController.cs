@@ -13,6 +13,14 @@ public class PopUpController : MonoBehaviour
     public PopUpDestroyWorker popUpDestroyWorker;
     public PopUpWorkerSummonDecline popUpWorkerSummonDecline;
 
+    public PopUpZoneAccessRequiredMainTowerLevel popUpZoneAccessRequiredMainTowerLevel;
+
+    public UIController uIController;
+
+    public PopUpWorkProductionController popUpWorkProductionController;
+
+    public PopUpBattleController popUpBattleController;
+
 
     public void OpenInfoPop(string message)
     {
@@ -21,9 +29,29 @@ public class PopUpController : MonoBehaviour
         popUpInfo.gameObject.SetActive(true);
     }
 
+    public void OpenProductionPop()
+    {
+        Constants.onMenu = true;
+        popUpWorkProductionController.gameObject.SetActive(true);
+    }
+
+    public void OpenBattlePop()
+    {
+        Constants.onMenu = true;
+        popUpBattleController.gameObject.SetActive(true);
+    }
+
+    public void OpenZoneAccessRequiredMainTowerLevelPop()
+    {
+        Constants.onMenu = true;
+        popUpZoneAccessRequiredMainTowerLevel.gameObject.SetActive(true);
+    }
+
 
     public void CloseAllPops()
     {
+        popUpZoneAccessRequiredMainTowerLevel.gameObject.SetActive(false);
+        popUpBattleController.gameObject.SetActive(false);
         popUpUpgradeBuilding.gameObject.SetActive(false);
         popUpSummonWorker.gameObject.SetActive(false);
         popUpWorkerDetail.gameObject.SetActive(false);
@@ -31,14 +59,11 @@ public class PopUpController : MonoBehaviour
         popUpSellNFT.gameObject.SetActive(false);
         popUpDestroyWorker.gameObject.SetActive(false);
         popUpWorkerSummonDecline.gameObject.SetActive(false);
-        StartCoroutine(SetOnMenuToFalse());
+        popUpWorkProductionController.gameObject.SetActive(false);
+        Constants.onMenu = false;
+        // uIController.SetOnMenuToFalseCorCall();
     }
 
-    public IEnumerator SetOnMenuToFalse()
-    {
-        yield return new WaitForSeconds(0.05f);
-        Constants.onMenu = false;
-    }
 
 
     public void OpenSummonWorkerDecline()

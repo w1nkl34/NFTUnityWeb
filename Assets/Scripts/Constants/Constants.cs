@@ -17,6 +17,12 @@ public static class Constants
 
       public static bool onWorldMap = false;
 
+      public static List<Sprite> workerSprites = new List<Sprite>();
+
+      public static List<Workers> workersData = new List<Workers>();
+
+      public static List<Zones> allZones = new List<Zones>();
+
       public static bool IsPointerOverUIObject() {
      PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
      eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);

@@ -8,13 +8,8 @@ public class PopUpInfo : MonoBehaviour
     public Text messageText;
     public void ClosePop()
     {
-        StartCoroutine(SetOnMenuToFalse());
+        FindObjectOfType<UIController>().SetOnMenuToFalseCorCall();
         gameObject.SetActive(false);
     }
 
-    public IEnumerator SetOnMenuToFalse()
-    {
-        yield return new WaitForSeconds(0.05f);
-        Constants.onMenu = false;
-    }
 }

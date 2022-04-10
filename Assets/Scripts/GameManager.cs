@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public TownManager tm;
     public WorldManager wm;
     public CameraController cameraController;
+    public PopUpController popUpController;
 
     private void Awake() 
     {
@@ -33,17 +34,10 @@ public class GameManager : MonoBehaviour
         if(value)
         Constants.onMenu = true;
         else
-        StartCoroutine(SetOnMenuToFalse());
+        uIController.SetOnMenuToFalseCorCall();
+
     }
 
-
-
-    public IEnumerator SetOnMenuToFalse()
-    {
-        yield return new WaitForSeconds(0.05f);
-        Constants.onMenu = false;
-    }
-    
 
     public void StartTown(string json)
     {
@@ -54,6 +48,7 @@ public class GameManager : MonoBehaviour
         townScene.SetActive(true);
         townScene.GetComponent<TownManager>().GenerateTown();
         uIController.GenerateUserData();
+        wm.GenerateZones();
         CheckAllBuildingsUpgrade();
 
     }
@@ -87,7 +82,7 @@ public class GameManager : MonoBehaviour
         int mainTowerLevel = int.Parse(playerData["mainTower"].ToString());
         int stoneDepositLevel = int.Parse(playerData["stoneDeposit"].ToString());
         int woodDepositLevel = int.Parse(playerData["woodDeposit"].ToString());
-        int workerCapacity = int.Parse(playerData["workerCapacity"].ToString());
+        int workerHome = int.Parse(playerData["workerHome"].ToString());
         int workerBuildingLevel = playerData.ContainsKey("workerBuilding") ? int.Parse(playerData["workerBuilding"].ToString()) : 0;
         int warriorBuildingLevel = playerData.ContainsKey("warriorBuilding") ? int.Parse(playerData["warriorBuilding"].ToString()) : 0;
         float peridotShardCount = float.Parse(playerData["peridotShard"].ToString());
@@ -179,6 +174,35 @@ public class GameManager : MonoBehaviour
             
 
         }
+
+        if(jsonData.ContainsKey("zoneData"))
+        {
+            Constants.allZones = new List<Zones>();
+            List<Dictionary<string, object>> allZones = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(jsonData["zoneData"].ToString());   
+            foreach(Dictionary<string, object> zone in allZones)
+            {
+                Zones newZone = new Zones();
+                List<Field> allFieldsToAdd = new List<Field>();
+                newZone.zoneName = zone["name"].ToString();
+                newZone.zoneIndex = int.Parse(zone["zoneIndex"].ToString());
+                newZone.requiredMainTowerLevel = int.Parse(zone["requiredMainTowerLevel"].ToString());
+                List<Dictionary<string,object>> allFields = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(zone["fieldsData"].ToString());
+                foreach(Dictionary<string, object> field in allFields)
+                {
+                    Field newFiled = new Field();
+                    newFiled.fieldType = field["fieldType"].ToString();
+                    if(newFiled.fieldType == "production")
+                    {
+                    newFiled.productItem = field["productItem"].ToString();
+                    }
+                    allFieldsToAdd.Add(newFiled);
+                }
+                newZone.fields = allFieldsToAdd;
+                Constants.allZones.Add(newZone);
+            }
+
+        }
+
         if(jsonData.ContainsKey("buildingsData"))
         {
             Constants.allBuildings = new List<Buildings>();
@@ -227,7 +251,7 @@ public class GameManager : MonoBehaviour
                 Constants.allBuildings.Add(newBuilding);
             }
         }
-        Constants.currentUser = new User(mainTowerLevel,stoneDepositLevel,woodDepositLevel,workerCapacity,
+        Constants.currentUser = new User(mainTowerLevel,stoneDepositLevel,woodDepositLevel,workerHome,
         workerBuildingLevel,warriorBuildingLevel,peridotShardCount,stoneCount,woodCount,workers,inventoryItems,buildingUpgrades);
     }
 }

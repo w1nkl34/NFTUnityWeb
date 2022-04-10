@@ -8,7 +8,6 @@ public class WorkerInventoryController : MonoBehaviour
 {
 
     public GameObject workerMain;
-
     public GameObject loadingWidget;
     private int currentWorkerCount = 0;
     private int totalWorkerCount = 0;
@@ -26,6 +25,8 @@ public class WorkerInventoryController : MonoBehaviour
     public IEnumerator GenerateWorkers()
     {
         StopAllCoroutines();
+        Constants.workerSprites = new List<Sprite>();
+         Constants.workersData = new List<Workers>();
         ResetAllImages();
         GenerateWorkersFaster();
         yield return null;
@@ -53,7 +54,6 @@ public class WorkerInventoryController : MonoBehaviour
                     break;
                 }
                 count++;
-
             }
     }
 
@@ -67,8 +67,9 @@ public class WorkerInventoryController : MonoBehaviour
         else {
             Texture2D myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             Sprite mySprite = Sprite.Create(myTexture, new Rect(0.0f, 0.0f, myTexture.width, myTexture.height), new Vector2(0.5f, 0.5f), 100.0f);
+            Constants.workerSprites.Add(mySprite);
+            Constants.workersData.Add(worker);
             GameObject newImage = Instantiate(workerMain.gameObject,workerMain.transform.parent);
-
             newImage.GetComponent<WorkerHolder>().workerImage.sprite = mySprite;
             WorkerHolder workerHolder = newImage.GetComponent<WorkerHolder>();
             workerHolder.worker = new Workers();

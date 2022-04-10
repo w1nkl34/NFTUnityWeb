@@ -97,7 +97,7 @@ public class TownManager : MonoBehaviour
         woodDepositLevelText.text = Constants.currentUser.woodDepositLevel.ToString();
         workerBuildingLevelText.text = Constants.currentUser.workerBuildingLevel.ToString();
         warriorBuildingLevelText.text = Constants.currentUser.warriorBuildingLevel.ToString();
-        workerHomeLevelText.text = Constants.currentUser.workerCapacity.ToString();
+        workerHomeLevelText.text = Constants.currentUser.workerHomeLevel.ToString();
         mainTower.SetActive(true);
         stoneDeposit.SetActive(true);
         woodDeposit.SetActive(true);

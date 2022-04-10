@@ -117,8 +117,12 @@ public class UIController : MonoBehaviour
     {
         backgroundNoSafeArea.SetActive(false);
         workerInventory.SetActive(false);
-        StartCoroutine(SetOnMenuToFalse());
+        SetOnMenuToFalseCorCall();
+    }
 
+    public void SetOnMenuToFalseCorCall()
+    {
+        StartCoroutine(SetOnMenuToFalse());
     }
 
     public IEnumerator SetOnMenuToFalse()
@@ -132,7 +136,7 @@ public class UIController : MonoBehaviour
     
         backgroundNoSafeArea.SetActive(true);
         inventory.SetActive(true);
-                Constants.onMenu = true;
+        Constants.onMenu = true;
         
 
     }
@@ -142,7 +146,7 @@ public class UIController : MonoBehaviour
          
         backgroundNoSafeArea.SetActive(false);
         inventory.SetActive(false);
-        StartCoroutine(SetOnMenuToFalse());
+        SetOnMenuToFalseCorCall();
 
     }
     
@@ -152,8 +156,7 @@ public class UIController : MonoBehaviour
       
         backgroundNoSafeArea.SetActive(false);
         currentBuildingMainTab.SetActive(false);
-        StartCoroutine(SetOnMenuToFalse());
-
+        SetOnMenuToFalseCorCall();
 
     }
 

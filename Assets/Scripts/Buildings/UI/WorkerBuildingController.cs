@@ -13,7 +13,7 @@ public class WorkerBuildingController : MonoBehaviour
 
    public void OpenSummonWorkerPopUp(string title,int index,List<Dictionary<string,object>> input)
    {
-      if(Constants.currentUser.workers.Count < Constants.currentUser.workerCapacity)
+      if(Constants.currentUser.workers.Count < Constants.currentUser.workerHomeLevel)
       FindObjectOfType<PopUpController>().OpenSummonWorker(title,index,input);
       else
       FindObjectOfType<PopUpController>().OpenSummonWorkerDecline();

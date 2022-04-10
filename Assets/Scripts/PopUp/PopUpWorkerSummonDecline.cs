@@ -8,7 +8,7 @@ public class PopUpWorkerSummonDecline : MonoBehaviour
     public Text limitText;
     public void OpenSummonWorkerDecline()
     {
-        limitText.text = Constants.currentUser.workers.Count.ToString() + "/" + Constants.currentUser.workerCapacity.ToString();
+        limitText.text = Constants.currentUser.workers.Count.ToString() + "/" + Constants.currentUser.workerHomeLevel.ToString();
     }
 
     public void ClosePop()

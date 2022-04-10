@@ -296,8 +296,21 @@ public class CameraController : MonoBehaviour
                 {
                 if(hit.collider.gameObject.tag == "worldZone" && !focusWorldZone )  
                 {
-                   ChangeToFocusZone(hit);
+                    if(Constants.currentUser.mainTowerLevel < hit.collider.gameObject.GetComponent<MainZoneController>().zoneData.requiredMainTowerLevel)
+                    {
+                        gm.popUpController.popUpZoneAccessRequiredMainTowerLevel.OpenZoneAccess(hit.collider.gameObject.GetComponent<MainZoneController>().zoneData.requiredMainTowerLevel.ToString());
+                        gm.popUpController.OpenZoneAccessRequiredMainTowerLevelPop();
+                    }
+                    else
+                    ChangeToFocusZone(hit);
                 }
+                    if(hit.collider.gameObject.tag == "field")
+                    {
+                        if(hit.collider.GetComponent<FieldController>() != null)
+                        {
+                            hit.collider.GetComponent<FieldController>().OpenProductDetails();
+                        }
+                    }
                 }
                 }
             }

@@ -128,7 +128,7 @@ public class BuildingController : MonoBehaviour
 
         if(buildingType.ToString() == "workerHome")
         {
-            currentBuildingLevel = Constants.currentUser.mainTowerLevel;
+            currentBuildingLevel = Constants.currentUser.workerHomeLevel;
             foreach(Transform child in GameObject.FindGameObjectWithTag("workerHome").transform)
             {
                 child.GetComponent<SpriteRenderer>().material = townManager.selectedMaterial;
@@ -158,6 +158,7 @@ public class BuildingController : MonoBehaviour
                 }
                 if(currentBuildingLevel == Constants.allBuildings[a].maxLevel)
                 {
+                                   
                     upgradeClick.SetActive(false);
                     openClick.transform.localPosition = new Vector3(-1,0,0);
                     infoClick.transform.localPosition = new Vector3(1,0,0);
@@ -169,6 +170,7 @@ public class BuildingController : MonoBehaviour
                 }
                 else
                 {
+                   
                     upgradeClick.SetActive(true);
                     openClick.transform.localPosition = new Vector3(-2,0,0); 
                     infoClick.transform.localPosition = new Vector3(2,0,0);
