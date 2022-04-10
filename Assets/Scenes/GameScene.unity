@@ -2424,7 +2424,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 7.59, y: 12, z: 3}
-  m_Center: {x: -0.28, y: 2.49, z: 0}
+  m_Center: {x: -0.28, y: 2.49, z: 0.5}
 --- !u!114 &127460812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7754,7 +7754,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 11, y: 9, z: 3}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0.5}
 --- !u!114 &457710696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8267,7 +8267,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_LocalRotation: {x: -8.012338e-18, y: 0.0013444304, z: 1.0772039e-20, w: 0.9999991}
+  m_LocalRotation: {x: 8.012338e-18, y: 0.0013444304, z: -1.0772039e-20, w: 0.9999991}
   m_LocalPosition: {x: -0.10755434, y: -8.8, z: -56.999855}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -24449,7 +24449,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 12, y: 16.49, z: 3}
-  m_Center: {x: -1.04, y: 6.92, z: 0}
+  m_Center: {x: -1.04, y: 6.92, z: 0.5}
 --- !u!114 &1542735265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24830,7 +24830,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 6, y: 4.5, z: 5}
-  m_Center: {x: 0, y: 0.3, z: 0}
+  m_Center: {x: 0, y: 0.3, z: 0.5}
 --- !u!114 &1573867159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26277,7 +26277,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675658147}
-  m_LocalRotation: {x: -8.012338e-18, y: 0.0013444304, z: 1.0772039e-20, w: 0.9999991}
+  m_LocalRotation: {x: 8.012338e-18, y: 0.0013444304, z: -1.0772039e-20, w: 0.9999991}
   m_LocalPosition: {x: -0.10755434, y: -8.8, z: -56.999855}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -26849,7 +26849,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 9.62, y: 7.91, z: 3}
-  m_Center: {x: 0, y: 1.25, z: 0}
+  m_Center: {x: 0, y: 1.25, z: 0.5}
 --- !u!1 &1721503044
 GameObject:
   m_ObjectHideFlags: 0
@@ -32086,7 +32086,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10.69, y: 6, z: 3}
-  m_Center: {x: -0.39, y: 0, z: 0}
+  m_Center: {x: -0.39, y: 0, z: 0.5}
 --- !u!114 &2031236300
 MonoBehaviour:
   m_ObjectHideFlags: 0
