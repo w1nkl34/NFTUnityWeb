@@ -22,13 +22,21 @@ public class UIController : MonoBehaviour
     public GameObject fade;
     public GameObject bottomLeaveZoneFocus;
     public GameObject bottomNavigationBar;
+    public GameObject bottomNavigationBarNoSafeArea;
     public GameManager gm;
+    public GameObject bottomBarWorldIcon;
+    public Sprite worldIcon;
+    public Sprite townIcon;
 
 
     public void ChangeWorldMode()
     {
         if (!Constants.onFade)
         {
+            if(!Constants.onWorldMap)
+        bottomBarWorldIcon.GetComponent<Animator>().enabled = true;
+        bottomBarWorldIcon.GetComponent<Animator>().Rebind();
+        bottomBarWorldIcon.GetComponent<Animator>().Play("Anim",0);
         Constants.onFade = true;
         FadeStart();
         }
@@ -42,6 +50,7 @@ public class UIController : MonoBehaviour
         gm.cameraController.LeaveFromFocusZone();
         bottomLeaveZoneFocus.SetActive(false);
         bottomNavigationBar.SetActive(true);
+        bottomNavigationBarNoSafeArea.SetActive(true);
         gm.wm.ChangeZoneFocus(true);
         if(gm.wm.selectedMainZone != null)
         gm.wm.selectedMainZone.zones.SetActive(false);
@@ -59,6 +68,7 @@ public class UIController : MonoBehaviour
     {
         bottomLeaveZoneFocus.SetActive(true);
         bottomNavigationBar.SetActive(false);
+        bottomNavigationBarNoSafeArea.SetActive(false);
     }
 
     public void FadeStart()
@@ -90,15 +100,23 @@ public class UIController : MonoBehaviour
     {
         fade.gameObject.SetActive(false);
         Constants.onFade = false;
+        if(!Constants.onWorldMap)
+        bottomBarWorldIcon.GetComponent<Image>().sprite = worldIcon;
+        else
+        {
+        bottomBarWorldIcon.GetComponent<Animator>().enabled = false;
+        bottomBarWorldIcon.GetComponent<Image>().sprite = townIcon;
+        }
 
     }
 
     public void GenerateUserData()
     {
         bottomNavigationBar.SetActive(true);
-        stoneCountText.text = "Stone: " + Constants.currentUser.stoneCount.ToString();
-        woodCountText.text = "Wood: " + Constants.currentUser.woodCount.ToString();
-        peridotShardCountText.text = "Peridot: " + Constants.currentUser.peridotShardCount.ToString();
+        bottomNavigationBarNoSafeArea.SetActive(true);
+        stoneCountText.text = Constants.currentUser.stoneCount.ToString();
+        woodCountText.text = Constants.currentUser.woodCount.ToString();
+        peridotShardCountText.text = Constants.currentUser.peridotShardCount.ToString();
     }
 
     public void ShowAuthenticationScreen(bool what)
