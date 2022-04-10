@@ -24,7 +24,6 @@ public class PopUpController : MonoBehaviour
 
     public void CloseAllPops()
     {
-        Constants.onMenu = false;
         popUpUpgradeBuilding.gameObject.SetActive(false);
         popUpSummonWorker.gameObject.SetActive(false);
         popUpWorkerDetail.gameObject.SetActive(false);
@@ -32,7 +31,15 @@ public class PopUpController : MonoBehaviour
         popUpSellNFT.gameObject.SetActive(false);
         popUpDestroyWorker.gameObject.SetActive(false);
         popUpWorkerSummonDecline.gameObject.SetActive(false);
+        StartCoroutine(SetOnMenuToFalse());
     }
+
+    public IEnumerator SetOnMenuToFalse()
+    {
+        yield return new WaitForSeconds(0.05f);
+        Constants.onMenu = false;
+    }
+
 
     public void OpenSummonWorkerDecline()
     {

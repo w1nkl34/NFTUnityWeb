@@ -44,7 +44,7 @@ public class CameraController : MonoBehaviour
          {
                   float tempValue = cm.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z;
                     Constants.onFade = true;
-                    int toAddX = 4;
+                    int toAddX = 3;
                     bool isLarge = false;
                     if(hit.collider.gameObject.GetComponent<MainZoneController>() != null)
                     {
@@ -243,7 +243,7 @@ public class CameraController : MonoBehaviour
 
      public void OnClickHandle()
      {
-        if(!Constants.onMenu && !Constants.onFade)
+        if(!Constants.onMenu && !Constants.onFade && !Constants.IsPointerOverUIObject())
         {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -278,9 +278,11 @@ public class CameraController : MonoBehaviour
         }
      }
 
+
+
      public void OnClickHandleWorld()
      {
-        if(!Constants.onMenu && !Constants.onFade)
+        if(!Constants.onMenu && !Constants.onFade && !Constants.IsPointerOverUIObject())
         {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

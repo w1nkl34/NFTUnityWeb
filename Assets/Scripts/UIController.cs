@@ -29,14 +29,16 @@ public class UIController : MonoBehaviour
     {
         if (!Constants.onFade)
         {
+        Constants.onFade = true;
         FadeStart();
         }
     }
 
     public void LeaveZoneFocus()
     {
-        if(Constants.onFade == false)
+        if(!Constants.onFade)
         {
+        Constants.onFade = true;
         gm.cameraController.LeaveFromFocusZone();
         bottomLeaveZoneFocus.SetActive(false);
         bottomNavigationBar.SetActive(true);
@@ -49,6 +51,7 @@ public class UIController : MonoBehaviour
     public IEnumerator FocusWorldZoneFalse()
     {
         yield return new WaitForSeconds(0.05f);
+        Constants.onFade = false;
         gm.cameraController.focusWorldZone = false;
     }
 
@@ -69,7 +72,6 @@ public class UIController : MonoBehaviour
                  c.a = val;
                 r.color = c;
              }).setOnComplete(FadeEnd);
-
     }
 
     public void FadeEnd()
@@ -87,7 +89,8 @@ public class UIController : MonoBehaviour
     public void FinishFade()
     {
         fade.gameObject.SetActive(false);
-      
+        Constants.onFade = false;
+
     }
 
     public void GenerateUserData()
@@ -114,8 +117,14 @@ public class UIController : MonoBehaviour
     {
         backgroundNoSafeArea.SetActive(false);
         workerInventory.SetActive(false);
-                Constants.onMenu = false;
+        StartCoroutine(SetOnMenuToFalse());
 
+    }
+
+    public IEnumerator SetOnMenuToFalse()
+    {
+        yield return new WaitForSeconds(0.05f);
+        Constants.onMenu = false;
     }
 
     public void OpenInventory()
@@ -133,17 +142,18 @@ public class UIController : MonoBehaviour
          
         backgroundNoSafeArea.SetActive(false);
         inventory.SetActive(false);
-        Constants.onMenu = false;
-        
+        StartCoroutine(SetOnMenuToFalse());
 
     }
+    
 
     public void CloseBuildingMainTab()
     {
       
         backgroundNoSafeArea.SetActive(false);
         currentBuildingMainTab.SetActive(false);
-        Constants.onMenu = false;
+        StartCoroutine(SetOnMenuToFalse());
+
 
     }
 

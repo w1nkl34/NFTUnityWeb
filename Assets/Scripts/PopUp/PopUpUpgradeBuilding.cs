@@ -17,8 +17,14 @@ public class PopUpUpgradeBuilding : MonoBehaviour
     public Button upgradeButton;
     public void ClosePop()
     {
-        Constants.onMenu = false;
         gameObject.SetActive(false);
+        StartCoroutine(SetOnMenuToFalse());
+    }
+
+    public IEnumerator SetOnMenuToFalse()
+    {
+        yield return new WaitForSeconds(0.05f);
+        Constants.onMenu = false;
     }
 
     public void ResetUpgradeBuildingRequiredItems()

@@ -33,8 +33,17 @@ public class GameManager : MonoBehaviour
         if(value)
         Constants.onMenu = true;
         else
+        StartCoroutine(SetOnMenuToFalse());
+    }
+
+
+
+    public IEnumerator SetOnMenuToFalse()
+    {
+        yield return new WaitForSeconds(0.05f);
         Constants.onMenu = false;
     }
+    
 
     public void StartTown(string json)
     {
