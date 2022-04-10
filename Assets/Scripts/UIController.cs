@@ -25,6 +25,7 @@ public class UIController : MonoBehaviour
     public GameObject bottomNavigationBarNoSafeArea;
     public GameManager gm;
     public GameObject bottomBarWorldIcon;
+    public GameObject topBar;
     public Sprite worldIcon;
     public Sprite townIcon;
 
@@ -50,6 +51,7 @@ public class UIController : MonoBehaviour
         gm.cameraController.LeaveFromFocusZone();
         bottomLeaveZoneFocus.SetActive(false);
         bottomNavigationBar.SetActive(true);
+        topBar.SetActive(true);
         bottomNavigationBarNoSafeArea.SetActive(true);
         gm.wm.ChangeZoneFocus(true);
         if(gm.wm.selectedMainZone != null)
@@ -68,6 +70,7 @@ public class UIController : MonoBehaviour
     {
         bottomLeaveZoneFocus.SetActive(true);
         bottomNavigationBar.SetActive(false);
+                topBar.SetActive(false);
         bottomNavigationBarNoSafeArea.SetActive(false);
     }
 
@@ -113,6 +116,8 @@ public class UIController : MonoBehaviour
     public void GenerateUserData()
     {
         bottomNavigationBar.SetActive(true);
+                topBar.SetActive(true);
+
         bottomNavigationBarNoSafeArea.SetActive(true);
         stoneCountText.text = Constants.currentUser.stoneCount.ToString();
         woodCountText.text = Constants.currentUser.woodCount.ToString();
