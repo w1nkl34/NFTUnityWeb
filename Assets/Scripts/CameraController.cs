@@ -200,7 +200,7 @@ public class CameraController : MonoBehaviour
                 }
                 if(touch.phase == TouchPhase.Moved)
                 {
-                    if (startingPosition > touch.position.x && Mathf.Abs(startingPosition - touch.position.x) > 10)
+                    if (startingPosition > touch.position.x && Mathf.Abs(startingPosition - touch.position.x) > 25)
                         {
                             dragging = true;
                             if (touchposx > touch.position.x)
@@ -208,7 +208,7 @@ public class CameraController : MonoBehaviour
                             else
                                 startingPosition = touch.position.x;
                         }
-                        else if (startingPosition < touch.position.x && Mathf.Abs(startingPosition - touch.position.x) > 10)
+                        else if (startingPosition < touch.position.x && Mathf.Abs(startingPosition - touch.position.x) > 25)
                         {
                             dragging = true;
                             if (touchposx < touch.position.x)
@@ -218,7 +218,7 @@ public class CameraController : MonoBehaviour
 
                         }
 
-                        if (startingPositiony > touch.position.y && Mathf.Abs(startingPositiony - touch.position.y) > 10)
+                        if (startingPositiony > touch.position.y && Mathf.Abs(startingPositiony - touch.position.y) > 25)
                         {
 
                             dragging = true;
@@ -227,7 +227,7 @@ public class CameraController : MonoBehaviour
                             else
                                 startingPositiony = touch.position.y;
                         }
-                        else if (startingPositiony < touch.position.y && Mathf.Abs(startingPositiony - touch.position.y) > 10)
+                        else if (startingPositiony < touch.position.y && Mathf.Abs(startingPositiony - touch.position.y) > 25)
                         {
                             dragging = true;
                             if (touchposy < touch.position.y)

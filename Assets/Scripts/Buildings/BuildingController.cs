@@ -156,7 +156,7 @@ public class BuildingController : MonoBehaviour
                     infoClick.transform.localPosition = new Vector3(0,0,0);
                     break;     
                 }
-                if(currentBuildingLevel == Constants.allBuildings[a].maxLevel)
+                if(currentBuildingLevel >= Constants.allBuildings[a].maxLevel)
                 {
                                    
                     upgradeClick.SetActive(false);
