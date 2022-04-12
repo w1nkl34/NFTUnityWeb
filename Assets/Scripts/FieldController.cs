@@ -8,6 +8,7 @@ public class FieldController : MonoBehaviour
 
     GameManager gm;
     public Field field;
+    public Zones zone;
 
     public void Awake()
     {
@@ -24,7 +25,7 @@ public class FieldController : MonoBehaviour
         if(field.fieldType == "production")
         {
         gm.popUpController.OpenProductionPop();
-        gm.popUpController.popUpWorkProductionController.GenerateProduct(field);
+        gm.popUpController.popUpWorkProductionController.GenerateProduct(field,zone);
         }
         else
         {

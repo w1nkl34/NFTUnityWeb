@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public WorldManager wm;
     public CameraController cameraController;
     public PopUpController popUpController;
+    public PublicImages publicImages;
 
     private void Awake() 
     {
@@ -184,12 +185,14 @@ public class GameManager : MonoBehaviour
                 Zones newZone = new Zones();
                 List<Field> allFieldsToAdd = new List<Field>();
                 newZone.zoneName = zone["name"].ToString();
+                newZone.docId = zone["docId"].ToString();
                 newZone.zoneIndex = int.Parse(zone["zoneIndex"].ToString());
                 newZone.requiredMainTowerLevel = int.Parse(zone["requiredMainTowerLevel"].ToString());
                 List<Dictionary<string,object>> allFields = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(zone["fieldsData"].ToString());
                 foreach(Dictionary<string, object> field in allFields)
                 {
                     Field newFiled = new Field();
+                    newFiled.docId = field["docId"].ToString();
                     newFiled.fieldType = field["fieldType"].ToString();
                     if(newFiled.fieldType == "production")
                     {

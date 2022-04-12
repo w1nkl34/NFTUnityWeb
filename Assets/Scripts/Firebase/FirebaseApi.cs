@@ -13,6 +13,44 @@ public  class FirebaseApi : MonoBehaviour
     public TownManager tm;
     public UIController uIController;
 
+
+    public void WorkerToWork(string zoneDocId,string fieldDocId,string workerDocId,string times)
+    {
+        //         gm.OpenCloseLoadingBar(true);
+
+        //  var functions = FirebaseFunctions.DefaultInstance;
+        // var data = new Dictionary<string,object>();
+        // data["zoneDocId"] = zoneDocId;
+        // data["fieldDocId"] = fieldDocId;
+        // data["workerDocId"] = workerDocId;
+        // data["times"] = times;
+
+        // var function = functions.GetHttpsCallable("workerToWork");
+        // function.CallAsync(data).ContinueWithOnMainThread( (task) => {
+        //    if(task.IsCompleted)
+        //    {
+        //         string x =  JsonConvert.SerializeObject(task.Result.Data);
+        //         Debug.Log(x);
+        //        gm.OpenCloseLoadingBar(false);
+        //    }
+        // });
+
+
+         var functions = FirebaseFunctions.DefaultInstance;
+        var data = new Dictionary<string,object>();
+        String x = "6sl3ScM9S2g5hj9EHFKh";
+        data["workerWorkDocId"] = x;
+
+        var function = functions.GetHttpsCallable("workerToWorkCheck");
+        function.CallAsync(data).ContinueWithOnMainThread( (task) => {
+           if(task.IsCompleted)
+           {
+                string x =  JsonConvert.SerializeObject(task.Result.Data);
+                Debug.Log(x);
+           }
+        });
+    }
+
      public void CheckUpgradeBuildingFinished(Building buildingName) {
         var functions = FirebaseFunctions.DefaultInstance;
         var data = new Dictionary<string,object>();

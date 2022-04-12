@@ -21,6 +21,7 @@ public class MainZoneController : MonoBehaviour
         foreach(Transform child in fieldsParent.transform)
         {
             child.GetComponent<FieldController>().field = zoneData.fields[index];
+            child.GetComponent<FieldController>().zone = zoneData;
             child.gameObject.SetActive(true);
             index++;
             if(index >= zoneData.fields.Count)

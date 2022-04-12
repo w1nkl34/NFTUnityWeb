@@ -5,5 +5,6 @@ using UnityEngine;
 public class Field 
 {
    public string fieldType;
+   public string docId;
    public string productItem;
 }
