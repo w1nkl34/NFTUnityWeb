@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         inventoryController.GenerateItems();
         townScene.SetActive(true);
         townScene.GetComponent<TownManager>().GenerateTown();
-        uIController.GenerateUserData();
+        uIController.GenerateUserData(true);
         wm.GenerateZones();
         CheckAllBuildingsUpgrade();
 
@@ -61,10 +61,16 @@ public class GameManager : MonoBehaviour
         workerBuildingController.GenerateWorkerCreate();
         inventoryController.GenerateItems();
         townScene.GetComponent<TownManager>().GenerateTown();
-        uIController.GenerateUserData();
+        uIController.GenerateUserData(false);
         OpenCloseLoadingBar(false);
         CheckAllBuildingsUpgrade();
      
+    }
+
+    public void UpdateUserLocally()
+    {
+        inventoryController.GenerateItems();
+        uIController.GenerateUserData(false);
     }
 
     public void CheckAllBuildingsUpgrade()
@@ -95,6 +101,7 @@ public class GameManager : MonoBehaviour
         foreach (Dictionary<string, object> worker in workersData)
         {
             Workers newWorker = new Workers();
+            newWorker.onWork = bool.Parse(worker["onWork"].ToString());
             newWorker.level = int.Parse(worker["level"].ToString());
             newWorker.currentStamina = float.Parse(worker["currentStamina"].ToString());
             newWorker.stamina = float.Parse(worker["stamina"].ToString());
@@ -126,7 +133,33 @@ public class GameManager : MonoBehaviour
         inventoryItems.legendaryUpgradeCrystal = playerData.ContainsKey("legendaryUpgradeCrystal") ? int.Parse(playerData["legendaryUpgradeCrystal"].ToString()) : 0;
 
         List<BuildingUpgrade> buildingUpgrades = new List<BuildingUpgrade>();
+        List<WorkerWork> workerWorks = new List<WorkerWork>();
 
+        if(jsonData.ContainsKey("workerWorkData"))
+        {
+             List<Dictionary<string, object>> workerWorksData = 
+             JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(jsonData["workerWorkData"].ToString());   
+            for(int i = 0; i< workerWorksData.Count; i++)
+            {
+                foreach(KeyValuePair<string,object> workerWork in workerWorksData[i])
+                {
+                    Dictionary<string,object> work = 
+                    JsonConvert.DeserializeObject<Dictionary<string, object>>(workerWork.Value.ToString());   
+                    DateTime startDate = (new DateTime(1970, 1, 1)).AddMilliseconds
+                    (double.Parse(work["startTime"].ToString()));
+                    WorkerWork workerWork1 = new WorkerWork();
+                    workerWork1.startTime = startDate;
+                    workerWork1.workerWorkDocId = workerWork.Key.ToString();
+                     workerWork1.times = int.Parse(work["times"].ToString());
+                      workerWork1.currentTime = int.Parse(work["currentTime"].ToString());
+                      workerWork1.fieldDocId = work["fieldDocId"].ToString();
+                     workerWork1.zoneDocId = work["zoneDocId"].ToString();
+                     workerWork1.workerDocId = work["workerDocId"].ToString();
+                    workerWorks.Add(workerWork1);
+                }
+            }
+
+        }
         if(jsonData.ContainsKey("upgradeData"))
         {
             List<Dictionary<string, object>> upgradeData = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(jsonData["upgradeData"].ToString());   
@@ -196,7 +229,8 @@ public class GameManager : MonoBehaviour
                     newFiled.fieldType = field["fieldType"].ToString();
                     if(newFiled.fieldType == "production")
                     {
-                    newFiled.productItem = field["productItem"].ToString();
+                    List<Dictionary<string, object>> allProducts = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(field["productItem"].ToString());   
+                    newFiled.productItem = allProducts;
                     }
                     allFieldsToAdd.Add(newFiled);
                 }
@@ -255,6 +289,6 @@ public class GameManager : MonoBehaviour
             }
         }
         Constants.currentUser = new User(mainTowerLevel,stoneDepositLevel,woodDepositLevel,workerHome,
-        workerBuildingLevel,warriorBuildingLevel,peridotShardCount,stoneCount,woodCount,workers,inventoryItems,buildingUpgrades);
+        workerBuildingLevel,warriorBuildingLevel,peridotShardCount,stoneCount,woodCount,workers,inventoryItems,buildingUpgrades,workerWorks);
     }
 }

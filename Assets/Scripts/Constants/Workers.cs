@@ -18,5 +18,6 @@ public class Workers
     public float sellPrice;
     public bool onSale;
     public string docId;
+    public bool onWork;
 
 }

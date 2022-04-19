@@ -34,7 +34,7 @@ public class PopUpUpgradeBuilding : MonoBehaviour
         }
     }
 
-    public void UpgradeBuildingRequest(string buildingName,int requiredWood,int requiredStone)
+    public void UpgradeBuildingRequest(string buildingName,float requiredWood,float requiredStone)
     {
         FindObjectOfType<FirebaseApi>().UpgradeBuildingTimer(buildingName,requiredWood,requiredStone);
         gameObject.SetActive(false);
@@ -48,8 +48,8 @@ public class PopUpUpgradeBuilding : MonoBehaviour
         int keyIndex = 0;
         bool error = false;
         int currentBuildingLevel = 0;
-        int requiredWood = 0;
-        int requiredStone = 0;
+        float requiredWood = 0;
+        float requiredStone = 0;
 
         if(buildingName == "warriorBuilding")
         currentBuildingLevel = Constants.currentUser.warriorBuildingLevel;
@@ -111,16 +111,16 @@ public class PopUpUpgradeBuilding : MonoBehaviour
                      if(key == "wood")
                      {
                          myValue = Constants.currentUser.woodCount.ToString();
-                         requiredWood = int.Parse(value);
+                         requiredWood = float.Parse(value);
 
                      }
                      if(key == "stone")
                      {
                         myValue = Constants.currentUser.stoneCount.ToString();
-                        requiredStone = int.Parse(value);
+                        requiredStone = float.Parse(value);
 
                      }
-                     if(int.Parse(myValue) < int.Parse(value))
+                     if(float.Parse(myValue) < float.Parse(value))
                      {
                          error = true;
                      }

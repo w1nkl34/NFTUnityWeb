@@ -20,6 +20,11 @@ public class WorldManager : MonoBehaviour
         worldPlaces.SetActive(value);
    }
 
+   public void HideFields()
+   {
+        if(selectedMainZone != null)
+       selectedMainZone.ChangeFieldsMode(false);
+   }
    public void GenerateZones()
    {
          for(int i = 0; i< Constants.allZones.Count; i++)

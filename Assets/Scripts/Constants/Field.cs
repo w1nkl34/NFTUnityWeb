@@ -6,5 +6,5 @@ public class Field
 {
    public string fieldType;
    public string docId;
-   public string productItem;
+   public List<Dictionary<string,object>> productItem;
 }

@@ -54,8 +54,8 @@ public class UIController : MonoBehaviour
         topBar.SetActive(true);
         bottomNavigationBarNoSafeArea.SetActive(true);
         gm.wm.ChangeZoneFocus(true);
-        if(gm.wm.selectedMainZone != null)
-        gm.wm.selectedMainZone.zones.SetActive(false);
+        gm.wm.HideFields();
+
         StartCoroutine(FocusWorldZoneFalse());
         }
     }
@@ -113,12 +113,15 @@ public class UIController : MonoBehaviour
 
     }
 
-    public void GenerateUserData()
+    public void GenerateUserData(bool first)
     {
+        if(first)
+        {
         bottomNavigationBar.SetActive(true);
-                topBar.SetActive(true);
-
+        topBar.SetActive(true);
         bottomNavigationBarNoSafeArea.SetActive(true);
+        }
+
         stoneCountText.text = Constants.currentUser.stoneCount.ToString();
         woodCountText.text = Constants.currentUser.woodCount.ToString();
         peridotShardCountText.text = Constants.currentUser.peridotShardCount.ToString();

@@ -13,40 +13,175 @@ public  class FirebaseApi : MonoBehaviour
     public TownManager tm;
     public UIController uIController;
 
-
-    public void WorkerToWork(string zoneDocId,string fieldDocId,string workerDocId,string times)
+    public void IncreaseWorkerWorkTime(String workerWorkDocId)
     {
-        //         gm.OpenCloseLoadingBar(true);
-
-        //  var functions = FirebaseFunctions.DefaultInstance;
-        // var data = new Dictionary<string,object>();
-        // data["zoneDocId"] = zoneDocId;
-        // data["fieldDocId"] = fieldDocId;
-        // data["workerDocId"] = workerDocId;
-        // data["times"] = times;
-
-        // var function = functions.GetHttpsCallable("workerToWork");
-        // function.CallAsync(data).ContinueWithOnMainThread( (task) => {
-        //    if(task.IsCompleted)
-        //    {
-        //         string x =  JsonConvert.SerializeObject(task.Result.Data);
-        //         Debug.Log(x);
-        //        gm.OpenCloseLoadingBar(false);
-        //    }
-        // });
-
-
-         var functions = FirebaseFunctions.DefaultInstance;
+    var functions = FirebaseFunctions.DefaultInstance;
         var data = new Dictionary<string,object>();
-        String x = "6sl3ScM9S2g5hj9EHFKh";
-        data["workerWorkDocId"] = x;
+        data["workerWorkDocId"] = workerWorkDocId;
+
+        var function = functions.GetHttpsCallable("increaseWorkerWorkTimes");
+        function.CallAsync(data).ContinueWithOnMainThread( (task) => {
+            
+           if(task.IsCompleted)
+           {
+           }
+        });
+    }
+
+    public void DecreaseWorkerWorkTime(String workerWorkDocId)
+    {
+      var functions = FirebaseFunctions.DefaultInstance;
+        var data = new Dictionary<string,object>();
+        data["workerWorkDocId"] = workerWorkDocId;
+
+        var function = functions.GetHttpsCallable("decreaseWorkerWorkTimes");
+        function.CallAsync(data).ContinueWithOnMainThread( (task) => {
+
+           if(task.IsCompleted)
+           {
+           }
+        });      
+    }
+
+   public void CancelWorkerWork(String workerWorkDocId,String workerDocId)
+    {
+        var functions = FirebaseFunctions.DefaultInstance;
+        var data = new Dictionary<string,object>();
+        data["workerWorkDocId"] = workerWorkDocId;
+        gm.OpenCloseLoadingBar(true);
+        var function = functions.GetHttpsCallable("removeWorkerWork");
+        function.CallAsync(data).ContinueWithOnMainThread( (task) => {
+              if(task.IsCompleted)
+           {
+               Debug.Log(task.Result.Data);
+                for(int i= 0; i<Constants.currentUser.workerWorks.Count; i++)
+                    {
+                        if(Constants.currentUser.workerWorks[i].workerWorkDocId == workerWorkDocId)
+                        {
+                                Constants.currentUser.workerWorks.RemoveAt(i);
+                                break;
+                        }
+                    }
+                    for(int i = 0; i<Constants.currentUser.workers.Count; i++)
+                    {
+                        if(workerDocId == Constants.currentUser.workers[i].docId)
+                        {
+                            Constants.currentUser.workers[i].onWork = false;
+                            break;
+                        }
+                    }
+                    gm.UpdateUserLocally();
+                    gm.wm.GenerateZones();
+                    gm.popUpController.CloseAllPops();
+                    gm.OpenCloseLoadingBar(false);
+                    popUpController.OpenInfoPop("Work Declined!");
+           }
+        });
+    }
+
+
+    public void CheckWorkerWorkFinish(String workerWorkDocId)
+    {
+
+        var functions = FirebaseFunctions.DefaultInstance;
+        var data = new Dictionary<string,object>();
+        data["workerWorkDocId"] = workerWorkDocId;
 
         var function = functions.GetHttpsCallable("workerToWorkCheck");
         function.CallAsync(data).ContinueWithOnMainThread( (task) => {
+
            if(task.IsCompleted)
            {
-                string x =  JsonConvert.SerializeObject(task.Result.Data);
-                Debug.Log(x);
+                    string x =  JsonConvert.SerializeObject(task.Result.Data);
+
+                    Dictionary<string,object> work = JsonConvert.DeserializeObject<Dictionary<string, object>>(x);   
+                    int currentTimePlus = int.Parse(work["currentTimePlus"].ToString());
+                    string result = work["result"].ToString();
+                    string item = work["item"].ToString();
+                    int itemToAdd = int.Parse(work["itemToAdd"].ToString());
+                    string workerDocId = "";
+                    for(int i= 0; i<Constants.currentUser.workerWorks.Count; i++)
+                    {
+                        if(Constants.currentUser.workerWorks[i].workerWorkDocId == workerWorkDocId)
+                        {
+                            workerDocId = Constants.currentUser.workerWorks[i].workerDocId;
+                            if(result == "finish")
+                            {
+                                Constants.currentUser.workerWorks.RemoveAt(i);
+                                break;
+                            }
+                        }
+                    }
+                    for(int i = 0; i<Constants.currentUser.workers.Count; i++)
+                    {
+                        if(workerDocId == Constants.currentUser.workers[i].docId)
+                        {
+                             if(result == "finish")
+                            Constants.currentUser.workers[i].onWork = false;
+                            Constants.currentUser.workers[i].currentStamina -= currentTimePlus;
+                            break;
+                        }
+                    }
+                    if(item == "wood")
+                    Constants.currentUser.woodCount += itemToAdd;
+                    if(item == "stone")
+                    Constants.currentUser.stoneCount += itemToAdd;
+                    if(item == "peridotShard")
+                    Constants.currentUser.peridotShardCount += itemToAdd;
+                    gm.UpdateUserLocally();
+                    gm.wm.GenerateZones();
+                    
+           }
+        });
+    }
+
+
+    public void WorkerToWork(string zoneDocId,string fieldDocId,string workerDocId,string times)
+    {
+        gm.OpenCloseLoadingBar(true);
+
+        var functions = FirebaseFunctions.DefaultInstance;
+        var data = new Dictionary<string,object>();
+        data["zoneDocId"] = zoneDocId;
+        data["fieldDocId"] = fieldDocId;
+        data["workerDocId"] = workerDocId;
+        data["times"] = times;
+
+        var function = functions.GetHttpsCallable("workerToWork");
+        function.CallAsync(data).ContinueWithOnMainThread( (task) => {
+
+           if(task.IsCompleted)
+           {
+             string x =  JsonConvert.SerializeObject(task.Result.Data);
+                Dictionary<string,object> work = JsonConvert.DeserializeObject<Dictionary<string, object>>(x);   
+                    DateTime startDate = (new DateTime(1970, 1, 1)).AddMilliseconds
+                    (double.Parse(work["startTime"].ToString()));
+                    WorkerWork workerWork1 = new WorkerWork();
+                    workerWork1.startTime = startDate;
+                     workerWork1.times = int.Parse(work["times"].ToString());
+                     workerWork1.workerWorkDocId = work["workerWorkDocId"].ToString();
+                      workerWork1.fieldDocId = work["fieldDocId"].ToString();
+                     workerWork1.currentTime = int.Parse(work["currentTime"].ToString());
+                     workerWork1.zoneDocId = work["zoneDocId"].ToString();
+                     workerWork1.workerDocId = work["workerDocId"].ToString();
+
+                      for(int i = 0; i<Constants.currentUser.workers.Count; i++)
+                    {
+                        if(workerDocId == Constants.currentUser.workers[i].docId)
+                        {
+                            Constants.currentUser.workers[i].onWork = true;
+                            break;
+                        }
+                    }
+
+
+
+                    Constants.currentUser.workerWorks.Add(workerWork1);
+                    gm.wm.GenerateZones();
+                    gm.popUpController.CloseAllPops();
+                    gm.OpenCloseLoadingBar(false);
+                    popUpController.OpenInfoPop("Work Started!");
+
            }
         });
     }
@@ -104,7 +239,7 @@ public  class FirebaseApi : MonoBehaviour
         });
     }
 
-    public void UpgradeBuildingTimer(string buildingName,int requiredWood,int requiredStone)
+    public void UpgradeBuildingTimer(string buildingName,float requiredWood,float requiredStone)
     {
         gm.OpenCloseLoadingBar(true);
         var functions = FirebaseFunctions.DefaultInstance;
@@ -166,7 +301,7 @@ public  class FirebaseApi : MonoBehaviour
 
                 Constants.currentUser.woodCount -= requiredWood;
                 Constants.currentUser.stoneCount -= requiredStone;
-                uIController.GenerateUserData();
+                uIController.GenerateUserData(false);
                 popUpController.CloseAllPops();
                 gm.OpenCloseLoadingBar(false);
                 gm.tm.CloseAllOnClicks();
