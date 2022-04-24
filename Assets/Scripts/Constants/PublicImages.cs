@@ -50,7 +50,7 @@ public class PublicImages : MonoBehaviour
                     }
                     else 
                     {
-                        File.WriteAllBytes("file://" + Application.persistentDataPath  + "/" + persistentUrl +".png",((DownloadHandlerTexture)www.downloadHandler).data);
+                        // File.WriteAllBytes("file://" + Application.persistentDataPath  + "/" + persistentUrl +".png",((DownloadHandlerTexture)www.downloadHandler).data);
                         Texture2D myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
                         Sprite mySprite = Sprite.Create(myTexture, new Rect(0.0f, 0.0f, myTexture.width, myTexture.height), new Vector2(0.5f, 0.5f), 100.0f);
                         sp.sprite = mySprite;

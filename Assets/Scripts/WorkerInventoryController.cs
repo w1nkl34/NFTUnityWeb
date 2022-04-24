@@ -62,12 +62,12 @@ public class WorkerInventoryController : MonoBehaviour
      IEnumerator GetTexture(Workers worker) {
          bool exists = false;
         UnityWebRequest www;
-        if(File.Exists(Application.persistentDataPath  + "/" + worker.docId + ".png"))
-        {
+        // if(File.Exists(Application.persistentDataPath  + "/" + worker.docId + ".png"))
+        // {
             // exists = true;
-            www = UnityWebRequestTexture.GetTexture(Application.persistentDataPath  + "/" + worker.docId + ".png");
-        }
-        else
+        //     www = UnityWebRequestTexture.GetTexture(Application.persistentDataPath  + "/" + worker.docId + ".png");
+        // }
+        // else
         www = UnityWebRequestTexture.GetTexture(worker.url);
         yield return www.SendWebRequest();
         if (www.result != UnityWebRequest.Result.Success) {
