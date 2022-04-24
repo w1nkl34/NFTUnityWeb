@@ -16,12 +16,11 @@ public class User
     public float woodCount;
     public List<Workers> workers = new List<Workers>(); 
     public List<BuildingUpgrade> buildingUpgrades = new List<BuildingUpgrade>();
-        public List<WorkerWork> workerWorks = new List<WorkerWork>();
-
-    public InventoryItems inventoryItems;
+    public List<WorkerWork> workerWorks = new List<WorkerWork>();
+    public List<InventoryItems> inventoryItems = new List<InventoryItems>();
     public User(int mainTowerLevel, int stoneDepositLevel,int woodDepositLevel,int workerHomeLevel,
     int workerBuildingLevel,int warriorBuildingLevel,float peridotShardCount,float stoneCount,
-    float woodCount,List<Workers> workers,InventoryItems inventoryItems,List<BuildingUpgrade> buildingUpgrades,List<WorkerWork> workerWorks)
+    float woodCount,List<Workers> workers,List<InventoryItems> inventoryItems,List<BuildingUpgrade> buildingUpgrades,List<WorkerWork> workerWorks)
     {
       this.mainTowerLevel = mainTowerLevel;
       this.stoneDepositLevel = stoneDepositLevel;

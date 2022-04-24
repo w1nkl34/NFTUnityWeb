@@ -12,8 +12,7 @@ public class PopUpWorkProductionController : MonoBehaviour
     public GameObject workerMain;
     public Field field;
     public Zones zone;
-    public Text productTypeText;
-    public Image productImage;
+    public GameObject productParent;
     public Workers selectedWorker = null;
     public Button startToWorkButton;
     public GameObject onWorkTimer;
@@ -23,8 +22,11 @@ public class PopUpWorkProductionController : MonoBehaviour
     public GameObject increaseDecreaseButtonsOnWork;
     bool dataReceived = false;
 
+    public GameObject workersLoadingText;
+
     WorkerWork workerWork;
 
+    DateTime beginStartTime;
     DateTime endTime;
     DateTime startTime;
 
@@ -32,9 +34,6 @@ public class PopUpWorkProductionController : MonoBehaviour
     public Text upgradeTimeText;
 
     public int amountToWork = 1;
-
-    public Button increaseWorkerWorkTimesButton;
-    public Button decreaseWorkerWorkTimesButton;
 
     public void ResetData()
     {
@@ -80,81 +79,11 @@ public class PopUpWorkProductionController : MonoBehaviour
         FindObjectOfType<FirebaseApi>().WorkerToWork(zone.docId,field.docId,selectedWorker.docId,amountToWork.ToString());
     }
 
-    public void CheckInteracts()
+    public void OpenPopUpIncreaseDecrease()
     {
-        Workers tempWorker = new Workers();
-        for(int i = 0; i<Constants.currentUser.workers.Count; i++)
-        {
-            if(workerWork.workerDocId == Constants.currentUser.workers[i].docId)
-            {
-                tempWorker = Constants.currentUser.workers[i];
-                break;
-            }
-        }
-        if(tempWorker.currentStamina >= workerWork.times + 1)
-        {
-            increaseWorkerWorkTimesButton.interactable = true;
-        }
-        else
-        {
-            increaseWorkerWorkTimesButton.interactable = false;
-        }
-
-        if(workerWork.times > 1 && workerWork.times > workerWork.currentTime +1)
-        {
-            decreaseWorkerWorkTimesButton.interactable = true;
-        }
-        else
-        {
-            decreaseWorkerWorkTimesButton.interactable = false;
-        }
+        gm.popUpController.OpenPopUpWorkIncreaseDecreaseTimeController(workerWork,zone.docId,field.docId);
     }
 
-    public void IncreaseWorkerWorkTime()
-    {
-        Workers tempWorker = new Workers();
-        for(int i = 0; i<Constants.currentUser.workers.Count; i++)
-        {
-            if(workerWork.workerDocId == Constants.currentUser.workers[i].docId)
-            {
-                tempWorker = Constants.currentUser.workers[i];
-                break;
-            }
-        }
-        if(tempWorker.currentStamina >= workerWork.times + 1)
-        {
-                for(int i= 0; i<Constants.currentUser.workerWorks.Count; i++)
-                {
-                    if(Constants.currentUser.workerWorks[i].workerWorkDocId == workerWork.workerWorkDocId)
-                    {
-                        Constants.currentUser.workerWorks[i].times++;
-                        break;
-                    }
-                }
-                CheckInteracts();
-                CheckWorkerWork();
-                FindObjectOfType<FirebaseApi>().IncreaseWorkerWorkTime(workerWork.workerWorkDocId);
-        }
-
-    }
-    
-    public void DecreaseWorkerWorkTime()
-    {
-        if(workerWork.times > 1 && workerWork.times > workerWork.currentTime +1)
-        {
-                for(int i= 0; i<Constants.currentUser.workerWorks.Count; i++)
-                {
-                    if(Constants.currentUser.workerWorks[i].workerWorkDocId == workerWork.workerWorkDocId)
-                    {
-                        Constants.currentUser.workerWorks[i].times--;
-                        break;
-                    }
-                }
-                CheckInteracts();
-                CheckWorkerWork();
-                FindObjectOfType<FirebaseApi>().DecreaseWorkerWorkTime(workerWork.workerWorkDocId);
-        }
-    }
 
     public void RemoveWorkerWorkTime()
     {
@@ -182,6 +111,30 @@ public class PopUpWorkProductionController : MonoBehaviour
     }
     bool onWork = false;
 
+    public void InstantiateProduct(string productName)
+    {
+            GameObject newItem = Instantiate(productParent.transform.GetChild(0).gameObject,productParent.transform.GetChild(0).gameObject.transform.parent);
+                newItem.GetComponent<ProductHolder>().productName.text = productName;
+
+                if(productName == "wood")
+               {
+                 newItem.GetComponent<ProductHolder>().productImage.sprite = gm.publicImages.woodImage;
+               }
+               else if(productName == "stone")
+               {
+                newItem.GetComponent<ProductHolder>().productImage.sprite  = gm.publicImages.stoneImage;
+               }
+               else if(productName == "peridotShard")
+               {
+               newItem.GetComponent<ProductHolder>().productImage.sprite  = gm.publicImages.peridotImage;   
+               }
+               else
+               {
+               newItem.GetComponent<ProductHolder>().productImage.sprite = gm.publicImages.nullImage;   
+               }
+                newItem.gameObject.SetActive(true);
+    }
+
    public void GenerateProduct(Field field,Zones zone,WorkerWork workerWork)
    {
         ResetData();
@@ -195,23 +148,21 @@ public class PopUpWorkProductionController : MonoBehaviour
                onWork = true;
            }
        }
+       int productIndex = 0;
+       foreach(Transform child in productParent.transform)
+       {
+           if(productIndex != 0)
+           {
+               Destroy(child.gameObject);
+           }
+           productIndex++;
+       }
     for(int i = 0; i<field.productItem.Count; i++)
        {
            foreach(KeyValuePair<string,object> item in field.productItem[i])
            {
-               productTypeText.text = item.Key;
-               if(item.Key == "wood")
-               {
-                productImage.sprite = gm.publicImages.woodImage;
-               }
-               if(item.Key == "stone")
-               {
-                productImage.sprite = gm.publicImages.stoneImage;
-               }
-               if(item.Key == "peridotShard")
-               {
-                productImage.sprite = gm.publicImages.peridotImage;   
-               }
+               InstantiateProduct(item.Key);
+              
            }
        }
     if(!onWork)
@@ -223,9 +174,10 @@ public class PopUpWorkProductionController : MonoBehaviour
     if(onWork)
     {
             CheckWorkerWork();
-            CheckInteracts();
-        if(DateTime.Compare(DateTime.UtcNow ,endTime) < 0 )
+   
+        if(DateTime.Compare(DateTime.UtcNow ,endTime) <= 0 )
         {
+            StartCoroutine(GenerateWorkingWorkers());
             WorkerEfficiencyText.text = "On Work";
             increaseDecreaseButtonsOnWork.gameObject.SetActive(true);
             startToWorkButton.gameObject.SetActive(false);
@@ -237,6 +189,7 @@ public class PopUpWorkProductionController : MonoBehaviour
    }
      public void CheckWorkerWork()
     {
+        beginStartTime = workerWork.startTime;
         startTime = workerWork.startTime.AddMinutes(2*workerWork.currentTime);
         endTime = workerWork.startTime.AddMinutes(2*workerWork.times);
     }
@@ -245,15 +198,18 @@ public class PopUpWorkProductionController : MonoBehaviour
        if(onWork && dataReceived)
        {
            WorkerEfficiencyTotalText.text =  workerWork.currentTime.ToString() + "/" + workerWork.times.ToString();
-            TimeSpan ts1 =  endTime - startTime;
+            TimeSpan ts1 =  endTime - beginStartTime;
             TimeSpan ts = endTime - DateTime.UtcNow;
             upgradeSlider.fillAmount = 1 - ((float)ts.TotalSeconds / (float)ts1.TotalSeconds);
             upgradeTimeText.text = string.Format("{1}:{2}:{3}", ts.Days, (ts.Days*24) + ts.Hours, ts.Minutes, ts.Seconds);
        }
         if(DateTime.Compare(DateTime.UtcNow ,endTime) > 0 &&onWork && dataReceived)
         {
+           upgradeTimeText.text = "Returning...";
            onWork = false;
            OnWorkFinishedLocally();
+           gm.popUpController.OpenInfoPop("Work Finished!");
+           ClosePop();
         }
    }
 
@@ -267,6 +223,7 @@ public class PopUpWorkProductionController : MonoBehaviour
 
    public void ClosePop()
    {
+        StopAllCoroutines();
         ResetData();
         FindObjectOfType<UIController>().SetOnMenuToFalseCorCall();
         gameObject.SetActive(false);
@@ -284,14 +241,56 @@ public class PopUpWorkProductionController : MonoBehaviour
     }
     public IEnumerator GenerateWorkers()
     {
-        ResetAllImages();
-        GenerateWorkersFaster();
-        yield return null;
+        if(Constants.allWorkersLoaded == true)
+        {
+            workersLoadingText.SetActive(false);
+            ResetAllImages();
+            GenerateWorkersFaster();
+            yield return null;
+        }
+        else
+        {
+            workersLoadingText.SetActive(true);
+            yield return StartCoroutine(AwaitCor());
+        }
+    }
+
+      public IEnumerator GenerateWorkingWorkers()
+    {
+        if(Constants.allWorkersLoaded == true)
+        {
+            workersLoadingText.SetActive(false);
+            ResetAllImages();
+            GenerateWorkingWorkersFaster();
+            yield return null;
+        }
+        else
+        {
+            workersLoadingText.SetActive(true);
+            yield return StartCoroutine(AwaitWorkingCor());
+        }
     }
 
     public void GenerateWorkersFaster()
     {
         GetTexture();
+    }
+
+    public void GenerateWorkingWorkersFaster()
+    {
+        GetWorkingTexture();
+    }
+
+    public IEnumerator AwaitWorkingCor()
+    {
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(GenerateWorkingWorkers());
+    }
+
+    public IEnumerator AwaitCor()
+    {
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(GenerateWorkers());
     }
 
     public void ChangeSelectedWorker(Workers worker)
@@ -318,20 +317,27 @@ public class PopUpWorkProductionController : MonoBehaviour
     public void UpdateWorkerEfficiencyText()
     {
         WorkerEfficiencyText.text = "";
-    //     if(field.productItem == "wood")
-    //    {
-    //     WorkerEfficiencyText.text = selectedWorker.woodWorkSpeed.ToString() + " Wood Per 10 Minutes";
-    //    }
-    //    if(field.productItem == "stone")
-    //    {
-    //     WorkerEfficiencyText.text = selectedWorker.stoneWorkSpeed.ToString() + " Stone Per 10 Minutes";
-    //    }
-    //    if(field.productItem == "peridotShard")
-    //    {
-    //     WorkerEfficiencyText.text = selectedWorker.peridotWorkSpeed.ToString() + " Peridot Per 10 Minutes";
-    //    } 
     }
 
+     public void GetWorkingTexture() {
+         for(int i = 0; i<Constants.workerSprites.Count; i++)
+         {
+             if(Constants.workersData[i].docId == workerWork.workerDocId)
+             {
+                Sprite mySprite = Constants.workerSprites[i];
+                GameObject newImage = Instantiate(workerMain.gameObject,workerMain.transform.parent);
+                newImage.GetComponent<WorkerHolderProduction>().workerImage.sprite = mySprite;
+                WorkerHolderProduction workerHolder = newImage.GetComponent<WorkerHolderProduction>();
+                workerHolder.popUpWorkProductionController = this;
+                workerHolder.worker = new Workers();
+                workerHolder.worker = Constants.workersData[i];
+                newImage.GetComponent<WorkerHolderProduction>().workerImage.GetComponent<Button>().enabled = false;
+                newImage.SetActive(true);
+                break;
+             }
+         }
+       
+    }
 
      public void GetTexture() {
          for(int i = 0; i<Constants.workerSprites.Count; i++)

@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
         Constants.onMenu = true;
         else
         uIController.SetOnMenuToFalseCorCall();
-
     }
 
 
@@ -121,16 +120,24 @@ public class GameManager : MonoBehaviour
             newWorker.luck =  float.Parse(worker["luck"].ToString());
             workers.Add(newWorker);
         }
-        InventoryItems inventoryItems = new InventoryItems();
-        inventoryItems.powerCrystal = playerData.ContainsKey("powerCrystal") ? int.Parse(playerData["powerCrystal"].ToString()) : 0;
-        inventoryItems.summonCrystal = playerData.ContainsKey("summonCrystal") ? int.Parse(playerData["summonCrystal"].ToString()) : 0;
-        inventoryItems.upgradeCrystal = playerData.ContainsKey("upgradeCrystal") ? int.Parse(playerData["upgradeCrystal"].ToString()) : 0;
-        inventoryItems.blessedPowerCrystal = playerData.ContainsKey("blessedPowerCrystal") ? int.Parse(playerData["blessedPowerCrystal"].ToString()) : 0;
-        inventoryItems.blessedSummonCrystal = playerData.ContainsKey("blessedSummonCrystal") ? int.Parse(playerData["blessedSummonCrystal"].ToString()) : 0;
-        inventoryItems.blessedUpgradeCrystal = playerData.ContainsKey("blessedUpgradeCrystal") ? int.Parse(playerData["blessedUpgradeCrystal"].ToString()) : 0;
-        inventoryItems.legendaryPowerCrystal = playerData.ContainsKey("legendaryPowerCrystal") ? int.Parse(playerData["legendaryPowerCrystal"].ToString()) : 0;
-        inventoryItems.legendarySummonCrystal = playerData.ContainsKey("legendarySummonCrystal") ? int.Parse(playerData["legendarySummonCrystal"].ToString()) : 0;
-        inventoryItems.legendaryUpgradeCrystal = playerData.ContainsKey("legendaryUpgradeCrystal") ? int.Parse(playerData["legendaryUpgradeCrystal"].ToString()) : 0;
+        List<InventoryItems> inventoryItems = new List<InventoryItems>();
+        if(jsonData.ContainsKey("inventoryItemsData"))
+        {
+             List<Dictionary<string, object>> inventoryItemsData = 
+             JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(jsonData["inventoryItemsData"].ToString());   
+            for(int i = 0; i< inventoryItemsData.Count; i++)
+            {
+                foreach(KeyValuePair<string,object> inventoryItem in inventoryItemsData[i])
+                {
+                    Dictionary<string,object> item = 
+                    JsonConvert.DeserializeObject<Dictionary<string, object>>(inventoryItem.Value.ToString());   
+                    InventoryItems newItem = new InventoryItems();
+                    newItem.itemName = item["itemName"].ToString();
+                    newItem.amount = int.Parse(item["amount"].ToString());
+                    inventoryItems.Add(newItem);
+                }
+            }
+        }
 
         List<BuildingUpgrade> buildingUpgrades = new List<BuildingUpgrade>();
         List<WorkerWork> workerWorks = new List<WorkerWork>();
@@ -158,7 +165,6 @@ public class GameManager : MonoBehaviour
                     workerWorks.Add(workerWork1);
                 }
             }
-
         }
         if(jsonData.ContainsKey("upgradeData"))
         {

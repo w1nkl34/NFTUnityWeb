@@ -44,7 +44,8 @@ public class PopUpSummonWorker : MonoBehaviour
         {       
             string key = "";
             string value = "";      
-            string myValue = "";    
+            string myValue = "0";    
+            
             foreach(KeyValuePair<string, object> entry in input[j])
             {
                 if(keyIndex == j)
@@ -53,17 +54,34 @@ public class PopUpSummonWorker : MonoBehaviour
                      value = entry.Value.ToString();
                      if(key == "summonCrystal")
                      {
-                         myValue = Constants.currentUser.inventoryItems.summonCrystal.ToString();
+                        for(int i = 0; i<Constants.currentUser.inventoryItems.Count; i++)
+                        {
+                            if(Constants.currentUser.inventoryItems[i].itemName == "summonCrystal")
+                            {
+                                myValue = Constants.currentUser.inventoryItems[i].amount.ToString();
+                            }
+                        }     
                      }
                      if(key == "blessedSummonCrystal")
                      {
-                         myValue = Constants.currentUser.inventoryItems.blessedSummonCrystal.ToString();
+                        for(int i = 0; i<Constants.currentUser.inventoryItems.Count; i++)
+                        {
+                            if(Constants.currentUser.inventoryItems[i].itemName == "blessedSummonCrystal")
+                            {
+                                myValue = Constants.currentUser.inventoryItems[i].amount.ToString();
+                            }
+                        }   
                      }
                     if(key == "legendarySummonCrystal")
                      {
-                         myValue = Constants.currentUser.inventoryItems.legendarySummonCrystal.ToString();
+                        for(int i = 0; i<Constants.currentUser.inventoryItems.Count; i++)
+                        {
+                            if(Constants.currentUser.inventoryItems[i].itemName == "legendarySummonCrystal")
+                            {
+                                myValue = Constants.currentUser.inventoryItems[i].amount.ToString();
+                            }
+                        }   
                      }
-
                      if(int.Parse(myValue) < int.Parse(value))
                      {
                          error = true;

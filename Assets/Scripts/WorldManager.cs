@@ -42,4 +42,23 @@ public class WorldManager : MonoBehaviour
             mainZoneControllersList[i].GenerateFields();
          }
    }
+
+      public void GenerateSpecificZone(string workerWorkDocId,string zoneDocId,string fieldDocId)
+   {
+         for(int i = 0; i< Constants.allZones.Count; i++)
+         {
+            int zoneIndex = 0;
+            for(int j= 0; j<Constants.allZones.Count; j++)
+            {
+               if(Constants.allZones[j].zoneIndex == i)
+               {
+                  zoneIndex = j;
+                  break;
+               }
+            }
+            // mainZoneControllersList[i].zoneData = Constants.allZones[zoneIndex];
+            if(mainZoneControllersList[i].zoneData.docId == zoneDocId)
+            mainZoneControllersList[i].GenerateSpecificField(workerWorkDocId,fieldDocId);
+         }
+   }
 }

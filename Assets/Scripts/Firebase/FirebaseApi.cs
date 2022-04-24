@@ -13,34 +13,38 @@ public  class FirebaseApi : MonoBehaviour
     public TownManager tm;
     public UIController uIController;
 
-    public void IncreaseWorkerWorkTime(String workerWorkDocId)
+    public void UpdateWorkerWorkTimes(String workerWorkDocId,int times,String zoneDocId,String fieldDocId)
     {
-    var functions = FirebaseFunctions.DefaultInstance;
+        gm.OpenCloseLoadingBar(true);
+        var functions = FirebaseFunctions.DefaultInstance;
         var data = new Dictionary<string,object>();
         data["workerWorkDocId"] = workerWorkDocId;
+        data["updateAmount"] = times.ToString();
 
-        var function = functions.GetHttpsCallable("increaseWorkerWorkTimes");
+        var function = functions.GetHttpsCallable("updateWorkerWorkTimes");
         function.CallAsync(data).ContinueWithOnMainThread( (task) => {
             
            if(task.IsCompleted)
            {
+                if(task.Result.Data.ToString() == "success")
+                {
+                for(int i= 0; i<Constants.currentUser.workerWorks.Count; i++)
+                {
+                    if(Constants.currentUser.workerWorks[i].workerWorkDocId == workerWorkDocId)
+                    {
+                        Constants.currentUser.workerWorks[i].times = times;
+                        break;
+                    }
+                }
+                gm.wm.GenerateSpecificZone(workerWorkDocId,zoneDocId,fieldDocId);
+                gm.OpenCloseLoadingBar(false);
+                }
+                else
+                {
+                gm.OpenCloseLoadingBar(false);
+                }
            }
         });
-    }
-
-    public void DecreaseWorkerWorkTime(String workerWorkDocId)
-    {
-      var functions = FirebaseFunctions.DefaultInstance;
-        var data = new Dictionary<string,object>();
-        data["workerWorkDocId"] = workerWorkDocId;
-
-        var function = functions.GetHttpsCallable("decreaseWorkerWorkTimes");
-        function.CallAsync(data).ContinueWithOnMainThread( (task) => {
-
-           if(task.IsCompleted)
-           {
-           }
-        });      
     }
 
    public void CancelWorkerWork(String workerWorkDocId,String workerDocId)
@@ -53,7 +57,8 @@ public  class FirebaseApi : MonoBehaviour
         function.CallAsync(data).ContinueWithOnMainThread( (task) => {
               if(task.IsCompleted)
            {
-               Debug.Log(task.Result.Data);
+                if( task.Result.Data.ToString() == "success")
+                {
                 for(int i= 0; i<Constants.currentUser.workerWorks.Count; i++)
                     {
                         if(Constants.currentUser.workerWorks[i].workerWorkDocId == workerWorkDocId)
@@ -75,66 +80,14 @@ public  class FirebaseApi : MonoBehaviour
                     gm.popUpController.CloseAllPops();
                     gm.OpenCloseLoadingBar(false);
                     popUpController.OpenInfoPop("Work Declined!");
+                }
+                else
+                {
+                gm.OpenCloseLoadingBar(false);
+                }
            }
         });
     }
-
-
-    public void CheckWorkerWorkFinish(String workerWorkDocId)
-    {
-
-        var functions = FirebaseFunctions.DefaultInstance;
-        var data = new Dictionary<string,object>();
-        data["workerWorkDocId"] = workerWorkDocId;
-
-        var function = functions.GetHttpsCallable("workerToWorkCheck");
-        function.CallAsync(data).ContinueWithOnMainThread( (task) => {
-
-           if(task.IsCompleted)
-           {
-                    string x =  JsonConvert.SerializeObject(task.Result.Data);
-
-                    Dictionary<string,object> work = JsonConvert.DeserializeObject<Dictionary<string, object>>(x);   
-                    int currentTimePlus = int.Parse(work["currentTimePlus"].ToString());
-                    string result = work["result"].ToString();
-                    string item = work["item"].ToString();
-                    int itemToAdd = int.Parse(work["itemToAdd"].ToString());
-                    string workerDocId = "";
-                    for(int i= 0; i<Constants.currentUser.workerWorks.Count; i++)
-                    {
-                        if(Constants.currentUser.workerWorks[i].workerWorkDocId == workerWorkDocId)
-                        {
-                            workerDocId = Constants.currentUser.workerWorks[i].workerDocId;
-                            if(result == "finish")
-                            {
-                                Constants.currentUser.workerWorks.RemoveAt(i);
-                                break;
-                            }
-                        }
-                    }
-                    for(int i = 0; i<Constants.currentUser.workers.Count; i++)
-                    {
-                        if(workerDocId == Constants.currentUser.workers[i].docId)
-                        {
-                             if(result == "finish")
-                            Constants.currentUser.workers[i].onWork = false;
-                            Constants.currentUser.workers[i].currentStamina -= currentTimePlus;
-                            break;
-                        }
-                    }
-                    if(item == "wood")
-                    Constants.currentUser.woodCount += itemToAdd;
-                    if(item == "stone")
-                    Constants.currentUser.stoneCount += itemToAdd;
-                    if(item == "peridotShard")
-                    Constants.currentUser.peridotShardCount += itemToAdd;
-                    gm.UpdateUserLocally();
-                    gm.wm.GenerateZones();
-                    
-           }
-        });
-    }
-
 
     public void WorkerToWork(string zoneDocId,string fieldDocId,string workerDocId,string times)
     {
@@ -336,9 +289,50 @@ public  class FirebaseApi : MonoBehaviour
                         break;
                     }
                 }
-                Constants.currentUser.inventoryItems.blessedSummonCrystal -= blessedSummonCrystal;
-                Constants.currentUser.inventoryItems.summonCrystal -= summonCrystal;
-                Constants.currentUser.inventoryItems.legendarySummonCrystal -= legendarySummonCrystal;
+                bool found = false;
+                for(int i = 0; i<Constants.currentUser.inventoryItems.Count; i++)
+                {
+                    if(Constants.currentUser.inventoryItems[i].itemName == "blessedSummonCrystal")
+                    {
+                       Constants.currentUser.inventoryItems[i].amount += blessedSummonCrystal;  
+                        if(blessedSummonCrystal != 0)
+                       found = true;
+                    }
+                    if(Constants.currentUser.inventoryItems[i].itemName == "summonCrystal")
+                    {
+                       Constants.currentUser.inventoryItems[i].amount += summonCrystal;  
+                       if(summonCrystal != 0)
+                        found = true;
+                    }
+                    if(Constants.currentUser.inventoryItems[i].itemName == "legendarySummonCrystal")
+                    {
+                       Constants.currentUser.inventoryItems[i].amount += legendarySummonCrystal;  
+                       if(legendarySummonCrystal != 0)
+                        found = true;
+                    }
+                }
+                if(found == false)
+                {
+                    InventoryItems newItem = new InventoryItems();
+                    if(summonCrystal != 0)
+                    {
+                        newItem.amount = summonCrystal;
+                        newItem.itemName = "summonCrystal";
+                        Constants.currentUser.inventoryItems.Add(newItem);
+                    }
+                    if(blessedSummonCrystal != 0)
+                    {
+                        newItem.amount = blessedSummonCrystal;
+                        newItem.itemName = "blessedSummonCrystal";
+                        Constants.currentUser.inventoryItems.Add(newItem);
+                    }
+                    if(legendarySummonCrystal != 0)
+                    {
+                        newItem.amount = legendarySummonCrystal;
+                        newItem.itemName = "legendarySummonCrystal";
+                        Constants.currentUser.inventoryItems.Add(newItem);
+                    }
+                }
                 gm.workerInventoryController.DestroySpecificWorker(workerDocId);
                 for(int i = 0; i< Constants.workersData.Count; i++)
                 {
@@ -380,6 +374,82 @@ public  class FirebaseApi : MonoBehaviour
                 StartCoroutine(GetUserData("Worker Created!"));
            }
         });
+    }
+
+     public IEnumerator CheckWorkerWorkFinishCor(String workerWorkDocId,FieldController fieldController)
+    {
+
+        var functions = FirebaseFunctions.DefaultInstance;
+        var data = new Dictionary<string,object>();
+        data["workerWorkDocId"] = workerWorkDocId;
+
+        var function = functions.GetHttpsCallable("workerToWorkCheck");
+                var task = function.CallAsync(data);
+        yield return new WaitUntil(predicate: () => task.IsCompleted);
+        if(task.Exception != null)
+        {
+           Debug.Log("nb");
+        }
+        else
+        {    
+                    string x =  JsonConvert.SerializeObject(task.Result.Data);
+                    Debug.Log(x);
+                    if(task.Result.Data.ToString() != "error")
+                    {
+                    Dictionary<string,object> work = JsonConvert.DeserializeObject<Dictionary<string, object>>(x);   
+                    int currentTimePlus = int.Parse(work["currentTimePlus"].ToString());
+                    string result = work["result"].ToString();
+
+                    List<Dictionary<string,object>> items = JsonConvert.DeserializeObject<List<Dictionary<string,object>>>(work["items"].ToString());
+                    
+                    string workerDocId = "";
+                    for(int i= 0; i<Constants.currentUser.workerWorks.Count; i++)
+                    {
+                        if(Constants.currentUser.workerWorks[i].workerWorkDocId == workerWorkDocId)
+                        {
+                            workerDocId = Constants.currentUser.workerWorks[i].workerDocId;
+                            if(result == "finish")
+                            {
+                                Constants.currentUser.workerWorks.RemoveAt(i);
+                                break;
+                            }
+                            else
+                            {
+                                Constants.currentUser.workerWorks[i].currentTime +=currentTimePlus;
+                            }
+                        }
+                    }
+                    for(int i = 0; i<Constants.currentUser.workers.Count; i++)
+                    {
+                        if(workerDocId == Constants.currentUser.workers[i].docId)
+                        {
+                             if(result == "finish")
+                            Constants.currentUser.workers[i].onWork = false;
+                            Constants.currentUser.workers[i].currentStamina -= currentTimePlus;
+                            break;
+                        }
+                    }
+                    
+                    
+                    foreach(Dictionary<string,object> item in items)
+                    {                    
+                                if(!fieldController.rewardPool.ContainsKey(item["itemName"].ToString()))
+                                {       
+                                    fieldController.rewardPool[item["itemName"].ToString()] = int.Parse(item["amount"].ToString());
+                                }
+                                else
+                                {
+                                    fieldController.rewardPool[item["itemName"].ToString()]+=  int.Parse(item["amount"].ToString());
+                                } 
+                            
+                    }
+                    
+                    fieldController.OpenRewardPoolObject();
+                    gm.UpdateUserLocally();
+                    yield return null;
+                    }
+        }
+
     }
 
     

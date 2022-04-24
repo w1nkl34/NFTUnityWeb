@@ -16,7 +16,21 @@ public class MainZoneController : MonoBehaviour
         foreach(Transform child in fieldsParent.transform)
         {
             child.GetComponent<BoxCollider>().enabled = value;
+
+
             child.GetComponent<Image>().enabled = value;
+
+            if(value == true)
+            {
+            if(child.GetComponent<FieldController>().rewardAwaits)
+            child.GetComponent<FieldController>().rewardPoolObject.SetActive(value);
+            }
+            else
+            {
+            if(child.GetComponent<FieldController>().rewardPoolObject != null)
+            child.GetComponent<FieldController>().rewardPoolObject.SetActive(value);
+            }
+
             if( child.GetComponent<FieldController>().UpgradeLeft != null)
             {
             if(!value)
@@ -45,6 +59,21 @@ public class MainZoneController : MonoBehaviour
             index++;
             if(index >= zoneData.fields.Count)
             break;
+        }
+    }
+
+      public void GenerateSpecificField(string workerWorkDocId,string fieldDocId)
+    {
+        foreach(Transform child in fieldsParent.transform)
+        {
+            if(child.GetComponent<FieldController>().field.docId == fieldDocId)
+            if(child.GetComponent<FieldController>().workerWork.workerWorkDocId == workerWorkDocId)
+            {
+                child.GetComponent<FieldController>().StartField();
+                child.GetComponent<FieldController>().GenerateProduct();
+                break;
+            }
+
         }
     }
 

@@ -34,6 +34,7 @@ public class WorkerInventoryController : MonoBehaviour
 
     public void GenerateWorkersFaster()
     {
+        Constants.allWorkersLoaded = false;
         loadingWidget.SetActive(true);
         totalWorkerCount = Constants.currentUser.workers.Count;
         foreach(Workers worker in Constants.currentUser.workers)
@@ -78,6 +79,7 @@ public class WorkerInventoryController : MonoBehaviour
             currentWorkerCount ++;
             if(currentWorkerCount == totalWorkerCount)
             {
+                Constants.allWorkersLoaded = true;
                 loadingWidget.SetActive(false);
             }
         }

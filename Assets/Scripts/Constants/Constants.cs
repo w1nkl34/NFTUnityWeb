@@ -21,6 +21,8 @@ public static class Constants
 
       public static List<Workers> workersData = new List<Workers>();
 
+      public static bool allWorkersLoaded = false;
+
       public static List<Zones> allZones = new List<Zones>();
 
       public static bool IsPointerOverUIObject() {

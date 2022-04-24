@@ -12,41 +12,64 @@ public class PopUpController : MonoBehaviour
     public PopUpSellNFT popUpSellNFT;
     public PopUpDestroyWorker popUpDestroyWorker;
     public PopUpWorkerSummonDecline popUpWorkerSummonDecline;
-
+    public PopUpRewardPool popUpRewardPool;
     public PopUpZoneAccessRequiredMainTowerLevel popUpZoneAccessRequiredMainTowerLevel;
-
     public UIController uIController;
-
     public PopUpWorkProductionController popUpWorkProductionController;
-
     public PopUpBattleController popUpBattleController;
+    public PopUpWorkIncreaseDecreaseTime popUpWorkIncreaseDecreaseTimeController;
+    public GameManager gm;
+    public LeanTweenType leanTweenType;
 
+    public void SetActives(GameObject gm)
+    {
+        gm.transform.GetChild(1).localScale = new Vector3(0,0,0);
+        gm.SetActive(true);
+        LeanTween.scale( gm.transform.GetChild(1).gameObject,new Vector3(1,1,1),0.15f).setEase(leanTweenType);
+    }
 
     public void OpenInfoPop(string message)
     {
         Constants.onMenu = true;
         popUpInfo.messageText.text = message;
-        popUpInfo.gameObject.SetActive(true);
+        SetActives(popUpInfo.gameObject);
     }
 
     public void OpenProductionPop()
     {
         Constants.onMenu = true;
-        popUpWorkProductionController.gameObject.SetActive(true);
+        SetActives(popUpWorkProductionController.gameObject);
     }
 
     public void OpenBattlePop()
     {
         Constants.onMenu = true;
-        popUpBattleController.gameObject.SetActive(true);
+        SetActives(popUpBattleController.gameObject);
+
     }
 
     public void OpenZoneAccessRequiredMainTowerLevelPop()
     {
         Constants.onMenu = true;
-        popUpZoneAccessRequiredMainTowerLevel.gameObject.SetActive(true);
+        SetActives(popUpZoneAccessRequiredMainTowerLevel.gameObject);
+
     }
 
+    public void OpenPopUpWorkIncreaseDecreaseTimeController(WorkerWork workerWork,string zoneDocId,string fieldDocId)
+    {
+        Constants.onMenu = true;
+        popUpWorkIncreaseDecreaseTimeController.OpenPop(workerWork,zoneDocId,fieldDocId);
+        SetActives(popUpWorkIncreaseDecreaseTimeController.gameObject);
+        popUpWorkIncreaseDecreaseTimeController.CheckInteracts();
+    }
+
+    public void OpenPopUpRewardPool(Dictionary<string,int> rewards)
+    {
+        Constants.onMenu = true;
+        popUpRewardPool.OpenPop(rewards,gm);
+        SetActives(popUpRewardPool.gameObject);
+
+    }
 
     public void CloseAllPops()
     {
@@ -57,9 +80,11 @@ public class PopUpController : MonoBehaviour
         popUpWorkerDetail.gameObject.SetActive(false);
         popUpInfo.gameObject.SetActive(false);
         popUpSellNFT.gameObject.SetActive(false);
+        popUpRewardPool.gameObject.SetActive(false);
         popUpDestroyWorker.gameObject.SetActive(false);
         popUpWorkerSummonDecline.gameObject.SetActive(false);
         popUpWorkProductionController.gameObject.SetActive(false);
+        popUpWorkIncreaseDecreaseTimeController.gameObject.SetActive(false);
         Constants.onMenu = false;
         // uIController.SetOnMenuToFalseCorCall();
     }
@@ -68,26 +93,26 @@ public class PopUpController : MonoBehaviour
 
     public void OpenSummonWorkerDecline()
     {
-        popUpWorkerSummonDecline.gameObject.SetActive(true);
+        SetActives(popUpWorkerSummonDecline.gameObject);
         popUpWorkerSummonDecline.OpenSummonWorkerDecline();
     }
 
     public void OpenSellNFT(Workers worker)
     {
-        popUpSellNFT.gameObject.SetActive(true);
+        SetActives(popUpSellNFT.gameObject);
         popUpSellNFT.OpenSellNFT(worker);      
     }
 
     public void OpenDestroyWorker(Workers worker)
     {
-        popUpDestroyWorker.gameObject.SetActive(true);
+        SetActives(popUpDestroyWorker.gameObject);
         popUpDestroyWorker.OpenDestroyWorker(worker);
     }
 
 
     public void OpenSummonWorker(string title,int index,List<Dictionary<string,object>> input)
     {
-        popUpSummonWorker.gameObject.SetActive(true);
+        SetActives(popUpSummonWorker.gameObject);
         popUpSummonWorker.OpenSummonWorker(title,index,input);
 
     }
@@ -95,14 +120,14 @@ public class PopUpController : MonoBehaviour
     public void OpenWorkerDetails(Workers worker,Sprite workerSprite)
     {   
        popUpWorkerDetail.OpenWorkerDetails(worker,workerSprite);
-       popUpWorkerDetail.gameObject.SetActive(true);
+        SetActives(popUpWorkerDetail.gameObject);
     }
 
 
     public void OpenUpgradeBuilding(string buildingName)
     {
         Constants.onMenu = true;
-        popUpUpgradeBuilding.gameObject.SetActive(true);
+        SetActives(popUpUpgradeBuilding.gameObject);
         popUpUpgradeBuilding.OpenUpgradeBuilding(buildingName);
     }
 
