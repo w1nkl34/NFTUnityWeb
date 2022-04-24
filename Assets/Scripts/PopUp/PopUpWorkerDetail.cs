@@ -33,6 +33,15 @@ public class PopUpWorkerDetail : MonoBehaviour
         // FindObjectOfType<ReactSend>().CreateNFTCall(worker.docId);
     }
 
+    public void FeedWorker()
+    {
+        if(worker.onWork == false)
+        FindObjectOfType<PopUpController>().OpenPopUpEnergy(worker,this);
+        else
+        FindObjectOfType<PopUpController>().OpenInfoPop("Worker Is On Work Can't Feed!");
+
+    }
+
     public void SellNFT()
     {
         FindObjectOfType<PopUpController>().OpenSellNFT(worker);
@@ -40,17 +49,15 @@ public class PopUpWorkerDetail : MonoBehaviour
 
     public void DestroyWorker()
     {
+        if(worker.onWork == false)
         FindObjectOfType<PopUpController>().OpenDestroyWorker(worker);
+        else
+        FindObjectOfType<PopUpController>().OpenInfoPop("Worker Is On Work Can't Destroy!");
     }
 
-    public void OpenWorkerDetails(Workers worker,Sprite workerSprite)
-    {   
-
-        workerImage.sprite = workerSprite;
-        this.worker = worker;
-
-        workerNameText.text = worker.type;
-        if(worker.onSale == true)
+    public void UpdateDetails()
+    {
+         if(worker.onSale == true)
         {
             destroyButton.SetActive(false);
             NFTTitle.SetActive(true);
@@ -107,5 +114,14 @@ public class PopUpWorkerDetail : MonoBehaviour
         levelText.text = "Level : " + worker.level;
 
         rarityText.text = "Rarity : " + worker.rarity;
+
+    }
+    public void OpenWorkerDetails(Workers worker,Sprite workerSprite)
+    {   
+        workerImage.sprite = workerSprite;
+        this.worker = worker;
+
+        workerNameText.text = worker.type;
+        UpdateDetails();
     }
 }

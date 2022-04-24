@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -59,13 +60,22 @@ public class WorkerInventoryController : MonoBehaviour
     }
 
      IEnumerator GetTexture(Workers worker) {
-
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture(worker.url);
+         bool exists = false;
+        UnityWebRequest www;
+        if(File.Exists(Application.persistentDataPath  + "/" + worker.docId + ".png"))
+        {
+            exists = true;
+            www = UnityWebRequestTexture.GetTexture(Application.persistentDataPath  + "/" + worker.docId + ".png");
+        }
+        else
+        www = UnityWebRequestTexture.GetTexture(worker.url);
         yield return www.SendWebRequest();
         if (www.result != UnityWebRequest.Result.Success) {
             Debug.Log(www.error);
         }
         else {
+            if(exists == false)
+            File.WriteAllBytes(Application.persistentDataPath  + "/" + worker.docId + ".png",((DownloadHandlerTexture)www.downloadHandler).data);
             Texture2D myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             Sprite mySprite = Sprite.Create(myTexture, new Rect(0.0f, 0.0f, myTexture.width, myTexture.height), new Vector2(0.5f, 0.5f), 100.0f);
             Constants.workerSprites.Add(mySprite);

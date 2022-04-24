@@ -25,6 +25,8 @@ public static class Constants
 
       public static List<Zones> allZones = new List<Zones>();
 
+      public static List<InventoryItems> allInventoryItems = new List<InventoryItems>();
+
       public static bool IsPointerOverUIObject() {
      PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
      eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);

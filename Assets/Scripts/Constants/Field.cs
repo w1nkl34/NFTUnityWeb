@@ -7,4 +7,6 @@ public class Field
    public string fieldType;
    public string docId;
    public List<Dictionary<string,object>> productItem;
+   public List<Dictionary<string,object>> extraProductItem = new List<Dictionary<string, object>>();
+
 }

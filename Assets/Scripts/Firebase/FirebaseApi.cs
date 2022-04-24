@@ -105,6 +105,8 @@ public  class FirebaseApi : MonoBehaviour
 
            if(task.IsCompleted)
            {
+                if(task.Result.Data.ToString() != "error")
+                    {
              string x =  JsonConvert.SerializeObject(task.Result.Data);
                 Dictionary<string,object> work = JsonConvert.DeserializeObject<Dictionary<string, object>>(x);   
                     DateTime startDate = (new DateTime(1970, 1, 1)).AddMilliseconds
@@ -134,7 +136,7 @@ public  class FirebaseApi : MonoBehaviour
                     gm.popUpController.CloseAllPops();
                     gm.OpenCloseLoadingBar(false);
                     popUpController.OpenInfoPop("Work Started!");
-
+                    }
            }
         });
     }
@@ -376,7 +378,58 @@ public  class FirebaseApi : MonoBehaviour
         });
     }
 
-     public IEnumerator CheckWorkerWorkFinishCor(String workerWorkDocId,FieldController fieldController)
+    public void IncreaseWorkerStamina(int amount,string inventoryItemName,string workerDocId,PopUpWorkerDetail popUpWorkerDetail)
+    {
+        gm.OpenCloseLoadingBar(true);
+        var functions = FirebaseFunctions.DefaultInstance;
+        var data = new Dictionary<string,object>();
+        data["amount"] = amount;
+        data["inventoryItemName"] = inventoryItemName;
+        data["workerDocId"] = workerDocId;
+
+        var function = functions.GetHttpsCallable("workerStaminaIncrease");
+        function.CallAsync(data).ContinueWithOnMainThread( (task) => {
+           if(task.IsCompleted)
+           {
+                string x =  JsonConvert.SerializeObject(task.Result.Data);
+                Debug.Log(x);
+                if(task.Result.Data.ToString() == "success")
+                {
+                    InventoryItems item = new InventoryItems();
+                        for(int i = 0; i<Constants.currentUser.inventoryItems.Count; i++)
+                        {
+                            if(Constants.currentUser.inventoryItems[i].itemName == inventoryItemName)
+                            {
+                              item = Constants.currentUser.inventoryItems[i];
+                              Constants.currentUser.inventoryItems[i].amount -= amount;  
+                              break;
+                            }
+                        }
+                        for(int i = 0; i<Constants.currentUser.workers.Count; i++)
+                        {
+                            if(Constants.currentUser.workers[i].docId == workerDocId)
+                            {
+                                Constants.currentUser.workers[i].currentStamina += item.energyIncrease *amount;
+                                if(Constants.currentUser.workers[i].currentStamina > Constants.currentUser.workers[i].stamina)
+                                Constants.currentUser.workers[i].currentStamina = Constants.currentUser.workers[i].stamina;
+                                break;
+                            }
+                        }
+                        gm.UpdateUserLocally();
+                        gm.OpenCloseLoadingBar(false);
+                        popUpWorkerDetail.UpdateDetails();
+                        popUpController.OpenInfoPop("Worker Feed!");
+                }
+                else
+                {
+                    gm.OpenCloseLoadingBar(false);
+                }
+         
+           }
+        });
+    }
+
+    public IEnumerator CheckWorkerWorkFinishCor(String workerWorkDocId,FieldController fieldController)
     {
 
         var functions = FirebaseFunctions.DefaultInstance;
@@ -445,7 +498,6 @@ public  class FirebaseApi : MonoBehaviour
                     }
                     
                     fieldController.OpenRewardPoolObject();
-                    gm.UpdateUserLocally();
                     yield return null;
                     }
         }

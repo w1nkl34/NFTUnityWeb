@@ -72,24 +72,18 @@ public class PopUpRewardPool : MonoBehaviour
         {
             GameObject newItem = Instantiate(productsParent.transform.GetChild(0).gameObject,productsParent.transform.GetChild(0).gameObject.transform.parent);
             newItem.transform.GetChild(0).GetComponent<Text>().text = "x" + item.Value.ToString();
-            if(item.Key == "wood")
-            {
-                newItem.GetComponent<Image>().sprite = gm.publicImages.woodImage;
-            }
-            else if(item.Key == "stone")
-            {
-                newItem.GetComponent<Image>().sprite = gm.publicImages.stoneImage;
-            }
-            else if(item.Key == "peridotShard")
-            {
-                newItem.GetComponent<Image>().sprite = gm.publicImages.peridotImage;
-            }
-            else
-            {
-                newItem.GetComponent<Image>().sprite = gm.publicImages.nullImage;
-
-            }
-            newItem.gameObject.SetActive(true);
+      
+                string iconUrl = "";
+                foreach(InventoryItems allItem in Constants.allInventoryItems)
+                {
+                    if(allItem.itemName == item.Key)
+                    {
+                        iconUrl = allItem.iconUrl;
+                        break;
+                    }
+                }
+               gm.publicImages.StartCoroutine(gm.publicImages.GetTexture(iconUrl,newItem.GetComponent<Image>()));
+                newItem.gameObject.SetActive(true);
         }
     }
 

@@ -139,6 +139,29 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if(jsonData.ContainsKey("allInventoryItemsData"))
+        {
+             List<Dictionary<string, object>> inventoryItemsData = 
+             JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(jsonData["allInventoryItemsData"].ToString());   
+            for(int i = 0; i< inventoryItemsData.Count; i++)
+            {
+                foreach(KeyValuePair<string,object> inventoryItem in inventoryItemsData[i])
+                {
+                    Dictionary<string,object> item = 
+                    JsonConvert.DeserializeObject<Dictionary<string, object>>(inventoryItem.Value.ToString());   
+                    InventoryItems newItem = new InventoryItems();
+                    newItem.itemName = item["itemName"].ToString();
+                    newItem.iconUrl = item["iconUrl"].ToString();
+                    newItem.type = item["type"].ToString();
+                    if(item["type"].ToString() == "workerEnergyConsumable")
+                    {
+                        newItem.energyIncrease = int.Parse(item["energyIncrease"].ToString());
+                    }
+                    Constants.allInventoryItems.Add(newItem);
+                }
+            }
+        }
+
         List<BuildingUpgrade> buildingUpgrades = new List<BuildingUpgrade>();
         List<WorkerWork> workerWorks = new List<WorkerWork>();
 
@@ -237,6 +260,12 @@ public class GameManager : MonoBehaviour
                     {
                     List<Dictionary<string, object>> allProducts = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(field["productItem"].ToString());   
                     newFiled.productItem = allProducts;
+                    if(field.ContainsKey("extraProductItem"))
+                    {
+                    List<Dictionary<string, object>> allProductsExtra = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(field["extraProductItem"].ToString());
+                    newFiled.extraProductItem = allProductsExtra;
+                    }
+
                     }
                     allFieldsToAdd.Add(newFiled);
                 }

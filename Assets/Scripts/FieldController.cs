@@ -110,7 +110,6 @@ public class FieldController : MonoBehaviour
     public IEnumerator CheckTimeFinish(String docId)
     {
         yield return StartCoroutine(FindObjectOfType<FirebaseApi>().CheckWorkerWorkFinishCor(docId,this));
-        Debug.Log("later");
         startTime = endTime;
         UpgradeLeft.SetActive(false);
         startCounter = false;
@@ -137,7 +136,7 @@ public class FieldController : MonoBehaviour
 
     public void GenerateProduct()
     {
-       gm.popUpController.popUpWorkProductionController.GenerateProduct(field,zone,workerWork);
+       gm.popUpController.popUpWorkProductionController.GenerateProduct(field,zone,workerWork,this);
     }
 
     public void ResetAllData()
@@ -156,7 +155,7 @@ public class FieldController : MonoBehaviour
         if(field.fieldType == "production")
         {
         gm.popUpController.OpenProductionPop();
-        gm.popUpController.popUpWorkProductionController.GenerateProduct(field,zone,workerWork);
+        gm.popUpController.popUpWorkProductionController.GenerateProduct(field,zone,workerWork,this);
         }
         else
         {

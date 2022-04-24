@@ -13,6 +13,8 @@ public class PopUpWorkProductionController : MonoBehaviour
     public Field field;
     public Zones zone;
     public GameObject productParent;
+    public GameObject extraProductParent;
+    public GameObject extraItemsTextGameObject;
     public Workers selectedWorker = null;
     public Button startToWorkButton;
     public GameObject onWorkTimer;
@@ -25,6 +27,8 @@ public class PopUpWorkProductionController : MonoBehaviour
     public GameObject workersLoadingText;
 
     WorkerWork workerWork;
+
+    FieldController fieldController;
 
     DateTime beginStartTime;
     DateTime endTime;
@@ -76,6 +80,7 @@ public class PopUpWorkProductionController : MonoBehaviour
 
     public void StartToWork()
     {
+        if(!fieldController.thisIsOnQuery)
         FindObjectOfType<FirebaseApi>().WorkerToWork(zone.docId,field.docId,selectedWorker.docId,amountToWork.ToString());
     }
 
@@ -87,6 +92,7 @@ public class PopUpWorkProductionController : MonoBehaviour
 
     public void RemoveWorkerWorkTime()
     {
+        if(!fieldController.thisIsOnQuery)
         FindObjectOfType<FirebaseApi>().CancelWorkerWork(workerWork.workerWorkDocId,workerWork.workerDocId);
     }
 
@@ -116,28 +122,125 @@ public class PopUpWorkProductionController : MonoBehaviour
             GameObject newItem = Instantiate(productParent.transform.GetChild(0).gameObject,productParent.transform.GetChild(0).gameObject.transform.parent);
                 newItem.GetComponent<ProductHolder>().productName.text = productName;
 
-                if(productName == "wood")
-               {
-                 newItem.GetComponent<ProductHolder>().productImage.sprite = gm.publicImages.woodImage;
-               }
-               else if(productName == "stone")
-               {
-                newItem.GetComponent<ProductHolder>().productImage.sprite  = gm.publicImages.stoneImage;
-               }
-               else if(productName == "peridotShard")
-               {
-               newItem.GetComponent<ProductHolder>().productImage.sprite  = gm.publicImages.peridotImage;   
-               }
-               else
-               {
-               newItem.GetComponent<ProductHolder>().productImage.sprite = gm.publicImages.nullImage;   
-               }
+            
+                string iconUrl = "";
+                foreach(InventoryItems allItem in Constants.allInventoryItems)
+                {
+                    if(allItem.itemName == productName)
+                    {
+                        iconUrl = allItem.iconUrl;
+                        break;
+                    }
+                }
+                newItem.GetComponent<ProductHolder>().productImage.sprite = gm.publicImages.loadingSprite;
+                gm.publicImages.StartCoroutine(gm.publicImages.GetTexture(iconUrl,newItem.GetComponent<ProductHolder>().productImage));
+
+               
                 newItem.gameObject.SetActive(true);
     }
 
-   public void GenerateProduct(Field field,Zones zone,WorkerWork workerWork)
+
+    public void InstantiateExtraProduct(string productName)
+    {
+            GameObject newItem = Instantiate(extraProductParent.transform.GetChild(0).gameObject,extraProductParent.transform.GetChild(0).gameObject.transform.parent);
+                newItem.GetComponent<ProductHolder>().productName.text = productName;
+
+                string iconUrl = "";
+                foreach(InventoryItems allItem in Constants.allInventoryItems)
+                {
+                    if(allItem.itemName == productName)
+                    {
+                        iconUrl = allItem.iconUrl;
+                        break;
+                    }
+                }
+                newItem.GetComponent<ProductHolder>().productImage.sprite = gm.publicImages.loadingSprite;
+                gm.publicImages.StartCoroutine(gm.publicImages.GetTexture(iconUrl,newItem.GetComponent<ProductHolder>().productImage));
+                newItem.gameObject.SetActive(true);
+    }
+
+    public void ResetGenerateProductIcons()
+    {
+        int productIndex = 0;
+       foreach(Transform child in productParent.transform)
+       {
+           if(productIndex != 0)
+           {
+               Destroy(child.gameObject);
+           }
+           productIndex++;
+       }
+
+        int extraProductIndex = 0;
+        foreach(Transform child in extraProductParent.transform)
+       {
+           if(extraProductIndex != 0)
+           {
+               Destroy(child.gameObject);
+           }
+           extraProductIndex++;
+       }
+    }
+
+    public void ResetAndGenerateProductIcons()
+    {
+
+        int productIndex = 0;
+       foreach(Transform child in productParent.transform)
+       {
+           if(productIndex != 0)
+           {
+               Destroy(child.gameObject);
+           }
+           productIndex++;
+       }
+
+        int extraProductIndex = 0;
+        foreach(Transform child in extraProductParent.transform)
+       {
+           if(extraProductIndex != 0)
+           {
+               Destroy(child.gameObject);
+           }
+           extraProductIndex++;
+       }
+
+
+        if(field.extraProductItem.Count == 0)
+        {
+           extraProductParent.SetActive(false);   
+            extraItemsTextGameObject.SetActive(false);
+        }
+       else
+       {
+            extraItemsTextGameObject.SetActive(true);
+            extraProductParent.SetActive(true);
+       }
+
+       
+
+
+
+         for(int i = 0; i<field.productItem.Count; i++)
+       {
+           foreach(KeyValuePair<string,object> item in field.productItem[i])
+           {
+               InstantiateProduct(item.Key);
+           }
+       }
+        for(int i = 0; i<field.extraProductItem.Count; i++)
+       {
+           foreach(KeyValuePair<string,object> item in field.extraProductItem[i])
+           {
+               InstantiateExtraProduct(item.Key);
+           }
+       }
+    }
+
+   public void GenerateProduct(Field field,Zones zone,WorkerWork workerWork,FieldController fieldController)
    {
         ResetData();
+        this.fieldController = fieldController;
         this.workerWork = workerWork;
         this.zone = zone;
        this.field = field;
@@ -148,23 +251,9 @@ public class PopUpWorkProductionController : MonoBehaviour
                onWork = true;
            }
        }
-       int productIndex = 0;
-       foreach(Transform child in productParent.transform)
-       {
-           if(productIndex != 0)
-           {
-               Destroy(child.gameObject);
-           }
-           productIndex++;
-       }
-    for(int i = 0; i<field.productItem.Count; i++)
-       {
-           foreach(KeyValuePair<string,object> item in field.productItem[i])
-           {
-               InstantiateProduct(item.Key);
-              
-           }
-       }
+
+        ResetAndGenerateProductIcons();
+       
     if(!onWork)
     {
        StartCoroutine(GenerateWorkers());
@@ -173,8 +262,7 @@ public class PopUpWorkProductionController : MonoBehaviour
     }
     if(onWork)
     {
-            CheckWorkerWork();
-   
+        CheckWorkerWork();
         if(DateTime.Compare(DateTime.UtcNow ,endTime) <= 0 )
         {
             StartCoroutine(GenerateWorkingWorkers());
@@ -224,6 +312,7 @@ public class PopUpWorkProductionController : MonoBehaviour
    public void ClosePop()
    {
         StopAllCoroutines();
+        ResetGenerateProductIcons();
         ResetData();
         FindObjectOfType<UIController>().SetOnMenuToFalseCorCall();
         gameObject.SetActive(false);

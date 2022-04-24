@@ -18,6 +18,8 @@ public class PopUpController : MonoBehaviour
     public PopUpWorkProductionController popUpWorkProductionController;
     public PopUpBattleController popUpBattleController;
     public PopUpWorkIncreaseDecreaseTime popUpWorkIncreaseDecreaseTimeController;
+
+    public PopUpWorkerEnergyIncrease popUpWorkerEnergyIncreaseController;
     public GameManager gm;
     public LeanTweenType leanTweenType;
 
@@ -26,6 +28,13 @@ public class PopUpController : MonoBehaviour
         gm.transform.GetChild(1).localScale = new Vector3(0,0,0);
         gm.SetActive(true);
         LeanTween.scale( gm.transform.GetChild(1).gameObject,new Vector3(1,1,1),0.15f).setEase(leanTweenType);
+    }
+
+    public void OpenPopUpEnergy(Workers worker,PopUpWorkerDetail popUpWorkerDetail)
+    {
+        Constants.onMenu = true;
+        SetActives(popUpWorkerEnergyIncreaseController.gameObject);
+        popUpWorkerEnergyIncreaseController.GenerateData(worker,gm,popUpWorkerDetail);
     }
 
     public void OpenInfoPop(string message)
@@ -73,6 +82,7 @@ public class PopUpController : MonoBehaviour
 
     public void CloseAllPops()
     {
+        popUpWorkerEnergyIncreaseController.gameObject.SetActive(false);
         popUpZoneAccessRequiredMainTowerLevel.gameObject.SetActive(false);
         popUpBattleController.gameObject.SetActive(false);
         popUpUpgradeBuilding.gameObject.SetActive(false);
