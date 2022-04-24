@@ -64,7 +64,7 @@ public class WorkerInventoryController : MonoBehaviour
         UnityWebRequest www;
         if(File.Exists(Application.persistentDataPath  + "/" + worker.docId + ".png"))
         {
-            exists = true;
+            // exists = true;
             www = UnityWebRequestTexture.GetTexture(Application.persistentDataPath  + "/" + worker.docId + ".png");
         }
         else

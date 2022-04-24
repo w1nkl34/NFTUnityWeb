@@ -15,23 +15,23 @@ public class PublicImages : MonoBehaviour
     {
         string persistentUrl = iconUrl.Replace("/","");
         UnityWebRequest www = new UnityWebRequest();
-        if(File.Exists("file://" + Application.persistentDataPath  + "/" + persistentUrl +".png"))
-        {
-            www = UnityWebRequestTexture.GetTexture("file://" + Application.persistentDataPath  + "/" + persistentUrl +".png");
-            yield return www.SendWebRequest();
-            if (www.result != UnityWebRequest.Result.Success) 
-                    {
-                        Debug.Log(www.error);
-                    }
-                    else 
-                    {
-            Texture2D myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            Sprite mySprite = Sprite.Create(myTexture, new Rect(0.0f, 0.0f, myTexture.width, myTexture.height), new Vector2(0.5f, 0.5f), 100.0f);
-            sp.sprite = mySprite;
-                    }
-        }
-        else
-        {
+        // if(File.Exists("file://" + Application.persistentDataPath  + "/" + persistentUrl +".png"))
+        // {
+        //     www = UnityWebRequestTexture.GetTexture("file://" + Application.persistentDataPath  + "/" + persistentUrl +".png");
+        //     yield return www.SendWebRequest();
+        //     if (www.result != UnityWebRequest.Result.Success) 
+        //             {
+        //                 Debug.Log(www.error);
+        //             }
+        //             else 
+        //             {
+        //     Texture2D myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+        //     Sprite mySprite = Sprite.Create(myTexture, new Rect(0.0f, 0.0f, myTexture.width, myTexture.height), new Vector2(0.5f, 0.5f), 100.0f);
+        //     sp.sprite = mySprite;
+        //             }
+        // }
+        // else
+        // {
             FirebaseStorage storage = FirebaseStorage.DefaultInstance;
             StorageReference pathReference =
             storage.GetReference(iconUrl + ".png");
@@ -58,6 +58,6 @@ public class PublicImages : MonoBehaviour
                 }
             }
       
-        }
+        // }
     }
 }
