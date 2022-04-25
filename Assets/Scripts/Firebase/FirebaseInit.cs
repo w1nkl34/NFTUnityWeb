@@ -27,7 +27,7 @@ public class FirebaseInit : MonoBehaviour
         }
         else
         {
-            UserIsNotAnonymousConnect();
+            UserIsAnonymousConnect();
         }
     }
 
