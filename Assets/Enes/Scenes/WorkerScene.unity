@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorkerScene1
       objectReference: {fileID: 0}
+    - target: {fileID: 1191127387913215636, guid: 990591f6fa6cbee4f8b2ed40f2ee864d, type: 3}
+      propertyPath: m_Color.a
+      value: 0.6666667
+      objectReference: {fileID: 0}
     - target: {fileID: 2399089757980341828, guid: 990591f6fa6cbee4f8b2ed40f2ee864d, type: 3}
       propertyPath: m_RootOrder
       value: 1
