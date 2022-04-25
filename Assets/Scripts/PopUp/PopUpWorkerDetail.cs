@@ -20,6 +20,7 @@ public class PopUpWorkerDetail : MonoBehaviour
     public GameObject upgradeButton;
     public GameObject onSaleGameObject;
     public GameObject destroyButton;
+    public Button feedButton;
     public Text onSaleText;
     public Text workerNameText;
 
@@ -38,7 +39,7 @@ public class PopUpWorkerDetail : MonoBehaviour
         if(worker.onWork == false)
         FindObjectOfType<PopUpController>().OpenPopUpEnergy(worker,this);
         else
-        FindObjectOfType<PopUpController>().OpenInfoPop("Worker Is On Work Can't Feed!");
+        FindObjectOfType<PopUpController>().OpenInfoPopNoOnMenuSet("Worker Is On Work Can't Feed!");
 
     }
 
@@ -57,6 +58,11 @@ public class PopUpWorkerDetail : MonoBehaviour
 
     public void UpdateDetails()
     {
+        if(worker.currentStamina == worker.stamina)
+        feedButton.interactable = false;
+        else
+        feedButton.interactable = true;
+
          if(worker.onSale == true)
         {
             destroyButton.SetActive(false);

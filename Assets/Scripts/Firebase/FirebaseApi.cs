@@ -37,7 +37,7 @@ public  class FirebaseApi : MonoBehaviour
                     }
                 }
                 gm.wm.GenerateSpecificZone(workerWorkDocId,zoneDocId,fieldDocId);
-                gm.OpenCloseLoadingBar(false);
+                gm.OpenCloseLoadingBarOnMenuFalse(false);
                 }
                 else
                 {
@@ -47,7 +47,7 @@ public  class FirebaseApi : MonoBehaviour
         });
     }
 
-   public void CancelWorkerWork(String workerWorkDocId,String workerDocId)
+   public void CancelWorkerWork(String workerWorkDocId,String workerDocId,String zoneDocId,String fieldDocId)
     {
         var functions = FirebaseFunctions.DefaultInstance;
         var data = new Dictionary<string,object>();
@@ -76,10 +76,11 @@ public  class FirebaseApi : MonoBehaviour
                         }
                     }
                     gm.UpdateUserLocally();
-                    gm.wm.GenerateZones();
-                    gm.popUpController.CloseAllPops();
-                    gm.OpenCloseLoadingBar(false);
-                    popUpController.OpenInfoPop("Work Declined!");
+                    // gm.wm.GenerateZones();
+                    // gm.popUpController.CloseAllPops();
+                    gm.wm.GenerateSpecificZoneNoWorkerWorkDoc(zoneDocId,fieldDocId);
+                    gm.OpenCloseLoadingBarOnMenuFalse(false);
+                    popUpController.OpenInfoPopNoOnMenuSet("Work Declined!");
                 }
                 else
                 {
@@ -130,12 +131,16 @@ public  class FirebaseApi : MonoBehaviour
                     }
 
 
-
                     Constants.currentUser.workerWorks.Add(workerWork1);
-                    gm.wm.GenerateZones();
-                    gm.popUpController.CloseAllPops();
-                    gm.OpenCloseLoadingBar(false);
-                    popUpController.OpenInfoPop("Work Started!");
+                    gm.wm.GenerateSpecificZoneNoWorkerWorkDoc(zoneDocId,fieldDocId);
+                    // gm.wm.GenerateZones();
+                    // gm.popUpController.CloseAllPops();
+                    gm.OpenCloseLoadingBarOnMenuFalse(false);
+                    popUpController.OpenInfoPopNoOnMenuSet("Work Started!");
+                    }
+                    else
+                    {
+                        gm.OpenCloseLoadingBar(false);
                     }
            }
         });
@@ -258,7 +263,7 @@ public  class FirebaseApi : MonoBehaviour
                 Constants.currentUser.stoneCount -= requiredStone;
                 uIController.GenerateUserData(false);
                 popUpController.CloseAllPops();
-                gm.OpenCloseLoadingBar(false);
+                gm.OpenCloseLoadingBarOnMenuFalse(false);
                 gm.tm.CloseAllOnClicks();
                 popUpController.OpenInfoPop("Upgrade Started!");
            }
@@ -346,14 +351,14 @@ public  class FirebaseApi : MonoBehaviour
                 }
                 gm.inventoryController.GenerateItems();
                 popUpController.CloseAllPops();
-                gm.OpenCloseLoadingBar(false);
+                gm.OpenCloseLoadingBarOnMenuFalse(false);
                 gm.tm.CloseAllOnClicks();
                 popUpController.OpenInfoPop("Worker Destroyed!");
                 }
                 else
                 {
                 popUpController.CloseAllPops();
-                gm.OpenCloseLoadingBar(false);
+                gm.OpenCloseLoadingBarOnMenuFalse(false);
                 gm.tm.CloseAllOnClicks();
                 popUpController.OpenInfoPop("Erorr");
                 }
@@ -416,7 +421,7 @@ public  class FirebaseApi : MonoBehaviour
                             }
                         }
                         gm.UpdateUserLocally();
-                        gm.OpenCloseLoadingBar(false);
+                        gm.OpenCloseLoadingBarOnMenuFalse(false);
                         popUpWorkerDetail.UpdateDetails();
                         popUpController.OpenInfoPop("Worker Feed!");
                 }
@@ -518,7 +523,7 @@ public  class FirebaseApi : MonoBehaviour
         {
             gm.GetUser(task.Result.Data.ToString());
             popUpController.CloseAllPops();
-            gm.OpenCloseLoadingBar(false);
+            gm.OpenCloseLoadingBarOnMenuFalse(false);
             gm.tm.CloseAllOnClicks();
             popUpController.OpenInfoPop(message);
         }

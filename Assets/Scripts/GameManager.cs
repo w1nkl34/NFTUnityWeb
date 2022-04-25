@@ -38,6 +38,11 @@ public class GameManager : MonoBehaviour
         uIController.SetOnMenuToFalseCorCall();
     }
 
+    public void OpenCloseLoadingBarOnMenuFalse(bool value)
+    {
+        loadingBar.SetActive(value);
+    }
+
 
     public void StartTown(string json)
     {

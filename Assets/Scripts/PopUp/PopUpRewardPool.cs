@@ -82,6 +82,7 @@ public class PopUpRewardPool : MonoBehaviour
                         break;
                     }
                 }
+                newItem.GetComponent<Image>().sprite = gm.publicImages.loadingSprite;
                gm.publicImages.StartCoroutine(gm.publicImages.GetTexture(iconUrl,newItem.GetComponent<Image>()));
                 newItem.gameObject.SetActive(true);
         }

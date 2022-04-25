@@ -60,21 +60,38 @@ public class WorkerInventoryController : MonoBehaviour
     }
 
      IEnumerator GetTexture(Workers worker) {
-         bool exists = false;
+        if(File.Exists(Application.persistentDataPath  + "/" + worker.docId + ".png"))
+        {
+                    byte[] bytes;
+                 bytes = System.IO.File.ReadAllBytes (Application.persistentDataPath  + "/" + worker.docId + ".png");
+
+                  Texture2D myTexture = new Texture2D(1,1);
+                    myTexture.LoadImage(bytes);
+                 Sprite mySprite = Sprite.Create(myTexture, new Rect(0.0f, 0.0f, myTexture.width, myTexture.height), new Vector2(0.5f, 0.5f), 100.0f);
+            Constants.workerSprites.Add(mySprite);
+            Constants.workersData.Add(worker);
+            GameObject newImage = Instantiate(workerMain.gameObject,workerMain.transform.parent);
+            newImage.GetComponent<WorkerHolder>().workerImage.sprite = mySprite;
+            WorkerHolder workerHolder = newImage.GetComponent<WorkerHolder>();
+            workerHolder.worker = new Workers();
+            workerHolder.worker = worker;
+            newImage.SetActive(true);
+            currentWorkerCount ++;
+            if(currentWorkerCount == totalWorkerCount)
+            {
+                Constants.allWorkersLoaded = true;
+                loadingWidget.SetActive(false);
+            }
+        }
+        else
+        {
         UnityWebRequest www;
-        // if(File.Exists(Application.persistentDataPath  + "/" + worker.docId + ".png"))
-        // {
-            // exists = true;
-        //     www = UnityWebRequestTexture.GetTexture(Application.persistentDataPath  + "/" + worker.docId + ".png");
-        // }
-        // else
         www = UnityWebRequestTexture.GetTexture(worker.url);
         yield return www.SendWebRequest();
         if (www.result != UnityWebRequest.Result.Success) {
             Debug.Log(www.error);
         }
         else {
-            if(exists == false)
             File.WriteAllBytes(Application.persistentDataPath  + "/" + worker.docId + ".png",((DownloadHandlerTexture)www.downloadHandler).data);
             Texture2D myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             Sprite mySprite = Sprite.Create(myTexture, new Rect(0.0f, 0.0f, myTexture.width, myTexture.height), new Vector2(0.5f, 0.5f), 100.0f);
@@ -93,6 +110,8 @@ public class WorkerInventoryController : MonoBehaviour
                 loadingWidget.SetActive(false);
             }
         }
+        }
+
     }
     
 }

@@ -62,6 +62,20 @@ public class MainZoneController : MonoBehaviour
         }
     }
 
+    public void GenerateSpecificFieldNoWorkerWorkDoc(string fieldDocId)
+    {
+         foreach(Transform child in fieldsParent.transform)
+        {
+            if(child.GetComponent<FieldController>().field.docId == fieldDocId)
+            {
+                child.GetComponent<FieldController>().StartField();
+                child.GetComponent<FieldController>().GenerateProduct();
+                break;
+            }
+
+        }
+    }
+
       public void GenerateSpecificField(string workerWorkDocId,string fieldDocId)
     {
         foreach(Transform child in fieldsParent.transform)

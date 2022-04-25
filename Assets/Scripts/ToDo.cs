@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ToDo 
 {
-    //TODO: TELEFON BACKGROUNDD CURRENT TİME ++ BAK
     //SON DAKKA WORKERWORK IPTAL VE CHANGETIME
+    //3 ITEM GELECEK MI BAK
+    //MIN MAX ' ları Ekle
 }

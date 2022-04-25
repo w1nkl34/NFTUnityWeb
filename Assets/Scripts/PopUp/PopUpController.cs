@@ -40,6 +40,16 @@ public class PopUpController : MonoBehaviour
     public void OpenInfoPop(string message)
     {
         Constants.onMenu = true;
+         popUpInfo.onMenu = true;
+
+        popUpInfo.messageText.text = message;
+        SetActives(popUpInfo.gameObject);
+    }
+
+    public void OpenInfoPopNoOnMenuSet(string message)
+    {
+         Constants.onMenu = true;
+         popUpInfo.onMenu = false;
         popUpInfo.messageText.text = message;
         SetActives(popUpInfo.gameObject);
     }

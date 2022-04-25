@@ -93,7 +93,7 @@ public class PopUpWorkProductionController : MonoBehaviour
     public void RemoveWorkerWorkTime()
     {
         if(!fieldController.thisIsOnQuery)
-        FindObjectOfType<FirebaseApi>().CancelWorkerWork(workerWork.workerWorkDocId,workerWork.workerDocId);
+        FindObjectOfType<FirebaseApi>().CancelWorkerWork(workerWork.workerWorkDocId,workerWork.workerDocId,zone.docId,field.docId);
     }
 
     public void DecreaseAmountToWork()
