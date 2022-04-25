@@ -1,0 +1,1614 @@
+fileFormatVersion: 2
+guid: 990591f6fa6cbee4f8b2ed40f2ee864d
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: b2a9591990af98743ba3ff7cf1000886, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 1
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    isReadable: 0
+    streamingMipmaps: 1
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  spriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 0, y: 0}
+  mosaicSpriteImportData: []
+  rigSpriteImportData:
+  - name: WORKERS
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 372
+      y: 8153
+      width: 163
+      height: 28
+    spriteID: 04328d5dc548cf44aba3cb12fbf34561
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -111, y: 6015}
+  - name: TepeIcon
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1137
+      y: 7819
+      width: 119
+      height: 74
+    spriteID: 66ffb598b97c7664192c7611d81dab74
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 634, y: 5620}
+  - name: Katman 99
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1428
+      y: 7879
+      width: 0
+      height: 0
+    spriteID: ff9dae7a4d38aa84492ab2abee9e5d4d
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 303, y: 5443}
+  - name: OkCizgiler
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 7961
+      width: 360
+      height: 223
+    spriteID: bf5e72adc29d87041ab8a3c793afe8be
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -112, y: 7740}
+  - name: OkRenk
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1449
+      y: 128
+      width: 360
+      height: 223
+    spriteID: c46883475749f154a8e68682cd7fdf9b
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1333, y: -93}
+  - name: Katman 108
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1428
+      y: 7887
+      width: 0
+      height: 0
+    spriteID: b7ad0df99ac261f48b92e52e6b0a1734
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 303, y: 5451}
+  - name: Koyuluk kopya
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 2582
+      y: 4
+      width: 1125
+      height: 28
+    spriteID: 24db2f2fb2e1d2e49bcd234581eafc36
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 2582, y: -84}
+  - name: Koyuluk
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1449
+      y: 4
+      width: 1125
+      height: 116
+    spriteID: c25f0974305c23045ad1a9b860cfd5aa
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1449, y: 4}
+  - name: Cerceve
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 1125
+      height: 2436
+    spriteID: b8bd63fd9f3c9ba40b074b5488055a92
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 4}
+  - name: 5/10
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4057
+      y: 4
+      width: 30
+      height: 11
+    spriteID: 9e2fb17b4687cec4a945a2d31daeee3b
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 3199, y: -1502}
+  - name: 10+ kopya
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1384
+      y: 7755
+      width: 38
+      height: 19
+    spriteID: 924ad4416e93eac41957b959124e834a
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 527, y: 5725}
+  - name: EnergyIcon
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 372
+      y: 7961
+      width: 239
+      height: 56
+    spriteID: 8ce28753de1e47b42830383db4b11f2a
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -398, y: 6455}
+  - name: ProgressBar
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1264
+      y: 7879
+      width: 156
+      height: 17
+    spriteID: a3ccdd7f7909e264fa35a1471546802f
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 463, y: 6349}
+  - name: BarAltYuzey
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3715
+      y: 4
+      width: 163
+      height: 22
+    spriteID: bdb64cd9b7c6485409bef69b7a9b9390
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 2916, y: -1524}
+  - name: Worker
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1137
+      y: 5425
+      width: 264
+      height: 464
+    spriteID: 48b0ad064336ddc47b8df48a4cc544f3
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 396, y: 3877}
+  - name: BarEkrani
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1137
+      y: 4
+      width: 304
+      height: 577
+    spriteID: 9b97945e413fb9642aa5a1b3ed88ee79
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 416, y: -1486}
+  - name: CardArkaYuzeyRenk
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1137
+      y: 5897
+      width: 234
+      height: 463
+    spriteID: db33d342c16bd4c49952fcb6ce2008c8
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 389, y: 4345}
+  - name: CardArkaYuzey
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1137
+      y: 3373
+      width: 285
+      height: 505
+    spriteID: 9f0a648c50719b249a791133519611f3
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 410, y: 1838}
+  - name: 5/10_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 619
+      y: 7961
+      width: 30
+      height: 11
+    spriteID: a0fcdf1ab2827224c82e5fb649c15968
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 386, y: 6454}
+  - name: 10+ kopya_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1384
+      y: 7782
+      width: 38
+      height: 19
+    spriteID: 5f7fbde548354924a867619fca3154ab
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1152, y: 5751}
+  - name: EnergyIcon_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 372
+      y: 8025
+      width: 239
+      height: 56
+    spriteID: a4ce04668d657034da5f2f8238697f84
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 227, y: 6518}
+  - name: ProgressBar_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1264
+      y: 7904
+      width: 156
+      height: 17
+    spriteID: cecf331b15fa8e54ea7d488244114aac
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1088, y: 6373}
+  - name: BarAltYuzey_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3886
+      y: 4
+      width: 163
+      height: 22
+    spriteID: 9518f02a953428046abb232f7346f544
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 3712, y: -1525}
+  - name: BarEkrani_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1137
+      y: 589
+      width: 304
+      height: 577
+    spriteID: 0fe8b308d864b964895da1d40e6e1a5b
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1041, y: -902}
+  - name: Worker1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1137
+      y: 2344
+      width: 300
+      height: 511
+    spriteID: c09ff8019107f434b944f38436ecc91f
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1051, y: 829}
+  - name: CardArkaYuzeyRenk_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1137
+      y: 6368
+      width: 234
+      height: 461
+    spriteID: 563da70e239142240845a1a55517835d
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1013, y: 4815}
+  - name: CardArkaYuzey_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1137
+      y: 3886
+      width: 285
+      height: 505
+    spriteID: b8a89d1215aa0a5478c1b002d8c00e5e
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1035, y: 2350}
+  - name: 5/10_2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 619
+      y: 7980
+      width: 30
+      height: 11
+    spriteID: b816d20f02203e2429d450fe0a255027
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 385, y: 7068}
+  - name: 10+ kopya_2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 543
+      y: 8153
+      width: 38
+      height: 19
+    spriteID: adc152165995fb44cba9f67f434d0a32
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 310, y: 6717}
+  - name: EnergyIcon_2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 372
+      y: 8089
+      width: 239
+      height: 56
+    spriteID: 4ef34f77c9efae54eb9511b4c141fbe3
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 226, y: 7177}
+  - name: ProgressBar_2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1264
+      y: 7929
+      width: 156
+      height: 17
+    spriteID: cd24215fa74f77a419eddd199ffaa616
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1087, y: 6993}
+  - name: BarAltYuzey_2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1264
+      y: 7819
+      width: 163
+      height: 22
+    spriteID: 478f4abfbad118b42ba66c00ce5ed48c
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1089, y: 6885}
+  - name: Worker1_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1137
+      y: 2863
+      width: 302
+      height: 502
+    spriteID: cd776f3683fea81488eb3362aa4a167b
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1020, y: 1945}
+  - name: BarEkrani_2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1137
+      y: 1174
+      width: 304
+      height: 577
+    spriteID: 2e7969a2b25df24498621e9611f9d35b
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1040, y: 278}
+  - name: CardArkaYuzeyRenk_2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1137
+      y: 6837
+      width: 235
+      height: 451
+    spriteID: 8962b8e296090564f985df8d9a25096f
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1012, y: 5868}
+  - name: CardArkaYuzey_2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1137
+      y: 4399
+      width: 284
+      height: 505
+    spriteID: 540616ad4fbe523478f059c64bf084c1
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1034, y: 3458}
+  - name: 5/10_3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 619
+      y: 7999
+      width: 30
+      height: 11
+    spriteID: c5680187a21f79c41aa7319e16295f5b
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 73, y: 6492}
+  - name: 10+ kopya_3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 589
+      y: 8153
+      width: 38
+      height: 19
+    spriteID: a6dd815dadb259d45837da657acf9dd7
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 44, y: 6122}
+  - name: EnergyIcon_3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1137
+      y: 7755
+      width: 239
+      height: 56
+    spriteID: df63440d9a76638498da86b6a11c6d22
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 679, y: 6248}
+  - name: ProgressBar_3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1264
+      y: 7954
+      width: 156
+      height: 17
+    spriteID: 5f21f652dad3b1645a5550a01169c487
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 775, y: 6423}
+  - name: BarAltYuzey_3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1264
+      y: 7849
+      width: 163
+      height: 22
+    spriteID: ff2ba68d4acc46840b6691700271601e
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 777, y: 6320}
+  - name: Worker_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 663
+      y: 7700
+      width: 288
+      height: 464
+    spriteID: b9dfd38292787c44082399ba3aa0cc82
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 234, y: 6151}
+  - name: BarEkrani_3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1137
+      y: 1759
+      width: 304
+      height: 577
+    spriteID: bda0989352e19dd4f8b81ee9e42681a2
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 728, y: 268}
+  - name: CardArkaYuzeyRenk_3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1137
+      y: 7296
+      width: 235
+      height: 451
+    spriteID: 42adf600f3a109d4694663ad35059b8a
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 700, y: 5732}
+  - name: CardArkaYuzey_3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1137
+      y: 4912
+      width: 284
+      height: 505
+    spriteID: aec01ec5c42e81247919dcf016c69853
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 722, y: 3376}
+  - name: UstGolge
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 7479
+      width: 1125
+      height: 213
+    spriteID: f89740a98462ff14bab8e948af61cac5
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 5398}
+  - name: "Catlaklar\u0131nAltiGolge"
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 7700
+      width: 651
+      height: 253
+    spriteID: 52192949c31ccfb4fa98651134a69852
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -372, y: 7432}
+  - name: AltGolge
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 7064
+      width: 1125
+      height: 407
+    spriteID: e55365cc3bf2217428152bdee6beb6ca
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 6762}
+  - name: ArkaFon
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4892
+      width: 1118
+      height: 2164
+    spriteID: b68680d474216c3438fb3c7326e6de45
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 4758}
+  - name: Katman 113
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 2448
+      width: 1125
+      height: 2436
+    spriteID: 38e8ace061c287c4285ed4cb96bffb3e
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 2448}
+  platformSettings: []
+  mosaicLayers: 1
+  documentPivot: {x: 0, y: 0}
+  documentAlignment: 7
+  importHiddenLayers: 0
+  importedTextureWidth: 1024
+  importedTextureHeight: 2048
+  documentSize: {x: 1125, y: 2436}
+  paperDollMode: 0
+  keepDupilcateSpriteName: 0
+  spriteCategoryList:
+    categories: []
+  textureActualWidth: 4096
+  textureActualHeight: 8192
+  spritePackingTag: 
+  resliceFromLayer: 0
+  characterMode: 1
+  mosaicPSDLayers: []
+  rigPSDLayers:
+  - name: "\xC7al\u0131\u015Fma y\xFCzeyi 1 kopya 5"
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 
+    layerID: 928
+    mosaicPosition: {x: 0, y: 0}
+  - name: WORKERS
+    spriteName: WORKERS
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 04328d5dc548cf44aba3cb12fbf34561
+    layerID: 1101
+    mosaicPosition: {x: 372, y: 8153}
+  - name: TepeIcon
+    spriteName: TepeIcon
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 66ffb598b97c7664192c7611d81dab74
+    layerID: 948
+    mosaicPosition: {x: 1137, y: 7819}
+  - name: Katman 99
+    spriteName: Katman 99
+    isGroup: 0
+    parentIndex: 0
+    spriteID: ff9dae7a4d38aa84492ab2abee9e5d4d
+    layerID: 973
+    mosaicPosition: {x: 1428, y: 7879}
+  - name: OkCizgiler
+    spriteName: OkCizgiler
+    isGroup: 0
+    parentIndex: 0
+    spriteID: bf5e72adc29d87041ab8a3c793afe8be
+    layerID: 974
+    mosaicPosition: {x: 4, y: 7961}
+  - name: OkRenk
+    spriteName: OkRenk
+    isGroup: 0
+    parentIndex: 0
+    spriteID: c46883475749f154a8e68682cd7fdf9b
+    layerID: 983
+    mosaicPosition: {x: 1449, y: 128}
+  - name: OkYedek
+    spriteName: 
+    isGroup: 1
+    parentIndex: 0
+    spriteID: 
+    layerID: 1193
+    mosaicPosition: {x: 0, y: 0}
+  - name: Katman 108
+    spriteName: Katman 108
+    isGroup: 0
+    parentIndex: 0
+    spriteID: b7ad0df99ac261f48b92e52e6b0a1734
+    layerID: 1202
+    mosaicPosition: {x: 1428, y: 7887}
+  - name: Koyuluk kopya
+    spriteName: Koyuluk kopya
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 24db2f2fb2e1d2e49bcd234581eafc36
+    layerID: 1378
+    mosaicPosition: {x: 2582, y: 4}
+  - name: Koyuluk
+    spriteName: Koyuluk
+    isGroup: 0
+    parentIndex: 0
+    spriteID: c25f0974305c23045ad1a9b860cfd5aa
+    layerID: 1179
+    mosaicPosition: {x: 1449, y: 4}
+  - name: Cerceve
+    spriteName: Cerceve
+    isGroup: 0
+    parentIndex: 0
+    spriteID: b8bd63fd9f3c9ba40b074b5488055a92
+    layerID: 1377
+    mosaicPosition: {x: 4, y: 4}
+  - name: Card1
+    spriteName: 
+    isGroup: 1
+    parentIndex: 0
+    spriteID: 
+    layerID: 1367
+    mosaicPosition: {x: 0, y: 0}
+  - name: 5/10
+    spriteName: 5/10
+    isGroup: 0
+    parentIndex: 11
+    spriteID: 9e2fb17b4687cec4a945a2d31daeee3b
+    layerID: 1366
+    mosaicPosition: {x: 4057, y: 4}
+  - name: 10+ kopya
+    spriteName: 10+ kopya
+    isGroup: 0
+    parentIndex: 11
+    spriteID: 924ad4416e93eac41957b959124e834a
+    layerID: 1365
+    mosaicPosition: {x: 1384, y: 7755}
+  - name: EnergyIcon
+    spriteName: EnergyIcon
+    isGroup: 0
+    parentIndex: 11
+    spriteID: 8ce28753de1e47b42830383db4b11f2a
+    layerID: 1364
+    mosaicPosition: {x: 372, y: 7961}
+  - name: ProgressBar
+    spriteName: ProgressBar
+    isGroup: 0
+    parentIndex: 11
+    spriteID: a3ccdd7f7909e264fa35a1471546802f
+    layerID: 1363
+    mosaicPosition: {x: 1264, y: 7879}
+  - name: BarAltYuzey
+    spriteName: BarAltYuzey
+    isGroup: 0
+    parentIndex: 11
+    spriteID: bdb64cd9b7c6485409bef69b7a9b9390
+    layerID: 1362
+    mosaicPosition: {x: 3715, y: 4}
+  - name: Worker
+    spriteName: Worker
+    isGroup: 0
+    parentIndex: 11
+    spriteID: 48b0ad064336ddc47b8df48a4cc544f3
+    layerID: 1373
+    mosaicPosition: {x: 1137, y: 5425}
+  - name: BarEkrani
+    spriteName: BarEkrani
+    isGroup: 0
+    parentIndex: 11
+    spriteID: 9b97945e413fb9642aa5a1b3ed88ee79
+    layerID: 1361
+    mosaicPosition: {x: 1137, y: 4}
+  - name: CardArkaYuzeyRenk
+    spriteName: CardArkaYuzeyRenk
+    isGroup: 0
+    parentIndex: 11
+    spriteID: db33d342c16bd4c49952fcb6ce2008c8
+    layerID: 880
+    mosaicPosition: {x: 1137, y: 5897}
+  - name: CardArkaYuzey
+    spriteName: CardArkaYuzey
+    isGroup: 0
+    parentIndex: 11
+    spriteID: 9f0a648c50719b249a791133519611f3
+    layerID: 1358
+    mosaicPosition: {x: 1137, y: 3373}
+  - name: Card1
+    spriteName: 
+    isGroup: 1
+    parentIndex: 0
+    spriteID: 
+    layerID: 1348
+    mosaicPosition: {x: 0, y: 0}
+  - name: 5/10
+    spriteName: 5/10_1
+    isGroup: 0
+    parentIndex: 21
+    spriteID: a0fcdf1ab2827224c82e5fb649c15968
+    layerID: 1347
+    mosaicPosition: {x: 619, y: 7961}
+  - name: 10+ kopya
+    spriteName: 10+ kopya_1
+    isGroup: 0
+    parentIndex: 21
+    spriteID: 5f7fbde548354924a867619fca3154ab
+    layerID: 1346
+    mosaicPosition: {x: 1384, y: 7782}
+  - name: EnergyIcon
+    spriteName: EnergyIcon_1
+    isGroup: 0
+    parentIndex: 21
+    spriteID: a4ce04668d657034da5f2f8238697f84
+    layerID: 1345
+    mosaicPosition: {x: 372, y: 8025}
+  - name: ProgressBar
+    spriteName: ProgressBar_1
+    isGroup: 0
+    parentIndex: 21
+    spriteID: cecf331b15fa8e54ea7d488244114aac
+    layerID: 1344
+    mosaicPosition: {x: 1264, y: 7904}
+  - name: BarAltYuzey
+    spriteName: BarAltYuzey_1
+    isGroup: 0
+    parentIndex: 21
+    spriteID: 9518f02a953428046abb232f7346f544
+    layerID: 1343
+    mosaicPosition: {x: 3886, y: 4}
+  - name: BarEkrani
+    spriteName: BarEkrani_1
+    isGroup: 0
+    parentIndex: 21
+    spriteID: 0fe8b308d864b964895da1d40e6e1a5b
+    layerID: 1341
+    mosaicPosition: {x: 1137, y: 589}
+  - name: Worker1
+    spriteName: Worker1
+    isGroup: 0
+    parentIndex: 21
+    spriteID: c09ff8019107f434b944f38436ecc91f
+    layerID: 1356
+    mosaicPosition: {x: 1137, y: 2344}
+  - name: CardArkaYuzeyRenk
+    spriteName: CardArkaYuzeyRenk_1
+    isGroup: 0
+    parentIndex: 21
+    spriteID: 563da70e239142240845a1a55517835d
+    layerID: 872
+    mosaicPosition: {x: 1137, y: 6368}
+  - name: CardArkaYuzey
+    spriteName: CardArkaYuzey_1
+    isGroup: 0
+    parentIndex: 21
+    spriteID: b8a89d1215aa0a5478c1b002d8c00e5e
+    layerID: 1339
+    mosaicPosition: {x: 1137, y: 3886}
+  - name: Card2
+    spriteName: 
+    isGroup: 1
+    parentIndex: 0
+    spriteID: 
+    layerID: 1390
+    mosaicPosition: {x: 0, y: 0}
+  - name: 5/10
+    spriteName: 5/10_2
+    isGroup: 0
+    parentIndex: 31
+    spriteID: b816d20f02203e2429d450fe0a255027
+    layerID: 1389
+    mosaicPosition: {x: 619, y: 7980}
+  - name: 10+ kopya
+    spriteName: 10+ kopya_2
+    isGroup: 0
+    parentIndex: 31
+    spriteID: adc152165995fb44cba9f67f434d0a32
+    layerID: 1388
+    mosaicPosition: {x: 543, y: 8153}
+  - name: EnergyIcon
+    spriteName: EnergyIcon_2
+    isGroup: 0
+    parentIndex: 31
+    spriteID: 4ef34f77c9efae54eb9511b4c141fbe3
+    layerID: 1387
+    mosaicPosition: {x: 372, y: 8089}
+  - name: ProgressBar
+    spriteName: ProgressBar_2
+    isGroup: 0
+    parentIndex: 31
+    spriteID: cd24215fa74f77a419eddd199ffaa616
+    layerID: 1386
+    mosaicPosition: {x: 1264, y: 7929}
+  - name: BarAltYuzey
+    spriteName: BarAltYuzey_2
+    isGroup: 0
+    parentIndex: 31
+    spriteID: 478f4abfbad118b42ba66c00ce5ed48c
+    layerID: 1385
+    mosaicPosition: {x: 1264, y: 7819}
+  - name: Worker1
+    spriteName: Worker1_1
+    isGroup: 0
+    parentIndex: 31
+    spriteID: cd776f3683fea81488eb3362aa4a167b
+    layerID: 1391
+    mosaicPosition: {x: 1137, y: 2863}
+  - name: BarEkrani
+    spriteName: BarEkrani_2
+    isGroup: 0
+    parentIndex: 31
+    spriteID: 2e7969a2b25df24498621e9611f9d35b
+    layerID: 1383
+    mosaicPosition: {x: 1137, y: 1174}
+  - name: CardArkaYuzeyRenk
+    spriteName: CardArkaYuzeyRenk_2
+    isGroup: 0
+    parentIndex: 31
+    spriteID: 8962b8e296090564f985df8d9a25096f
+    layerID: 1382
+    mosaicPosition: {x: 1137, y: 6837}
+  - name: CardArkaYuzey
+    spriteName: CardArkaYuzey_2
+    isGroup: 0
+    parentIndex: 31
+    spriteID: 540616ad4fbe523478f059c64bf084c1
+    layerID: 1381
+    mosaicPosition: {x: 1137, y: 4399}
+  - name: Card2
+    spriteName: 
+    isGroup: 1
+    parentIndex: 0
+    spriteID: 
+    layerID: 925
+    mosaicPosition: {x: 0, y: 0}
+  - name: 5/10
+    spriteName: 5/10_3
+    isGroup: 0
+    parentIndex: 41
+    spriteID: c5680187a21f79c41aa7319e16295f5b
+    layerID: 1330
+    mosaicPosition: {x: 619, y: 7999}
+  - name: 10+ kopya
+    spriteName: 10+ kopya_3
+    isGroup: 0
+    parentIndex: 41
+    spriteID: a6dd815dadb259d45837da657acf9dd7
+    layerID: 1074
+    mosaicPosition: {x: 589, y: 8153}
+  - name: EnergyIcon
+    spriteName: EnergyIcon_3
+    isGroup: 0
+    parentIndex: 41
+    spriteID: df63440d9a76638498da86b6a11c6d22
+    layerID: 1167
+    mosaicPosition: {x: 1137, y: 7755}
+  - name: ProgressBar
+    spriteName: ProgressBar_3
+    isGroup: 0
+    parentIndex: 41
+    spriteID: 5f21f652dad3b1645a5550a01169c487
+    layerID: 1169
+    mosaicPosition: {x: 1264, y: 7954}
+  - name: BarAltYuzey
+    spriteName: BarAltYuzey_3
+    isGroup: 0
+    parentIndex: 41
+    spriteID: ff2ba68d4acc46840b6691700271601e
+    layerID: 1168
+    mosaicPosition: {x: 1264, y: 7849}
+  - name: Worker
+    spriteName: Worker_1
+    isGroup: 0
+    parentIndex: 41
+    spriteID: b9dfd38292787c44082399ba3aa0cc82
+    layerID: 1336
+    mosaicPosition: {x: 663, y: 7700}
+  - name: BarEkrani
+    spriteName: BarEkrani_3
+    isGroup: 0
+    parentIndex: 41
+    spriteID: bda0989352e19dd4f8b81ee9e42681a2
+    layerID: 1329
+    mosaicPosition: {x: 1137, y: 1759}
+  - name: CardArkaYuzeyRenk
+    spriteName: CardArkaYuzeyRenk_3
+    isGroup: 0
+    parentIndex: 41
+    spriteID: 42adf600f3a109d4694663ad35059b8a
+    layerID: 876
+    mosaicPosition: {x: 1137, y: 7296}
+  - name: CardArkaYuzey
+    spriteName: CardArkaYuzey_3
+    isGroup: 0
+    parentIndex: 41
+    spriteID: aec01ec5c42e81247919dcf016c69853
+    layerID: 875
+    mosaicPosition: {x: 1137, y: 4912}
+  - name: UstGolge
+    spriteName: UstGolge
+    isGroup: 0
+    parentIndex: 0
+    spriteID: f89740a98462ff14bab8e948af61cac5
+    layerID: 1335
+    mosaicPosition: {x: 4, y: 7479}
+  - name: "Catlaklar\u0131nAltiGolge"
+    spriteName: "Catlaklar\u0131nAltiGolge"
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 52192949c31ccfb4fa98651134a69852
+    layerID: 1334
+    mosaicPosition: {x: 4, y: 7700}
+  - name: AltGolge
+    spriteName: AltGolge
+    isGroup: 0
+    parentIndex: 0
+    spriteID: e55365cc3bf2217428152bdee6beb6ca
+    layerID: 1205
+    mosaicPosition: {x: 4, y: 7064}
+  - name: ArkaFon
+    spriteName: ArkaFon
+    isGroup: 0
+    parentIndex: 0
+    spriteID: b68680d474216c3438fb3c7326e6de45
+    layerID: 949
+    mosaicPosition: {x: 4, y: 4892}
+  - name: Katman 113
+    spriteName: Katman 113
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 38e8ace061c287c4285ed4cb96bffb3e
+    layerID: 1278
+    mosaicPosition: {x: 4, y: 2448}
+  characterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+  generateGOHierarchy: 0
+  textureAssetName: WorkerScene1 Texture
+  prefabAssetName: WorkerScene1 Prefab
+  spriteLibAssetName: WorkerScene1 Sprite Lib
+  secondarySpriteTextures: []
